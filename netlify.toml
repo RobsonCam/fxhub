@@ -1,0 +1,36 @@
+# FX HUB · publicação no Netlify
+# O site é estático (pasta public). Não há etapa de build no Netlify:
+# o "python3 build.py" roda antes, no seu computador, e o resultado vai para o GitHub.
+
+[build]
+  publish = "public"
+  command = ""
+
+# Endereços amigáveis: tudo abre o mesmo app, que decide o que mostrar
+#   /            site público          /c/bio  ou  /?l=bio   link de captação rastreado
+#   /painel      sistema da equipe FX   /cliente              área do cliente
+#   /avaliar     avaliação mensal do cliente
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Content-Security-Policy = "default-src 'self'; script-src 'self' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https://*.supabase.co; connect-src 'self' https://*.supabase.co wss://*.supabase.co; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'"
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "DENY"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=(), payment=()"
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains"
+
+# o app.js e o app.css mudam a cada publicação: o navegador sempre confere
+[[headers]]
+  for = "/*.js"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+[[headers]]
+  for = "/*.css"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"

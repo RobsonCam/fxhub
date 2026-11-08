@@ -1,0 +1,5 @@
+# Usado só pela Supabase CLI (opcional). O projeto real é ligado com: supabase link --project-ref <ref>
+project_id = "fx-hub"
+
+[functions.client-access]
+verify_jwt = true
