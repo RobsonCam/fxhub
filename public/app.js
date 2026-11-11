@@ -29,7 +29,7 @@ window.__fxStart = () => {
   const hhmm = t => new Date(t).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
   const initials = s => s.split(/\s+/).filter(Boolean).slice(0, 2).map(w => w[0]).join('').toUpperCase();
   const parseMoney = v => Math.round(parseFloat(String(v).replace(/\s|R\$/g, '').replace(/\./g, '').replace(',', '.')) * 100);
-  let toastT; const toast = m => { const t = $('#toast'); t.innerHTML = icon('check') + esc(m); t.classList.add('on'); clearTimeout(toastT); toastT = setTimeout(() => t.classList.remove('on'), 2800); };
+  let toastT; const toast = m => { const t = $('#toast'); t.innerHTML = `<span class="t-ic">${icon('check')}</span><span class="t-tx">${esc(m)}</span>`; t.classList.add('on'); clearTimeout(toastT); toastT = setTimeout(() => t.classList.remove('on'), 2800); };
   const openModal = (html, wide) => { const b = $('#modal-box'); b.style.width = wide ? 'min(860px, 100%)' : ''; b.innerHTML = html; $('#modal').hidden = false; if (b.querySelector('#cv-sys')) syncSysForm(); if (b.querySelector('#nc-q')) qtyHint(); setTimeout(() => b.querySelector('input.in, textarea.in')?.focus(), 40); };
   const openDrawer = (html, id) => { const d = $('#drawer'); d.innerHTML = html; d.dataset.id = id; d.classList.add('on'); d.setAttribute('aria-hidden', 'false'); $('#scrim').classList.add('on'); };
   const closeAll = () => { $('#drawer').classList.remove('on'); $('#drawer').setAttribute('aria-hidden', 'true'); $('#scrim').classList.remove('on'); $('#modal').hidden = true; };

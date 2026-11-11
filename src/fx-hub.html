@@ -1572,6 +1572,14 @@ table.rs-tbl { min-width: 560px; } table.rs-tbl td { padding: 8px 6px; } table.r
 /* conteúdo: referência */
 .ref-row { display: flex; gap: 6px; align-items: center; }
 .ref-row .ibtn { width: 44px; height: 44px; }
+
+/* aviso (toast): compacto e discreto */
+.toast { left: auto; right: max(24px, env(safe-area-inset-right, 0px)); bottom: calc(24px + env(safe-area-inset-bottom, 0px)); transform: translateY(10px); padding: 10px 14px 10px 10px; border-radius: 12px; background: #1d1816; color: #f4ede8; border: 1px solid rgba(255,255,255,.12); box-shadow: 0 12px 32px rgba(0,0,0,.45); font-size: 13.5px; font-weight: 550; line-height: 1.35; gap: 10px; width: max-content; max-width: min(380px, calc(100vw - 32px)); }
+.toast.on { transform: translateY(0); }
+.toast .t-ic { width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; flex: none; background: rgba(63,208,143,.16); color: var(--good); }
+.toast .t-ic svg { width: 13px; height: 13px; stroke-width: 2.6; }
+.toast .t-tx { min-width: 0; }
+@media (max-width: 760px) { .toast { left: 50%; right: auto; transform: translate(-50%, 10px); bottom: calc(16px + env(safe-area-inset-bottom, 0px)); font-size: 13px; padding: 9px 13px 9px 9px; } .toast.on { transform: translate(-50%, 0); } }
 </style>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -1798,7 +1806,7 @@ table.rs-tbl { min-width: 560px; } table.rs-tbl td { padding: 8px 6px; } table.r
   const hhmm = t => new Date(t).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
   const initials = s => s.split(/\s+/).filter(Boolean).slice(0, 2).map(w => w[0]).join('').toUpperCase();
   const parseMoney = v => Math.round(parseFloat(String(v).replace(/\s|R\$/g, '').replace(/\./g, '').replace(',', '.')) * 100);
-  let toastT; const toast = m => { const t = $('#toast'); t.innerHTML = icon('check') + esc(m); t.classList.add('on'); clearTimeout(toastT); toastT = setTimeout(() => t.classList.remove('on'), 2800); };
+  let toastT; const toast = m => { const t = $('#toast'); t.innerHTML = `<span class="t-ic">${icon('check')}</span><span class="t-tx">${esc(m)}</span>`; t.classList.add('on'); clearTimeout(toastT); toastT = setTimeout(() => t.classList.remove('on'), 2800); };
   const openModal = (html, wide) => { const b = $('#modal-box'); b.style.width = wide ? 'min(860px, 100%)' : ''; b.innerHTML = html; $('#modal').hidden = false; if (b.querySelector('#cv-sys')) syncSysForm(); if (b.querySelector('#nc-q')) qtyHint(); setTimeout(() => b.querySelector('input.in, textarea.in')?.focus(), 40); };
   const openDrawer = (html, id) => { const d = $('#drawer'); d.innerHTML = html; d.dataset.id = id; d.classList.add('on'); d.setAttribute('aria-hidden', 'false'); $('#scrim').classList.add('on'); };
   const closeAll = () => { $('#drawer').classList.remove('on'); $('#drawer').setAttribute('aria-hidden', 'true'); $('#scrim').classList.remove('on'); $('#modal').hidden = true; };
