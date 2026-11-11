@@ -62,6 +62,9 @@ Deno.serve(async (req) => {
     // nunca mexe na senha de alguém da equipe por aqui
     const { data: tm } = await admin.from('team_members').select('user_id').eq('user_id', userId).maybeSingle();
     if (tm) return json(req, { error: 'Este e-mail é de alguém da equipe FX. Use outro e-mail para o cliente.' }, 409);
+    // nem de quem já usa outro sistema deste projeto e não é cliente do FX HUB
+    const { data: cu } = await admin.from('client_users').select('user_id').eq('user_id', userId).maybeSingle();
+    if (!cu) return json(req, { error: 'Este e-mail já tem login em outro sistema da FX. Use outro e-mail para o cliente.' }, 409);
     const { error } = await admin.auth.admin.updateUserById(userId, { password: code, email_confirm: true });
     if (error) return json(req, { error: 'Não foi possível atualizar o login.' }, 500);
   } else {

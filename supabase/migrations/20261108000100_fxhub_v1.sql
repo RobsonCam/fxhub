@@ -344,7 +344,11 @@ $$;
 -- -----------------------------------------------------------------------------
 -- Permissões de execução
 -- -----------------------------------------------------------------------------
-revoke execute on all functions in schema public from public, anon;
+-- Só as funções do FX HUB (o projeto pode ter outros sistemas no mesmo banco)
+revoke execute on function public.is_team(), public.is_admin(), public.my_client(), public.whoami(),
+  public.save_doc(text, jsonb, integer), public.publish_site(jsonb), public.add_team_member(text, text, text),
+  public.track_event(text, text, text, jsonb, text), public.submit_lead(jsonb), public.lead_choose(text, uuid, text, text),
+  public.doc_items_for(text, text), public.portal_state(), public.portal_sync(jsonb) from public, anon;
 grant execute on function public.track_event(text, text, text, jsonb, text) to anon, authenticated;
 grant execute on function public.submit_lead(jsonb) to anon, authenticated;
 grant execute on function public.lead_choose(text, uuid, text, text) to anon, authenticated;

@@ -4,6 +4,6 @@
    são as regras de segurança (RLS) do banco. NUNCA coloque a service_role aqui.
    Deixando em branco, o sistema roda em modo demonstração (dados só no navegador). */
 window.FX_CONFIG = {
-  supabaseUrl: '',
-  supabaseKey: '',
+  supabaseUrl: 'https://vdipydhimbwvulqilstg.supabase.co',
+  supabaseKey: 'sb_publishable_8wbbIDuehYsiUejqeC8gBw_-oJElIMp',
 };
