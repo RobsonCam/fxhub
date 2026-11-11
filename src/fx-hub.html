@@ -1456,6 +1456,68 @@ table.rs-tbl { min-width: 560px; } table.rs-tbl td { padding: 8px 6px; } table.r
 #modal .pill { border-radius: 10px; height: 42px; box-shadow: none; }
 @media (max-width: 760px) { .fin-form { grid-template-columns: 1fr; } }
 @media (max-width: 560px) { .admin .kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; } .admin .kpi { padding: 13px; } .admin .kpi b { font-size: clamp(17px, 5vw, 22px); } .admin .kpi .k-l svg { width: 24px; height: 24px; padding: 5px; } .admin .kpi .k-l { font-size: 12px; white-space: normal; align-items: flex-start; line-height: 1.25; } }
+
+/* ===== financeiro: indicadores com detalhe, tabela compacta ===== */
+.fkpi { position: relative; padding-bottom: 12px !important; }
+.kpi-more { justify-self: start; display: inline-flex; align-items: center; gap: 6px; margin-top: 4px; padding: 5px 9px 5px 7px; border-radius: 7px; border: 1px solid var(--line-2); background: transparent; color: var(--ink-2); font-size: 12px; font-weight: 600; cursor: pointer; }
+.kpi-more:hover { color: var(--ink); border-color: var(--orange-2); background: rgba(255,122,61,.08); }
+.kpi-more svg { width: 14px; height: 14px; }
+.admin .kpi.warn { border-color: rgba(255,94,78,.45); background: linear-gradient(180deg, rgba(255,94,78,.1), var(--surface) 70%); }
+.admin .kpi.warn b { color: var(--crit); }
+.kpi-what { display: flex; gap: 10px; align-items: flex-start; padding: 12px 14px; border-radius: 12px; background: rgba(255,255,255,.035); border: 1px solid var(--line); color: var(--ink-2); font-size: 14px; line-height: 1.55; }
+.kpi-what svg { width: 18px; height: 18px; color: var(--orange-2); flex: none; margin-top: 2px; }
+.kpi-what b { color: var(--ink); }
+.fin-tbl tfoot td { border-top: 1px solid var(--line); background: rgba(255,255,255,.02); }
+.fin-main, .fin-mini { min-width: 0 !important; }
+.fin-main th, .fin-main td { padding: 8px 8px; }
+.fin-main th:first-child, .fin-main td:first-child { padding-left: 14px; }
+.fin-main .fin-desc { min-width: 150px; }
+.fin-main th { letter-spacing: .04em; }
+.fin-main .fin-desc small { margin-top: 1px; }
+.fin-mini th, .fin-mini td { padding: 9px 12px; }
+.fin-mini .fin-desc { min-width: 160px; }
+.fin-tbl .row-acts { gap: 4px; }
+.fin-tbl .ibtn { width: 30px; height: 30px; border-radius: 7px; }
+.fin-tbl .ibtn svg { width: 15px; height: 15px; }
+@media (max-width: 1180px) { .fin-main { min-width: 820px !important; } }
+/* sistema: valores no cadastro e parcelas */
+.sysbox { display: grid; gap: 12px; padding: 14px; border-radius: 12px; border: 1px solid rgba(255,122,61,.3); background: rgba(255,90,26,.05); }
+.sysbox-h { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.sysbox-h svg { width: 18px; height: 18px; color: var(--orange-2); }
+.sysbox-h small { color: var(--ink-3); font-size: 12.5px; }
+.sysbox .cfg { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+#cv-sys-prev { line-height: 1.6; }
+.ipv { display: flex; gap: 8px; flex-wrap: wrap; }
+.ip { display: grid; gap: 2px; padding: 10px 14px; border-radius: 10px; border: 1px solid var(--line-2); background: rgba(255,255,255,.03); min-width: 120px; }
+.ip b { color: var(--orange-2); font-size: 12px; }
+.ip small { color: var(--ink-3); font-size: 12px; }
+@media (max-width: 760px) { .sysbox .cfg { grid-template-columns: 1fr; } }
+/* área do cliente: entrada com fundo animado */
+.login-anim { position: relative; overflow: hidden; isolation: isolate; background: var(--bg); }
+.lg-bg { position: absolute; inset: 0; z-index: -1; pointer-events: none; }
+.lg-grid { position: absolute; inset: -40px; background-image: linear-gradient(rgba(255,255,255,.045) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.045) 1px, transparent 1px); background-size: 46px 46px; -webkit-mask-image: radial-gradient(70% 60% at 50% 40%, #000 30%, transparent 75%); mask-image: radial-gradient(70% 60% at 50% 40%, #000 30%, transparent 75%); }
+.lg-bg i { position: absolute; border-radius: 50%; filter: blur(70px); opacity: .55; }
+.lg-bg .o1 { width: 520px; height: 520px; left: 50%; top: -260px; margin-left: -260px; background: radial-gradient(circle, rgba(255,90,26,.75), transparent 65%); }
+.lg-bg .o2 { width: 380px; height: 380px; left: -120px; bottom: -140px; background: radial-gradient(circle, rgba(255,122,61,.45), transparent 65%); }
+.lg-bg .o3 { width: 320px; height: 320px; right: -100px; top: 30%; background: radial-gradient(circle, rgba(226,35,26,.4), transparent 65%); }
+.lg-line { position: absolute; left: -30%; width: 160%; height: 1px; background: linear-gradient(90deg, transparent, rgba(255,122,61,.55), transparent); opacity: 0; }
+.lg-line.l1 { top: 28%; } .lg-line.l2 { top: 56%; } .lg-line.l3 { top: 78%; }
+@media (prefers-reduced-motion: no-preference) {
+  .lg-grid { animation: lgGrid 18s linear infinite; }
+  .lg-bg .o1 { animation: lgFloat1 14s ease-in-out infinite alternate; }
+  .lg-bg .o2 { animation: lgFloat2 17s ease-in-out infinite alternate; }
+  .lg-bg .o3 { animation: lgFloat3 12s ease-in-out infinite alternate; }
+  .lg-line { animation: lgScan 9s ease-in-out infinite; }
+  .lg-line.l2 { animation-delay: 3s; } .lg-line.l3 { animation-delay: 6s; }
+  .login-anim .box { animation: lgIn .7s cubic-bezier(.2,.8,.2,1) both; }
+}
+@keyframes lgGrid { to { transform: translate(46px, 46px); } }
+@keyframes lgFloat1 { to { transform: translate(60px, 90px) scale(1.12); } }
+@keyframes lgFloat2 { to { transform: translate(140px, -80px) scale(1.2); } }
+@keyframes lgFloat3 { to { transform: translate(-120px, 60px) scale(.9); } }
+@keyframes lgScan { 0%, 100% { opacity: 0; transform: translateX(-20%); } 50% { opacity: 1; transform: translateX(20%); } }
+@keyframes lgIn { from { opacity: 0; transform: translateY(14px) scale(.98); } }
+.login-anim .box { background: rgba(20, 16, 14, .82); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
 </style>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -1519,6 +1581,9 @@ table.rs-tbl { min-width: 560px; } table.rs-tbl td { padding: 8px 6px; } table.r
   <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 11a8 8 0 1 0-2.3 5.7"/><path d="M20 4v7h-7"/></symbol>
   <symbol id="i-story" viewBox="0 0 24 24"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M10 18h4"/></symbol>
   <symbol id="i-layout" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></symbol>
+  <symbol id="i-support" viewBox="0 0 24 24"><path d="M3 14h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-7a9 9 0 0 1 18 0v7a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3"/></symbol>
+  <symbol id="i-split" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18M8 15h2M14 15h2"/></symbol>
 </svg>
 
 <!-- ======================= SISTEMA (PAINEL FX) ======================= -->
@@ -1680,7 +1745,7 @@ table.rs-tbl { min-width: 560px; } table.rs-tbl td { padding: 8px 6px; } table.r
   const initials = s => s.split(/\s+/).filter(Boolean).slice(0, 2).map(w => w[0]).join('').toUpperCase();
   const parseMoney = v => Math.round(parseFloat(String(v).replace(/\s|R\$/g, '').replace(/\./g, '').replace(',', '.')) * 100);
   let toastT; const toast = m => { const t = $('#toast'); t.innerHTML = icon('check') + esc(m); t.classList.add('on'); clearTimeout(toastT); toastT = setTimeout(() => t.classList.remove('on'), 2800); };
-  const openModal = (html, wide) => { const b = $('#modal-box'); b.style.width = wide ? 'min(860px, 100%)' : ''; b.innerHTML = html; $('#modal').hidden = false; setTimeout(() => b.querySelector('input.in, textarea.in')?.focus(), 40); };
+  const openModal = (html, wide) => { const b = $('#modal-box'); b.style.width = wide ? 'min(860px, 100%)' : ''; b.innerHTML = html; $('#modal').hidden = false; if (b.querySelector('#cv-sys')) syncSysForm(); setTimeout(() => b.querySelector('input.in, textarea.in')?.focus(), 40); };
   const openDrawer = (html, id) => { const d = $('#drawer'); d.innerHTML = html; d.dataset.id = id; d.classList.add('on'); d.setAttribute('aria-hidden', 'false'); $('#scrim').classList.add('on'); };
   const closeAll = () => { $('#drawer').classList.remove('on'); $('#drawer').setAttribute('aria-hidden', 'true'); $('#scrim').classList.remove('on'); $('#modal').hidden = true; };
   const emptyBox = (ic, t, p, act = '') => `<div class="empty">${icon(ic)}<b>${t}</b><p>${p}</p>${act}</div>`;
@@ -1763,13 +1828,30 @@ table.rs-tbl { min-width: 560px; } table.rs-tbl td { padding: 8px 6px; } table.r
   const clientById = id => db.clients.find(c => c.id === id);
   const clientName = id => clientById(id)?.name || 'Sem cliente';
 
+  // ---------- cobranças de sistema: parcelas e suporte ----------
+  const SUP_KIND = { correcao: 'Correção de erro', ajuste: 'Ajuste ou melhoria', duvida: 'Dúvida ou treinamento', manutencao: 'Manutenção preventiva', outro: 'Outro atendimento' };
+  const dueIn = (m, day) => `${m}-${pad2(Math.min(day || 10, dim(m)))}`;
+  const splitCents = (total, n) => { const b = Math.floor(total / n); return Array.from({ length: n }, (_, k) => (k === n - 1 ? total - b * (n - 1) : b)); };
+  const addInstallments = (c, total, n, firstDue) => { const grp = uid(), day = +firstDue.slice(8);
+    splitCents(total, n).forEach((v, k) => { const m = addMonths(ym(firstDue), k); db.ledger.push({ id: uid(), type: 'in', desc: n > 1 ? `Implantação do sistema · parcela ${k + 1}/${n}` : 'Implantação do sistema · à vista', client: c.id, cat: 'sistema', sup: '', comp: m + '-01', due: dueIn(m, day), paid: null, val: v, group: n > 1 ? grp : null, kind: 'parcela' }); }); };
+  const supportEntry = (c, m, free) => ({ id: uid(), type: 'in', desc: `Suporte e manutenção · ${mLabel(m)}${free ? ' (1º mês grátis)' : ''}`, client: c.id, cat: 'sistema', sup: '', comp: m + '-01', due: dueIn(m, c.dueDay), paid: free ? (c.start > dueIn(m, c.dueDay) ? c.start : dueIn(m, c.dueDay)) : null, val: free ? 0 : c.value, kind: 'suporte', free: !!free });
+  // mensalidades seguem sendo lançadas sozinhas, mês a mês, até o mês seguinte ao atual
+  const ensureBilling = () => { if (window.FX_CLOUD && window.FX_CLOUD.realm !== 'painel') return false; const until = addMonths(CUR, 1); let ch = false;
+    db.clients.forEach(c => { if (!c.monthly || c.status !== 'ativo') return;
+      if (!c.billedThrough) { const ms = db.ledger.filter(r => r.client === c.id && r.type === 'in' && r.kind !== 'parcela' && r.kind !== 'avulso').map(r => ym(r.comp)).sort(); c.billedThrough = ms.at(-1) || ym(c.start); ch = true; }
+      let m = addMonths(c.billedThrough, 1);
+      while (m <= until) { if (c.value > 0) db.ledger.push(isSys(c) ? supportEntry(c, m, false) : { id: uid(), type: 'in', desc: `${packById(c.package).name} · ${mLabel(m)}`, client: c.id, cat: 'servico', sup: '', comp: m + '-01', due: dueIn(m, c.dueDay), paid: null, val: c.value }); c.billedThrough = m; m = addMonths(m, 1); ch = true; } });
+    return ch; };
   // ---------- criação de cliente (gera contrato e cobranças) ----------
   const createClient = o => {
     const p = packById(o.package);
     const c = { id: o.id || uid(), name: o.name, segment: o.segment || 'outro', instagram: o.instagram || '', owner: o.owner || '', phone: o.phone || '', email: o.email || '', package: o.package, value: o.value ?? p.price ?? 0, monthly: p.period === '/mês' || (p.price == null && o.monthly), start: o.start || TODAY, dueDay: o.dueDay || 10, renewal: o.renewal || (p.period === '/mês' ? addDays(o.start || TODAY, 180) : null), status: 'ativo', portalCode: code6(), approval: true, example: !!o.example, leadId: o.leadId || null, created: Date.now() };
     db.clients.push(c);
+    if (o.sysPlan) { const sp = o.sysPlan, s = sysOf(c); c.value = sp.sup; c.monthly = true; c.renewal = null; s.support = sp.sup; if (sp.impl > 0) { s.quote = { items: [{ d: 'Implantação do sistema', v: sp.impl }], approved: c.start, paid: false, inst: sp.n }; addInstallments(c, sp.impl, sp.n, sp.d1); }
+      let m = ym(c.start), first = true; while (m <= addMonths(CUR, 1)) { if (sp.sup > 0) db.ledger.push(supportEntry(c, m, first)); first = false; m = addMonths(m, 1); } c.billedThrough = addMonths(CUR, 1); return c; }
     const months = c.monthly ? (() => { const out = []; let m = ym(c.start); while (m <= addMonths(CUR, 1)) { out.push(m); m = addMonths(m, 1); } return out; })() : [ym(c.start)];
     months.forEach(m => { const due = `${m}-${pad2(Math.min(c.dueDay, dim(m)))}`; db.ledger.push({ id: uid(), type: 'in', desc: `${p.name} · ${mLabel(m)}`, client: c.id, cat: 'servico', sup: '', comp: m + '-01', due, paid: null, val: c.value, example: c.example }); });
+    if (c.monthly) c.billedThrough = months.at(-1);
     return c;
   };
 
@@ -1811,6 +1893,7 @@ table.rs-tbl { min-width: 560px; } table.rs-tbl td { padding: 8px 6px; } table.r
   };
   db.seeded = true; db.proofSeeded = true;   // o sistema começa sem clientes ou depoimentos fictícios
   db.sysSeeded = true; db.resSeeded = true;
+  setTimeout(() => { try { if (ensureBilling()) save(); } catch (e) { console.warn('[FX HUB] cobrança mensal', e); } }, 0);
   if (!db.noExamplesV1) { const ex = new Set(db.clients.filter(c => c.example || c.id === 'cli-exemplo' || c.id === 'cli-sys-exemplo').map(c => c.id)); ['contents', 'meetings', 'metrics', 'reports', 'tasks', 'evaluations', 'ledger', 'planRequests', 'evalRequests'].forEach(k => { if (Array.isArray(db[k])) db[k] = db[k].filter(x => !x.example && !ex.has(x.client)); }); db.clients = db.clients.filter(c => !ex.has(c.id)); db.noExamplesV1 = true; save(); }
   function seedProof() {
     db.evaluations = db.evaluations || [];
@@ -1970,6 +2053,11 @@ table.rs-tbl { min-width: 560px; } table.rs-tbl td { padding: 8px 6px; } table.r
       <div class="notice o">${icon('chat')}<span><b>Travou em algum passo?</b> Fale com o suporte da FX, que está incluso na sua mensalidade.</span><a class="pill sm wa-btn" href="${waFx(`Olá, FX! Aqui é ${whoMsg(c)}. Preciso de ajuda com o sistema.`)}" target="_blank" rel="noopener">${icon('wa')}Chamar o suporte</a></div>`;
     if (P.tab === 'orcamento') return `${head('Orçamento e mensalidade', 'Quanto custa o seu sistema.', 'A implantação é paga uma vez. A mensalidade mantém o sistema no ar, com suporte da FX e a infraestrutura dos fornecedores.')}
       <div class="cols2"><div class="glass panel"><div class="panel-h"><h3>Implantação</h3><small>orçamento aprovado</small></div>${quoteHtml(s)}</div><div class="glass panel"><div class="panel-h"><h3>Mensalidade</h3><small>a partir da entrega</small></div>${monthlyHtml(s)}<p class="hint">Supabase, Netlify e GitHub cobram em dólar. O valor em reais é o que a FX repassa.</p></div></div>
+      ${(() => { const L = db.ledger.filter(r => r.client === c.id && r.type === 'in').sort((a, b) => a.due.localeCompare(b.due)), Pp = L.filter(r => r.kind === 'parcela'), Ss = L.filter(r => r.kind !== 'parcela').slice(-6), Tk = (s.tickets || []).slice().sort((a, b) => b.date.localeCompare(a.date)).slice(0, 12);
+        const row = r => `<div class="it"><span class="sev ${r.paid ? 'ok' : r.due < TODAY ? 'c' : 'o'}">${icon(r.paid ? 'check' : 'clock')}</span><span class="grow">${esc(r.desc)}<small>vence ${brShort(r.due)}/${r.due.slice(0, 4)}</small></span><b class="num">${r.free ? 'grátis' : brl(r.val)}</b><span class="tag dot ${r.free || r.paid ? 'good' : r.due < TODAY ? 'crit' : 'warm'}">${r.free ? '1º mês grátis' : r.paid ? 'Pago' : r.due < TODAY ? 'Em atraso' : 'A vencer'}</span></div>`;
+        return `<div class="cols2"><div class="glass panel"><div class="panel-h"><h3>Parcelas da implantação</h3><small>${Pp.length ? `${Pp.filter(r => r.paid).length} de ${Pp.length} paga(s)` : ''}</small></div>${Pp.length ? `<div class="list">${Pp.map(row).join('')}</div>` : emptyBox('split', 'Sem parcelas lançadas', 'A FX lança aqui as parcelas da implantação.')}</div>
+          <div class="glass panel"><div class="panel-h"><h3>Suporte: mensalidades e cobranças</h3><small>o 1º mês é grátis</small></div>${Ss.length ? `<div class="list">${Ss.map(row).join('')}</div>` : emptyBox('support', 'Sem mensalidades ainda', '')}</div></div>
+          <div class="glass panel"><div class="panel-h"><h3>Atendimentos de suporte</h3><small>o que a FX fez no seu sistema</small></div>${Tk.length ? `<div class="list">${Tk.map(t => `<div class="it"><span class="sev o">${icon('support')}</span><span class="grow">${esc(t.desc)}<small>${brShort(t.date)}/${t.date.slice(0, 4)} · ${SUP_KIND[t.kind] || 'Atendimento'}${t.mins ? ' · ' + t.mins + ' min' : ''}</small></span></div>`).join('')}</div>` : emptyBox('support', 'Nenhum atendimento registrado', 'Cada suporte que a FX prestar aparece aqui.')}</div>`; })()}
       <div class="glass panel"><div class="panel-h"><h3>O que está incluído</h3></div><div class="list">${p.items.map(i => `<div class="it"><span class="sev ok">${icon('check')}</span><span class="grow">${esc(i)}</span></div>`).join('')}</div></div>
       <div class="notice o">${icon('box')}<span><b>Precisa de um módulo novo ou de mudar o plano?</b> A conversa continua no WhatsApp da FX.</span><button class="pill sm orange" data-plan-req>Pedir mudança ou novo módulo</button></div>`;
     if (P.tab === 'monitor') { const M = meterList(c);
@@ -1982,7 +2070,7 @@ table.rs-tbl { min-width: 560px; } table.rs-tbl td { padding: 8px 6px; } table.r
       <div class="glass panel"><div class="panel-h"><h3>Backups disponíveis</h3><small>${(s.backups || []).length} cópias</small></div>${backupRows(c, false)}</div>
       <div class="notice o">${icon('shield')}<span>Os backups ficam guardados em área privada. Só você e a FX conseguem baixar.</span></div>`;
     return null; };
-  const SYS_CTABS = [['sistema', 'Sistema e orçamento'], ['resultados', 'Resultados'], ['monitor', 'Monitoramento'], ['backups', 'Backups'], ['contrato', 'Contrato e acesso']];
+  const SYS_CTABS = [['sistema', 'Sistema e orçamento'], ['financeiro', 'Financeiro e suporte'], ['resultados', 'Resultados'], ['monitor', 'Monitoramento'], ['backups', 'Backups'], ['contrato', 'Contrato e acesso']];
   const SYS_PTABS = [['visao', 'Meu sistema', 'cpu', 'Sistema'], ['resultados', 'Resultados do sistema', 'chart', 'Resultados'], ['uso', 'Como usar', 'file', 'Como usar'], ['orcamento', 'Orçamento e mensalidade', 'wallet', 'Valores'], ['monitor', 'Monitoramento', 'bar', 'Uso'], ['backups', 'Backups', 'shield', 'Backups'], ['avaliar', 'Avaliar a FX', 'star', 'Avaliar']];
   const linesOf = L => L.map(x => `${x.n}${x.d ? ' — ' + x.d : ''}`).join('\n');
   const parseLines = t => t.split('\n').map(l => l.trim()).filter(Boolean).map(l => { const m = l.split(/\s+[—–-]\s+/); return { n: m[0].trim(), d: m.slice(1).join(' — ').trim() }; });
@@ -2000,6 +2088,7 @@ table.rs-tbl { min-width: 560px; } table.rs-tbl td { padding: 8px 6px; } table.r
       <div class="glass panel"><div class="panel-h"><h3>Orçamento da implantação</h3><small>um item por linha</small></div><div class="cfg"><div class="field full"><label for="sy-q">Item — valor em R$ (deixe sem valor para "incluso")</label><textarea class="in" id="sy-q" rows="6" placeholder="Módulo de estoque — 1.200,00">${esc((s.quote?.items || []).map(x => `${x.d}${x.v ? ' — ' + (x.v / 100).toLocaleString('pt-BR', { minimumFractionDigits: 2 }) : ''}`).join('\n'))}</textarea></div>
         <div class="field"><label for="sy-qa">Aprovado em</label><input class="in" type="date" id="sy-qa" value="${s.quote?.approved || ''}"></div><label class="consent" for="sy-qp" style="align-self:end"><input type="checkbox" id="sy-qp" ${s.quote?.paid ? 'checked' : ''}><span>Implantação já paga</span></label></div></div>
       <div class="filters" style="justify-content:flex-end"><span class="err-t" id="e-sy"></span><button class="pill" data-as-client="${c.id}">${icon('eye')}Ver como o cliente</button><button class="pill orange" id="sy-save" data-id="${c.id}">Salvar sistema</button></div>`;
+    if (A.ctab === 'financeiro') return clientFin(c);
     if (A.ctab === 'resultados') return resAdmin(c);
     if (A.ctab === 'monitor') { const M = meterList(c);
       return `<div class="glass panel"><div class="panel-h"><h3>Lançar uso do mês</h3><small>copie dos painéis do Supabase, Netlify e GitHub</small></div><div class="ugrid">${[['visits', 'Acessos ao sistema no mês']].concat(METERS.map(m => [m[1], m[2] + (m[1].endsWith('_mb') ? ' (MB)' : m[1].endsWith('_gb') ? ' (GB)' : '')])).map(([k, l]) => `<div class="field"><label for="us-${k}">${l}</label><input class="in sm num" id="us-${k}" inputmode="decimal" value="${u[k] ?? ''}"></div>`).join('')}<div class="field"><label for="us-up">Data da leitura</label><input class="in sm" type="date" id="us-up" value="${u.updated || TODAY}"></div></div>
@@ -2560,10 +2649,24 @@ table.rs-tbl { min-width: 560px; } table.rs-tbl td { padding: 8px 6px; } table.r
   const clientForm = (o = {}) => `<div class="cfg"><div class="field full"><label for="cv-name">Empresa</label><input class="in" id="cv-name" value="${esc(o.name || '')}"></div>
     <div class="field"><label for="cv-owner">Responsável</label><input class="in" id="cv-owner" value="${esc(o.owner || '')}"></div><div class="field"><label for="cv-seg">Segmento</label><select class="in" id="cv-seg">${SEGMENTS.map(s => `<option value="${s[0]}" ${o.segment === s[0] ? 'selected' : ''}>${s[1]}</option>`).join('')}</select></div>
     <div class="field full"><label for="cv-pk">Pacote contratado</label><select class="in" id="cv-pk">${db.packages.map(p => `<option value="${p.id}" ${o.package === p.id ? 'selected' : ''}>${p.name} · ${priceTxt(p)}</option>`).join('')}</select></div>
-    <div class="field"><label for="cv-val">Valor (R$)</label><input class="in num" id="cv-val" inputmode="decimal" value="${o.value != null ? (o.value / 100).toFixed(2).replace('.', ',') : ''}"></div><div class="field"><label for="cv-start">Início</label><input class="in" type="date" id="cv-start" value="${o.start || TODAY}"></div>
+    <div class="field" id="cv-val-w" ${isSysPk(o.package) ? 'hidden' : ''}><label for="cv-val">Valor (R$)</label><input class="in num" id="cv-val" inputmode="decimal" value="${o.value != null ? (o.value / 100).toFixed(2).replace('.', ',') : ''}"></div><div class="field"><label for="cv-start">Início</label><input class="in" type="date" id="cv-start" value="${o.start || TODAY}"></div>
+    <div class="sysbox full" id="cv-sys" ${isSysPk(o.package) ? '' : 'hidden'}><div class="sysbox-h">${icon('cpu')}<b>Valores do sistema</b><small>gera as parcelas e o suporte mensal no financeiro</small></div>
+      <div class="cfg"><div class="field"><label for="cv-impl">Valor da implantação</label><div class="in-pre"><span>R$</span><input class="in num" id="cv-impl" inputmode="decimal" placeholder="0,00" value="${o.impl ? moneyTxt(o.impl) : ''}"></div></div>
+      <div class="field"><label for="cv-inst">Parcelamento</label><select class="in" id="cv-inst"><option value="1">À vista</option><option value="2">2x sem juros</option><option value="3" selected>3x sem juros</option></select></div>
+      <div class="field"><label for="cv-instd">Vencimento da 1ª parcela</label><input class="in" type="date" id="cv-instd" value="${o.start || TODAY}"></div>
+      <div class="field"><label for="cv-sup">Suporte mensal</label><div class="in-pre"><span>R$</span><input class="in num" id="cv-sup" inputmode="decimal" placeholder="0,00" value="${o.sup ? moneyTxt(o.sup) : ''}"></div></div>
+      <p class="hint full" id="cv-sys-prev">Preencha os valores para ver as parcelas.</p></div></div>
     <div class="field"><label for="cv-phone">WhatsApp</label><input class="in" id="cv-phone" inputmode="tel" value="${esc(o.phone ? phoneFmt(o.phone) : '')}"></div><div class="field"><label for="cv-mail">E-mail de acesso ao portal</label><input class="in" type="email" id="cv-mail" value="${esc(o.email || '')}" placeholder="dono@empresa.com.br"></div>
     <div class="field"><label for="cv-ig">Instagram</label><div class="in-pre"><span>@</span><input class="in" id="cv-ig" value="${esc(o.instagram || '')}"></div></div><span class="err-t full" id="e-cv"></span></div>`;
-  const readClientForm = () => { const name = $('#cv-name').value.trim(), mail = $('#cv-mail').value.trim(), pk = $('#cv-pk').value, p = packById(pk); const val = p.price == null && !$('#cv-val').value ? NaN : parseMoney($('#cv-val').value || String(p.price / 100));
+  const isSysPk = pk => !!pk && (pk === 'sistemas' || db.packages.find(p => p.id === pk)?.kind === 'sistema');
+  const sysPrev = () => { const el = $('#cv-sys-prev'); if (!el) return; const impl = parseMoney($('#cv-impl').value) || 0, n = +$('#cv-inst').value, d1 = $('#cv-instd').value || TODAY, sup = parseMoney($('#cv-sup').value) || 0;
+    const parts = impl > 0 ? splitCents(impl, n).map((v, k) => `${k + 1}ª ${brl(v)} em ${brShort(dueIn(addMonths(ym(d1), k), +d1.slice(8)))}`).join(' · ') : 'sem implantação';
+    el.innerHTML = `<b>Implantação:</b> ${parts}<br><b>Suporte:</b> ${sup > 0 ? `${brl(sup)}/mês, com o <b>1º mês grátis</b>` : 'sem suporte mensal'}`; };
+  const syncSysForm = () => { const sys = isSysPk($('#cv-pk').value); $('#cv-sys').hidden = !sys; $('#cv-val-w').hidden = sys; if (sys) sysPrev(); };
+  const readClientForm = () => { const name = $('#cv-name').value.trim(), mail = $('#cv-mail').value.trim(), pk = $('#cv-pk').value, p = packById(pk);
+    if (isSysPk(pk)) { const impl = parseMoney($('#cv-impl').value) || 0, sup = parseMoney($('#cv-sup').value) || 0, n = +$('#cv-inst').value, d1 = $('#cv-instd').value || $('#cv-start').value || TODAY;
+      if (name.length < 2) return [null, 'Digite o nome da empresa.']; if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(mail)) return [null, 'Digite um e-mail válido para o acesso do cliente.']; if (!(impl > 0) && !(sup > 0)) return [null, 'Informe o valor da implantação e/ou do suporte mensal.'];
+      return [{ name, owner: $('#cv-owner').value.trim(), segment: $('#cv-seg').value, package: pk, value: sup, start: $('#cv-start').value || TODAY, phone: '55' + $('#cv-phone').value.replace(/\D/g, ''), email: mail, instagram: $('#cv-ig').value.trim().replace(/^@/, ''), monthly: true, sysPlan: { impl, n, d1, sup } }, null]; } const val = p.price == null && !$('#cv-val').value ? NaN : parseMoney($('#cv-val').value || String(p.price / 100));
     if (name.length < 2) return [null, 'Digite o nome da empresa.']; if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(mail)) return [null, 'Digite um e-mail válido para o acesso do cliente.']; if (!(val > 0)) return [null, 'Digite o valor do contrato.'];
     return [{ name, owner: $('#cv-owner').value.trim(), segment: $('#cv-seg').value, package: pk, value: val, start: $('#cv-start').value || TODAY, phone: '55' + $('#cv-phone').value.replace(/\D/g, ''), email: mail, instagram: $('#cv-ig').value.trim().replace(/^@/, ''), monthly: true }, null]; };
 
@@ -2585,7 +2688,7 @@ table.rs-tbl { min-width: 560px; } table.rs-tbl td { padding: 8px 6px; } table.r
           ${pend ? `<span class="tag warm">${pend} aguardando aprovação</span>` : ''}</button>`; }).join('')}</div>`
         : `<div class="glass panel">${emptyBox('users', 'Nenhum cliente ainda', 'Converta um lead em cliente ou cadastre direto.', `<button class="pill orange" id="new-client">${icon('plus')}Novo cliente</button>`)}</div>`);
   };
-  const CTABS = [['resumo', 'Resumo'], ['conteudos', 'Conteúdos'], ['calendario', 'Calendário'], ['metricas', 'Métricas e relatórios'], ['contrato', 'Contrato e acesso']];
+  const CTABS = [['resumo', 'Resumo'], ['conteudos', 'Conteúdos'], ['calendario', 'Calendário'], ['metricas', 'Métricas e relatórios'], ['financeiro', 'Financeiro'], ['contrato', 'Contrato e acesso']];
   const clientDetail = (M, c) => {
     const p = packById(c.package);
     let body = '';
@@ -2598,6 +2701,7 @@ table.rs-tbl { min-width: 560px; } table.rs-tbl td { padding: 8px 6px; } table.r
       body = `<div class="filters">${statusFilter()}<button class="pill sm orange" data-new-content="${c.id}">${icon('plus')}Novo conteúdo</button></div>${L.length ? `<div class="posts">${L.map((x, i) => postCard(x, i, 'admin')).join('')}</div>` : `<div class="glass panel">${emptyBox('image', 'Nenhum conteúdo aqui', 'Cadastre os conteúdos do mês para o cliente acompanhar.')}</div>`}`; }
     if (A.ctab === 'calendario') body = calendarBlock(c.id, false, 'admin');
     if (A.ctab === 'metricas') body = metricsHtml(c.id, 'admin');
+    if (A.ctab === 'financeiro') body = clientFin(c);
     if (A.ctab === 'contrato') body = `<div class="cols2"><div class="glass panel"><div class="panel-h"><h3>Contrato</h3></div><dl class="kv"><dt>Pacote</dt><dd>${esc(p.name)}</dd><dt>Valor</dt><dd>${brl(c.value)}${c.monthly ? '/mês' : ''}</dd><dt>Início</dt><dd>${brShort(c.start)}/${c.start.slice(0, 4)}</dd><dt>Renovação</dt><dd>${c.renewal ? brShort(c.renewal) + '/' + c.renewal.slice(0, 4) : '—'}</dd><dt>Responsável</dt><dd>${esc(c.owner || '—')}</dd><dt>WhatsApp</dt><dd>${c.phone ? phoneFmt(c.phone) : '—'}</dd><dt>Situação</dt><dd><span class="tag good">Ativo</span></dd></dl><div class="filters"><button class="pill sm orange" data-change-plan="${c.id}">${icon('box')}Trocar pacote</button></div>${(c.history || []).length ? `<div class="list">${c.history.slice().reverse().map(h => `<div class="it"><span class="sev o">${icon('swap')}</span><span class="grow">${esc(h.txt)}<small>${new Date(h.t).toLocaleDateString('pt-BR')}</small></span></div>`).join('')}</div>` : ''}
         <div class="filters"><span>Cliente aprova os conteúdos pelo portal</span><button class="switch" role="switch" aria-checked="${c.approval}" data-approval="${c.id}" aria-label="Aprovação pelo cliente"></button></div></div>
       <div class="glass panel"><div class="panel-h"><h3>Acesso à área do cliente</h3>${icon('shield', 'style="color:var(--orange-2)"')}</div><p style="color:var(--ink-2)">O dono da empresa entra com este e-mail e código e vê só os dados da própria empresa.</p>
@@ -2644,6 +2748,34 @@ table.rs-tbl { min-width: 560px; } table.rs-tbl td { padding: 8px 6px; } table.r
   const stOf = r => (r.paid ? 'paid' : r.due < TODAY ? 'overdue' : 'pending');
   const ST = { paid: ['Pago', 'good'], overdue: ['Em atraso', 'crit'], pending: ['A vencer', 'warm'] };
   const tickFmt = t => (t === 0 ? 'R$ 0' : Math.abs(t) >= 100000 ? `R$ ${(t / 100000).toLocaleString('pt-BR', { maximumFractionDigits: 1 })} mil` : `R$ ${(t / 100).toLocaleString('pt-BR')}`);
+  // ---------- financeiro de um cliente (parcelas, mensalidades e registro de suporte) ----------
+  const finRow = r => { const s = stOf(r); return `<tr><td class="fin-desc"><b>${esc(r.desc)}</b><small>${r.kind === 'parcela' ? 'Parcela da implantação' : r.kind === 'suporte' ? 'Mensalidade de suporte' : r.kind === 'avulso' ? 'Suporte cobrado à parte' : esc(CAT[r.cat] || '')}${r.note ? ' · ' + esc(r.note) : ''}</small></td><td class="num">${brShort(r.due)}/${r.due.slice(2, 4)}</td><td class="r num fin-val ${r.type === 'in' ? 'pos' : 'neg'}">${r.free ? 'grátis' : (r.type === 'out' ? '−' : '') + brl(r.val)}</td><td><span class="tag dot ${r.free ? 'good' : ST[s][1]}">${r.free ? '1º mês grátis' : s === 'paid' ? (r.type === 'in' ? 'Recebido' : 'Pago') + ' ' + brShort(r.paid) : ST[s][0]}</span></td><td><div class="acts row-acts">${r.paid ? '' : `<button class="ibtn ok" data-pay="${r.id}" aria-label="Marcar como recebido hoje" title="Marcar como recebido hoje">${icon('check')}</button>`}<button class="ibtn" data-edit-entry="${r.id}" aria-label="Editar" title="Editar">${icon('pen')}</button><button class="ibtn danger" data-del-entry="${r.id}" aria-label="Excluir" title="Excluir">${icon('trash')}</button></div></td></tr>`; };
+  const finTable = (L, empty) => L.length ? `<div class="tbl-wrap"><table class="fin-tbl fin-mini"><thead><tr><th>Descrição</th><th>Vencimento</th><th class="r">Valor</th><th>Situação</th><th></th></tr></thead><tbody>${L.map(finRow).join('')}</tbody></table></div>` : emptyBox('wallet', empty[0], empty[1]);
+  const clientFin = c => { const sys = isSys(c), L = db.ledger.filter(r => r.client === c.id && r.type === 'in').sort((a, b) => a.due.localeCompare(b.due));
+    const P = L.filter(r => r.kind === 'parcela'), S = L.filter(r => r.kind !== 'parcela' && r.kind !== 'avulso'), X = L.filter(r => r.kind === 'avulso');
+    const open = L.filter(r => !r.paid), late = open.filter(r => r.due < TODAY), recv = L.filter(r => r.paid && ym(r.paid).slice(0, 4) === CUR.slice(0, 4));
+    const T = sys ? (sysOf(c).tickets || []).slice().sort((a, b) => b.date.localeCompare(a.date)) : [], tm = T.filter(t => ym(t.date) === CUR);
+    const k = sys ? `${kpi('Implantação', brl(sum(P)), P.length ? `${P.filter(r => r.paid).length} de ${P.length} parcela(s) paga(s)` : 'sem parcelas lançadas', '', 'split')}${kpi('Suporte mensal', brl(c.value), '1º mês grátis', '', 'support')}${kpi('Em aberto', brl(sum(open)), late.length ? `${late.length} vencida(s)` : 'nada vencido', late.length ? 'hl' : '', 'clock')}${kpi('Atendimentos no mês', String(tm.length), `${tm.reduce((a, t) => a + (t.mins || 0), 0)} min de suporte`, '', 'chat')}`
+      : `${kpi('Mensalidade', brl(c.value), esc(packById(c.package).name), '', 'refresh')}${kpi(`Recebido em ${CUR.slice(0, 4)}`, brl(sum(recv)), `${recv.length} pagamento(s)`, '', 'down')}${kpi('Em aberto', brl(sum(open)), `${open.length} cobrança(s)`, '', 'clock')}${kpi('Em atraso', brl(sum(late)), late.length ? `${late.length} vencida(s)` : 'nada vencido', late.length ? 'hl' : '', 'alert')}`;
+    return `<div class="kpis k4">${k}</div>
+      ${sys ? `<div class="glass panel"><div class="panel-h"><h3>Parcelas da implantação</h3><button class="pill sm" data-inst="${c.id}">${icon('split')}${P.length ? 'Refazer parcelas' : 'Parcelar implantação'}</button></div>${finTable(P, ['Nenhuma parcela', 'Use "Parcelar implantação" para gerar até 3 parcelas.'])}</div>
+        <div class="glass panel"><div class="panel-h"><h3>Mensalidades de suporte</h3><small>${brl(c.value)}/mês · lançadas mês a mês</small></div>${finTable(S.slice(-6), ['Sem mensalidades', 'Defina o suporte mensal na aba "Sistema e orçamento".'])}</div>
+      <div class="glass panel"><div class="panel-h"><h3>Registro de suporte</h3><button class="pill sm orange" data-tk-new="${c.id}">${icon('plus')}Registrar atendimento</button></div>
+        <p class="hint">Cada atendimento feito para este cliente: correções, ajustes, dúvidas e manutenções. O que for cobrado à parte vira um lançamento no financeiro.</p>
+        ${T.length ? `<div class="tbl-wrap"><table class="fin-tbl"><thead><tr><th>Data</th><th>Tipo</th><th>O que foi feito</th><th class="r">Tempo</th><th class="r">Cobrança</th><th></th></tr></thead><tbody>${T.map(t => { const lr = t.ledger ? db.ledger.find(r => r.id === t.ledger) : null; return `<tr><td class="num">${brShort(t.date)}/${t.date.slice(2, 4)}</td><td><span class="tag">${SUP_KIND[t.kind] || 'Atendimento'}</span></td><td class="fin-desc">${esc(t.desc)}</td><td class="r num">${t.mins ? t.mins + ' min' : '—'}</td><td class="r num">${lr ? `<b class="fin-val pos">${brl(lr.val)}</b>${lr.paid ? '<small class="hint"> recebido</small>' : ''}` : '<span class="hint">incluso no suporte</span>'}</td><td><div class="acts row-acts"><button class="ibtn" data-tk-edit="${c.id}|${t.id}" aria-label="Editar atendimento" title="Editar">${icon('pen')}</button><button class="ibtn danger" data-tk-del="${c.id}|${t.id}" aria-label="Excluir atendimento" title="Excluir">${icon('trash')}</button></div></td></tr>`; }).join('')}</tbody></table></div>` : emptyBox('support', 'Nenhum atendimento registrado', 'Registre cada suporte prestado para ter o histórico do cliente.')}</div>
+      ${X.length ? `<div class="glass panel"><div class="panel-h"><h3>Suportes cobrados à parte</h3></div>${finTable(X, ['', ''])}</div>` : ''}`
+      : `<div class="glass panel"><div class="panel-h"><h3>Cobranças deste cliente</h3><small>${brl(c.value)}/mês · lançadas mês a mês</small></div>${finTable(L.slice().reverse(), ['Nenhuma cobrança', 'As mensalidades aparecem aqui.'])}</div>`}`; };
+  const instPrev = () => { const el = $('#pi-prev'); if (!el) return; const paid = +(el.dataset.paid || 0), v = (parseMoney($('#pi-v').value) || 0) - paid, n = +$('#pi-n').value, d = $('#pi-d').value || TODAY; el.innerHTML = v > 0 ? (paid ? `<span class="hint" style="flex-basis:100%">Já pago: ${brl(paid)}. Falta parcelar ${brl(v)}.</span>` : '') + splitCents(v, n).map((x, k) => `<span class="ip"><b>${k + 1}ª</b> ${brl(x)}<small>${brShort(dueIn(addMonths(ym(d), k), +d.slice(8)))}/${addMonths(ym(d), k).slice(2, 4)}</small></span>`).join('') : '<span class="hint">Informe o valor.</span>'; };
+  const ticketModal = (c, t) => { const lr = t?.ledger ? db.ledger.find(r => r.id === t.ledger) : null;
+    openModal(`<div class="m-head"><span class="m-ic">${icon('support')}</span><div><h2>${t ? 'Editar atendimento' : 'Registrar atendimento'}</h2><p>${esc(c.name)}</p></div></div>
+      <div class="cfg fin-form"><div class="field"><label for="tk-d">Data</label><input class="in" type="date" id="tk-d" value="${t?.date || TODAY}"></div>
+        <div class="field"><label for="tk-k">Tipo</label><select class="in" id="tk-k">${Object.entries(SUP_KIND).map(([k, v]) => `<option value="${k}" ${t?.kind === k ? 'selected' : ''}>${v}</option>`).join('')}</select></div>
+        <div class="field full"><label for="tk-t">O que foi feito</label><textarea class="in" id="tk-t" rows="3" maxlength="500" placeholder="Ex.: corrigido o cálculo do estoque mínimo no relatório">${esc(t?.desc || '')}</textarea></div>
+        <div class="field"><label for="tk-m">Tempo gasto <small>(minutos)</small></label><input class="in num" id="tk-m" inputmode="numeric" value="${t?.mins || ''}" placeholder="30"></div>
+        <label class="consent" for="tk-charge" style="align-self:end"><input type="checkbox" id="tk-charge" ${lr ? 'checked' : ''} ${lr?.paid ? 'disabled' : ''}><span>Cobrar à parte (fora do suporte mensal)</span></label>
+        <div class="field" id="tk-val-w" ${lr ? '' : 'hidden'}><label for="tk-v">Valor cobrado</label><div class="in-pre"><span>R$</span><input class="in num" id="tk-v" inputmode="decimal" value="${lr ? moneyTxt(lr.val) : ''}" ${lr?.paid ? 'disabled' : ''}></div></div>
+        <span class="err-t full" id="e-tk" role="alert"></span></div>
+      <div class="m-foot"><span></span><div class="filters"><button class="pill" data-close>Cancelar</button><button class="pill orange" id="tk-ok" data-id="${c.id}|${t?.id || ''}">${icon('check')}Salvar atendimento</button></div></div>`, true); };
   const monthDiff = (a, b) => (+b.slice(0, 4) - +a.slice(0, 4)) * 12 + (+b.slice(5, 7) - +a.slice(5, 7));
   const moneyTxt = c => c != null ? (c / 100).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : '';
   const entryModal = r => { const ed = !!r, t = r?.type || 'in', L = t === 'in' ? CAT_IN : CAT_OUT, paid = !!r?.paid, next = r?.group ? db.ledger.filter(x => x.group === r.group && x.id !== r.id && !x.paid && x.comp > r.comp).length : 0;
@@ -2669,6 +2801,22 @@ table.rs-tbl { min-width: 560px; } table.rs-tbl td { padding: 8px 6px; } table.r
       <div class="del-sum"><b>${esc(r.desc)}</b><span>${r.type === 'in' ? 'Receita' : 'Despesa'} de ${brl(r.val)} · vence ${brShort(r.due)}${r.client ? ' · ' + esc(clientName(r.client)) : ''}${r.paid ? ' · já ' + (r.type === 'in' ? 'recebido' : 'pago') : ''}</span></div>
       ${next ? `<label class="consent" for="de-all"><input type="checkbox" id="de-all"><span>Excluir também os <b>${next} próximos meses</b> ainda não pagos desta repetição</span></label>` : ''}
       <div class="m-foot"><span></span><div class="filters"><button class="pill" data-close>Cancelar</button><button class="pill danger" id="de-ok" data-id="${r.id}">${icon('trash')}Excluir</button></div></div>`); };
+  const fk = (key, l, v, sub, cls, ic) => `<div class="kpi fkpi ${cls}"><span class="k-l">${icon(ic)}${l}</span><b>${v}</b><small>${sub}</small><button class="kpi-more" data-kpi="${key}" aria-label="Ver o que é ${l} e os lançamentos">${icon('info')}Ver detalhes</button></div>`;
+  const KPI_INFO = {
+    recPrev: ['Receita prevista', 'chart', 'Tudo o que a FX tem a receber pelos serviços <b>deste mês</b> (competência), já recebido ou não. Uma mensalidade de outubro paga em novembro conta em outubro.', m => db.ledger.filter(r => inCl(r) && r.type === 'in' && ym(r.comp) === m)],
+    recRec: ['Recebido', 'down', 'Dinheiro que <b>entrou</b> no mês, pela data em que foi recebido, não importa a que mês o serviço pertence.', m => db.ledger.filter(r => inCl(r) && r.type === 'in' && ym(r.paid) === m)],
+    desPag: ['Despesas pagas', 'up', 'Dinheiro que <b>saiu</b> no mês, pela data do pagamento: ferramentas, anúncios, freelancers, impostos.', m => db.ledger.filter(r => inCl(r) && r.type === 'out' && ym(r.paid) === m)],
+    res: ['Resultado', 'wallet', null, m => db.ledger.filter(r => inCl(r) && (FF.regime === 'caixa' ? ym(r.paid) === m : ym(r.comp) === m))],
+    late: ['Recebimentos em atraso', 'alert', 'Cobranças de clientes com <b>vencimento já passado</b> e ainda não marcadas como recebidas. Inclui meses anteriores, por isso pode não aparecer na lista de lançamentos do mês. Se já foi pago, marque como recebido; se foi lançado errado, edite ou exclua.', () => db.ledger.filter(r => inCl(r) && r.type === 'in' && stOf(r) === 'overdue')],
+    mrr: ['Receita recorrente', 'refresh', 'Soma das mensalidades dos <b>contratos ativos</b> (mídia social e suporte de sistemas). É o que entra todo mês se ninguém cancelar.', null] };
+  const kpiDetail = key => { const m = FF.month, [t, ic, txt0, get] = KPI_INFO[key];
+    const txt = key === 'res' ? (FF.regime === 'caixa' ? 'Recebido menos despesas pagas no mês (<b>regime de caixa</b>): mostra quanto dinheiro sobrou de fato.' : 'Receita prevista menos despesas previstas do mês (<b>regime de competência</b>): mostra o resultado dos serviços do mês, pago ou não.') : txt0;
+    let body;
+    if (key === 'mrr') { const C = db.clients.filter(c => c.monthly && c.status === 'ativo' && (FF.client === 'all' || c.id === FF.client) && ym(c.start) <= m);
+      body = C.length ? `<div class="tbl-wrap"><table class="fin-tbl fin-mini"><thead><tr><th>Cliente</th><th>Contrato</th><th class="r">Por mês</th><th></th></tr></thead><tbody>${C.map(c => `<tr><td><b>${esc(c.name)}</b></td><td>${isSys(c) ? 'Suporte do sistema' : esc(packById(c.package).name)}</td><td class="r num fin-val pos">${brl(c.value)}</td><td><button class="pill sm" data-open-client="${c.id}">Abrir</button></td></tr>`).join('')}</tbody></table></div>` : emptyBox('refresh', 'Nenhum contrato mensal ativo', '');
+    } else { const L = get(m).sort((a, b) => a.due.localeCompare(b.due)), tot = key === 'res' ? L.reduce((a, r) => a + (r.type === 'in' ? r.val : -r.val), 0) : sum(L);
+      body = L.length ? `<div class="tbl-wrap"><table class="fin-tbl fin-mini"><thead><tr><th>Descrição</th><th>Vencimento</th><th class="r">Valor</th><th>Situação</th><th></th></tr></thead><tbody>${L.map(r => finRow(r).replace('<td class="fin-desc"><b>', `<td class="fin-desc"><b>`).replace('</b><small>', `</b><small>${r.client ? esc(clientName(r.client)) + ' · ' : ''}`)).join('')}</tbody><tfoot><tr><td><b>Total</b></td><td></td><td class="r num"><b>${brl(tot)}</b></td><td colspan="2"><small class="hint">${L.length} lançamento(s)</small></td></tr></tfoot></table></div>` : emptyBox(ic, 'Nenhum lançamento aqui', key === 'late' ? 'Nenhuma cobrança vencida. Tudo em dia.' : `Nada neste item em ${mLong(m).toLowerCase()}.`); }
+    openModal(`<div class="m-head"><span class="m-ic">${icon(ic)}</span><div><h2>${t}</h2><p>${key === 'late' || key === 'mrr' ? 'situação de hoje' : mLong(m)}${FF.client !== 'all' ? ' · ' + esc(clientName(FF.client)) : ''}</p></div></div><p class="kpi-what">${icon('info')}<span>${txt}</span></p>${body}<div class="m-foot"><span></span><button class="pill" data-close>Fechar</button></div>`, true); };
   const secFinanceiro = M => {
     const MS = finMonths(); if (!MS.includes(FF.month)) FF.month = CUR;
     const m = FF.month, a = agg(m), i = MS.indexOf(m), pm = MS[i - 1], p = pm ? agg(pm) : null, partial = m === CUR;
@@ -2686,18 +2834,18 @@ table.rs-tbl { min-width: 560px; } table.rs-tbl td { padding: 8px 6px; } table.r
     const q = FF.q.trim().toLowerCase(); if (q) rows = rows.filter(r => [r.desc, clientName(r.client), r.sup, CAT[r.cat]].join(' ').toLowerCase().includes(q));
     const k = FF.sort.key, dir = FF.sort.dir === 'asc' ? 1 : -1, val = r => (k === 'val' ? r.val : k === 'client' ? clientName(r.client) : r[k] || ''); rows.sort((x, z) => (val(x) > val(z) ? 1 : val(x) < val(z) ? -1 : 0) * dir);
     const PAGE = 8, pages = Math.max(1, Math.ceil(rows.length / PAGE)); FF.page = Math.min(FF.page, pages); const slice = rows.slice((FF.page - 1) * PAGE, FF.page * PAGE);
-    const cols = [['desc', 'Descrição', 1], ['client', 'Cliente', 1], ['comp', 'Competência', 1], ['due', 'Vencimento', 1], ['val', 'Valor', 1, 'r'], ['st', 'Situação', 0], ['act', '', 0]];
+    const cols = [['desc', 'Descrição', 1], ['client', 'Cliente', 1], ['comp', 'Mês ref.', 1], ['due', 'Vence', 1], ['val', 'Valor', 1, 'r'], ['st', 'Situação', 0], ['act', '', 0]];
     const profit = db.clients.filter(c => FF.client === 'all' || c.id === FF.client).map(c => { const rev = sum(db.ledger.filter(r => r.type === 'in' && r.client === c.id && ym(r.comp) === m)), cost = sum(db.ledger.filter(r => r.type === 'out' && r.client === c.id && ym(r.comp) === m)); return { c, rev, cost, mar: rev - cost }; }); const pmax = Math.max(1, ...profit.map(x => x.rev));
     M.innerHTML = head('Gestão', 'Financeiro da FX.', 'Receitas dos contratos, despesas e resultado. Nada daqui aparece para os clientes.', `<button class="pill orange" id="new-entry">${icon('plus')}Novo lançamento</button>`)
       + `<div class="filters"><label class="sr" for="ff-m">Período</label><select class="in sm" id="ff-m" style="width:auto">${MS.map(x => `<option value="${x}" ${x === m ? 'selected' : ''}>${mLong(x)}${x === CUR ? ' (em andamento)' : ''}</option>`).join('')}</select>${clientSelect('ff-c', FF.client)}<div class="seg"><button data-regime="caixa" aria-pressed="${FF.regime === 'caixa'}">Caixa</button><button data-regime="competencia" aria-pressed="${FF.regime === 'competencia'}">Competência</button></div></div>
       <p class="src">${icon('clock')}Lançamentos do sistema · ${FF.regime === 'caixa' ? 'regime de caixa: conta quando o dinheiro entra ou sai' : 'regime de competência: conta no mês a que o serviço pertence'}${partial ? ' · mês em andamento' : ''}</p>
-      <div class="kpis">${kpi('Receita prevista', brl(a.recPrev), dl(a.recPrev, p?.recPrev), '', 'chart')}${kpi('Recebido', brl(a.recRec), dl(a.recRec, p?.recRec), '', 'down')}${kpi('Despesas pagas', brl(a.desPag), dl(a.desPag, p?.desPag, true), '', 'up')}${kpi('Resultado', brl(resOf(a)), dl(resOf(a), p ? resOf(p) : null), 'hl', 'wallet')}${kpi('Em atraso', brl(sum(overdue)), `${overdue.length} recebimento(s) vencido(s)`, '', 'alert')}${kpi('Receita recorrente', brl(mrr), 'contratos mensais ativos', '', 'refresh')}</div>
+      <div class="kpis">${fk('recPrev', 'Receita prevista', brl(a.recPrev), dl(a.recPrev, p?.recPrev), '', 'chart')}${fk('recRec', 'Recebido', brl(a.recRec), dl(a.recRec, p?.recRec), '', 'down')}${fk('desPag', 'Despesas pagas', brl(a.desPag), dl(a.desPag, p?.desPag, true), '', 'up')}${fk('res', 'Resultado', brl(resOf(a)), dl(resOf(a), p ? resOf(p) : null), 'hl', 'wallet')}${fk('late', 'Recebimentos em atraso', brl(sum(overdue)), overdue.length ? `${overdue.length} cobrança(s) vencida(s) de qualquer mês` : 'nada vencido', overdue.length ? 'warn' : '', 'alert')}${fk('mrr', 'Receita recorrente', brl(mrr), 'contratos mensais ativos', '', 'refresh')}</div>
       <div class="cols2"><div class="glass panel"><div class="panel-h"><h3>Receitas, despesas e resultado</h3><small>${mLabel(ms6[0].m)} a ${mLabel(ms6.at(-1).m)}</small></div><div class="legend"><span><i style="background:#ff7a3d"></i>${FF.regime === 'caixa' ? 'Recebido' : 'Receita prevista'}</span><span><i style="background:rgba(255,255,255,.35)"></i>${FF.regime === 'caixa' ? 'Pago' : 'Despesa prevista'}</span><span><i style="background:var(--good);border-radius:50%"></i>Resultado</span></div><div class="chart">${chart}</div>${ms6.some(x => x.m === CUR) ? '<p class="hint">* mês em andamento</p>' : ''}</div>
         <div class="glass panel"><div class="panel-h"><h3>Rentabilidade por cliente</h3><small>competência de ${mLabel(m)}</small></div>${profit.length ? `<div class="bars">${profit.map(x => `<div class="bar-row"><div class="bar-label"><b>${esc(x.c.name)}</b><span class="num">${x.rev ? `${brl(x.mar)} <small class="hint">margem ${Math.round(x.mar / x.rev * 100)}%</small>` : '<small class="hint">sem receita no período</small>'}</span></div><div class="bar-track"><i class="rev" style="width:${x.rev / pmax * 100}%"></i><i class="cost" style="width:${x.cost / pmax * 100}%"></i></div><small class="hint num">Receita ${brl(x.rev)} · custo alocado ${brl(x.cost)}</small></div>`).join('')}</div><p class="hint">Custos sem cliente (ferramentas, anúncios) não entram neste cálculo.</p>` : emptyBox('wallet', 'Sem clientes', 'Cadastre um cliente para ver a rentabilidade.')}</div></div>
       <div class="glass panel" id="lanc"><div class="panel-h"><h3>Lançamentos</h3><small>${FF.regime === 'caixa' ? `pagos em ${mLabel(m)} ou em aberto com vencimento em ${mLabel(m)}` : `competência ${mLabel(m)}`}</small></div>
         <div class="filters"><label class="sr" for="ff-q">Buscar</label><input class="in sm" id="ff-q" style="flex:1 1 220px;width:auto" placeholder="Buscar por descrição, cliente ou fornecedor" value="${esc(FF.q)}"><select class="in sm" id="ff-t" style="width:auto" aria-label="Tipo"><option value="all">Receitas e despesas</option><option value="in" ${FF.type === 'in' ? 'selected' : ''}>Só receitas</option><option value="out" ${FF.type === 'out' ? 'selected' : ''}>Só despesas</option></select><select class="in sm" id="ff-s" style="width:auto" aria-label="Situação"><option value="all">Todas as situações</option>${Object.entries(ST).map(([kk, v]) => `<option value="${kk}" ${FF.status === kk ? 'selected' : ''}>${v[0]}</option>`).join('')}</select></div>
-        <div class="tbl-wrap"><table class="fin-tbl" style="min-width:900px"><thead><tr>${cols.map(c => c[2] ? `<th class="${c[3] || ''}" aria-sort="${FF.sort.key === c[0] ? (FF.sort.dir === 'asc' ? 'ascending' : 'descending') : 'none'}"><button class="sort" data-sort="${c[0]}">${c[1]}<span>${FF.sort.key === c[0] ? (FF.sort.dir === 'asc' ? '↑' : '↓') : '↕'}</span></button></th>` : `<th>${c[1]}</th>`).join('')}</tr></thead><tbody>
-          ${slice.map(r => { const s = stOf(r); return `<tr><td class="fin-desc"><b>${esc(r.desc)}</b>${r.group ? ' <span class="tag">mensal</span>' : ''}<small><span class="ft ${r.type === 'in' ? 'pos' : 'neg'}">${r.type === 'in' ? 'Receita' : 'Despesa'}</span> · ${esc(CAT[r.cat] || '')}${r.sup ? ' · ' + esc(r.sup) : ''}${r.note ? ' · ' + esc(r.note) : ''}</small></td><td class="nowrap">${r.client ? esc(clientName(r.client)) : '<span class="hint">—</span>'}</td><td class="num">${mLabel(ym(r.comp))}</td><td class="num">${brShort(r.due)}</td><td class="r num fin-val ${r.type === 'in' ? 'pos' : 'neg'}">${r.type === 'out' ? '−' : '+'}${brl(r.val)}</td><td><span class="tag dot ${ST[s][1]}">${s === 'paid' ? (r.type === 'in' ? 'Recebido' : 'Pago') + ' ' + brShort(r.paid) : ST[s][0]}</span></td><td><div class="acts row-acts">${r.paid ? '' : `<button class="ibtn ok" data-pay="${r.id}" aria-label="${r.type === 'in' ? 'Marcar como recebido hoje' : 'Marcar como pago hoje'}" title="${r.type === 'in' ? 'Marcar como recebido hoje' : 'Marcar como pago hoje'}">${icon('check')}</button>`}<button class="ibtn" data-edit-entry="${r.id}" aria-label="Editar lançamento" title="Editar">${icon('pen')}</button><button class="ibtn danger" data-del-entry="${r.id}" aria-label="Excluir lançamento" title="Excluir">${icon('trash')}</button></div></td></tr>`; }).join('') || `<tr><td colspan="7">${emptyBox('wallet', 'Nenhum lançamento', 'Nada neste período e filtro.')}</td></tr>`}</tbody></table></div>
+        <div class="tbl-wrap"><table class="fin-tbl fin-main"><thead><tr>${cols.map(c => c[2] ? `<th class="${c[3] || ''}" aria-sort="${FF.sort.key === c[0] ? (FF.sort.dir === 'asc' ? 'ascending' : 'descending') : 'none'}"><button class="sort" data-sort="${c[0]}">${c[1]}<span>${FF.sort.key === c[0] ? (FF.sort.dir === 'asc' ? '↑' : '↓') : '↕'}</span></button></th>` : `<th>${c[1]}</th>`).join('')}</tr></thead><tbody>
+          ${slice.map(r => { const s = stOf(r); return `<tr><td class="fin-desc"><b>${esc(r.desc)}</b>${r.group && r.kind !== 'parcela' ? ' <span class="tag">mensal</span>' : ''}<small><span class="ft ${r.type === 'in' ? 'pos' : 'neg'}">${r.type === 'in' ? 'Receita' : 'Despesa'}</span> · ${esc(CAT[r.cat] || '')}${r.sup ? ' · ' + esc(r.sup) : ''}${r.note ? ' · ' + esc(r.note) : ''}</small></td><td class="nowrap">${r.client ? esc(clientName(r.client)) : '<span class="hint">—</span>'}</td><td class="num">${mLabel(ym(r.comp))}</td><td class="num">${brShort(r.due)}</td><td class="r num fin-val ${r.type === 'in' ? 'pos' : 'neg'}">${r.free ? 'grátis' : (r.type === 'out' ? '−' : '+') + brl(r.val)}</td><td><span class="tag dot ${ST[s][1]}">${r.free ? '1º mês grátis' : s === 'paid' ? (r.type === 'in' ? 'Recebido' : 'Pago') + ' ' + brShort(r.paid) : ST[s][0]}</span></td><td><div class="acts row-acts">${r.paid ? '' : `<button class="ibtn ok" data-pay="${r.id}" aria-label="${r.type === 'in' ? 'Marcar como recebido hoje' : 'Marcar como pago hoje'}" title="${r.type === 'in' ? 'Marcar como recebido hoje' : 'Marcar como pago hoje'}">${icon('check')}</button>`}<button class="ibtn" data-edit-entry="${r.id}" aria-label="Editar lançamento" title="Editar">${icon('pen')}</button><button class="ibtn danger" data-del-entry="${r.id}" aria-label="Excluir lançamento" title="Excluir">${icon('trash')}</button></div></td></tr>`; }).join('') || `<tr><td colspan="7">${emptyBox('wallet', 'Nenhum lançamento', 'Nada neste período e filtro.')}</td></tr>`}</tbody></table></div>
         ${rows.length ? `<div class="pager"><span>Mostrando ${(FF.page - 1) * PAGE + 1}–${Math.min(FF.page * PAGE, rows.length)} de ${rows.length} · receitas ${brl(sum(rows.filter(r => r.type === 'in')))} · despesas ${brl(sum(rows.filter(r => r.type === 'out')))}</span><span style="display:flex;gap:6px;align-items:center"><button class="pill sm icon-only" data-page="-1" ${FF.page === 1 ? 'disabled' : ''} aria-label="Anterior">${icon('left')}</button><span class="num">${FF.page} de ${pages}</span><button class="pill sm icon-only" data-page="1" ${FF.page === pages ? 'disabled' : ''} aria-label="Próxima">${icon('arrow')}</button></span></div>` : ''}</div>`;
   };
 
@@ -2732,7 +2880,7 @@ table.rs-tbl { min-width: 560px; } table.rs-tbl td { padding: 8px 6px; } table.r
   const renderPortal = () => {
     const R = $('#portal-root');
     if (!P.client || !clientById(P.client)) { P.client = null;
-      R.innerHTML = `<div class="login"><div class="box glass"><span class="logo-mark">FX</span><div><span class="label">Área do cliente</span><h1 style="margin-top:8px">Acompanhe tudo o que a FX faz pela sua marca.</h1></div>
+      R.innerHTML = `<div class="login login-anim"><div class="lg-bg" aria-hidden="true"><span class="lg-grid"></span><i class="o1"></i><i class="o2"></i><i class="o3"></i><span class="lg-line l1"></span><span class="lg-line l2"></span><span class="lg-line l3"></span></div><div class="box glass"><div><span class="label">Área do cliente</span><h1 style="margin-top:8px">Acompanhe tudo o que a <span class="or">FX</span> faz pela sua marca.</h1></div>
         <div class="field"><label for="lg-mail">E-mail</label><input class="in" id="lg-mail" type="email" autocomplete="email" placeholder="seu@email.com.br"></div>
         <div class="field"><label for="lg-code">Código de acesso</label><input class="in mono" id="lg-code" autocapitalize="characters" placeholder="6 caracteres"><span class="err-t" id="e-lg"></span></div>
         <button class="pill orange lg" id="lg-ok">Entrar</button><p class="hint">O e-mail e o código são enviados pela FX quando o contrato começa.${db.clients.some(c => c.example) ? '' : ''}</p>
@@ -2841,6 +2989,33 @@ table.rs-tbl { min-width: 560px; } table.rs-tbl td { padding: 8px 6px; } table.r
     if ((el = T('[data-sort]'))) { const k = el.dataset.sort; FF.sort = FF.sort.key === k ? { key: k, dir: FF.sort.dir === 'asc' ? 'desc' : 'asc' } : { key: k, dir: k === 'val' ? 'desc' : 'asc' }; renderAdmin(); }
     if ((el = T('[data-page]'))) { FF.page += +el.dataset.page; renderAdmin(); }
     if ((el = T('[data-pay]'))) { const r = db.ledger.find(x => x.id === el.dataset.pay); r.paid = TODAY; save(); renderAdmin(); toast(r.type === 'in' ? `Recebimento de ${brl(r.val)} registrado` : `Pagamento de ${brl(r.val)} registrado`); }
+    if ((el = T('[data-inst]'))) { const c = clientById(el.dataset.inst), s = sysOf(c), qt = (s.quote?.items || []).reduce((a, x) => a + (x.v || 0), 0), old = db.ledger.filter(r => r.client === c.id && r.kind === 'parcela'), paid = old.filter(r => r.paid);
+      openModal(`<div class="m-head"><span class="m-ic">${icon('split')}</span><div><h2>Parcelar implantação</h2><p>${esc(c.name)} · em até 3x sem juros</p></div></div>
+        <div class="cfg fin-form"><div class="field"><label for="pi-v">Valor total da implantação</label><div class="in-pre"><span>R$</span><input class="in num" id="pi-v" inputmode="decimal" value="${moneyTxt(sum(old) || qt || null)}"></div></div>
+          <div class="field"><label for="pi-n">Parcelas</label><select class="in" id="pi-n">${[1, 2, 3].map(n => `<option value="${n}" ${n === (old.length || s.quote?.inst || 3) ? 'selected' : ''}>${n === 1 ? 'À vista' : n + 'x sem juros'}</option>`).join('')}</select></div>
+          <div class="field"><label for="pi-d">Vencimento da 1ª parcela</label><input class="in" type="date" id="pi-d" value="${old[0]?.due || TODAY}"></div>
+          <div class="ipv full" id="pi-prev" data-paid="${sum(paid)}"></div>
+          ${old.length ? `<p class="notice o full">${icon('alert')}<span>As ${old.length} parcela(s) atuais serão substituídas${paid.length ? `. ${paid.length} já paga(s) ficam registradas e o valor delas é descontado do total` : ''}.</span></p>` : ''}
+          <span class="err-t full" id="e-pi" role="alert"></span></div>
+        <div class="m-foot"><span></span><div class="filters"><button class="pill" data-close>Cancelar</button><button class="pill orange" id="pi-ok" data-id="${c.id}">${icon('check')}Gerar parcelas</button></div></div>`, true); instPrev(); return; }
+    if ((el = T('#pi-ok'))) { const c = clientById(el.dataset.id), v = parseMoney($('#pi-v').value) || 0, n = +$('#pi-n').value, d = $('#pi-d').value; if (!(v > 0)) { $('#e-pi').textContent = 'Informe o valor total da implantação.'; return; } if (!d) { $('#e-pi').textContent = 'Informe o vencimento da 1ª parcela.'; return; }
+      const paid = db.ledger.filter(r => r.client === c.id && r.kind === 'parcela' && r.paid), rest = v - sum(paid); if (rest <= 0) { $('#e-pi').textContent = 'As parcelas já pagas cobrem esse valor.'; return; }
+      db.ledger = db.ledger.filter(r => !(r.client === c.id && r.kind === 'parcela' && !r.paid)); addInstallments(c, rest, n, d); const s = sysOf(c); s.quote = { ...(s.quote || { items: [] }), inst: n }; if (!(s.quote.items || []).length) s.quote.items = [{ d: 'Implantação do sistema', v }];
+      save(); closeAll(); renderAdmin(); toast(`${n === 1 ? 'Parcela única' : n + ' parcelas'} de implantação lançadas no financeiro`); return; }
+    if ((el = T('[data-tk-new]'))) { ticketModal(clientById(el.dataset.tkNew), null); return; }
+    if ((el = T('[data-tk-edit]'))) { const [cid, tid] = el.dataset.tkEdit.split('|'), c = clientById(cid); ticketModal(c, (sysOf(c).tickets || []).find(t => t.id === tid)); return; }
+    if ((el = T('#tk-ok'))) { const [cid, tid] = el.dataset.id.split('|'), c = clientById(cid), s = sysOf(c); s.tickets = s.tickets || []; const t0 = tid ? s.tickets.find(t => t.id === tid) : null;
+      const date = $('#tk-d').value, desc = $('#tk-t').value.trim(), mins = parseInt($('#tk-m').value, 10) || 0, charge = $('#tk-charge').checked, val = parseMoney($('#tk-v').value) || 0;
+      if (!date) { $('#e-tk').textContent = 'Informe a data do atendimento.'; return; } if (desc.length < 3) { $('#e-tk').textContent = 'Descreva o que foi feito.'; return; } if (charge && !(val > 0)) { $('#e-tk').textContent = 'Informe o valor cobrado.'; return; }
+      const t = t0 || { id: uid() }; Object.assign(t, { date, kind: $('#tk-k').value, desc, mins }); let lr = t.ledger ? db.ledger.find(r => r.id === t.ledger) : null;
+      if (charge && !lr) { lr = { id: uid(), type: 'in', desc: `Suporte à parte · ${desc.slice(0, 60)}`, client: c.id, cat: 'sistema', sup: '', comp: ym(date) + '-01', due: date < TODAY ? TODAY : date, paid: null, val, kind: 'avulso' }; db.ledger.push(lr); t.ledger = lr.id; }
+      else if (charge && lr && !lr.paid) Object.assign(lr, { val, desc: `Suporte à parte · ${desc.slice(0, 60)}` });
+      else if (!charge && lr && !lr.paid) { db.ledger = db.ledger.filter(r => r.id !== lr.id); t.ledger = null; }
+      if (!t0) s.tickets.push(t); save(); closeAll(); renderAdmin(); toast(t0 ? 'Atendimento atualizado' : charge ? `Atendimento registrado e cobrança de ${brl(val)} lançada` : 'Atendimento registrado'); return; }
+    if ((el = T('[data-tk-del]'))) { const [cid, tid] = el.dataset.tkDel.split('|'), c = clientById(cid), s = sysOf(c), t = (s.tickets || []).find(x => x.id === tid); if (!t) return; const lr = t.ledger ? db.ledger.find(r => r.id === t.ledger) : null;
+      openModal(`<div class="m-head"><span class="m-ic danger">${icon('trash')}</span><div><h2>Excluir atendimento?</h2><p>Esta ação não pode ser desfeita.</p></div></div><div class="del-sum"><b>${esc(t.desc)}</b><span>${brShort(t.date)}/${t.date.slice(0, 4)} · ${SUP_KIND[t.kind] || ''}${lr ? ` · cobrança de ${brl(lr.val)}${lr.paid ? ' já recebida (fica no financeiro)' : ' também será excluída'}` : ''}</span></div><div class="m-foot"><span></span><div class="filters"><button class="pill" data-close>Cancelar</button><button class="pill danger" id="tk-del-ok" data-id="${cid}|${tid}">${icon('trash')}Excluir</button></div></div>`); return; }
+    if ((el = T('#tk-del-ok'))) { const [cid, tid] = el.dataset.id.split('|'), s = sysOf(clientById(cid)), t = s.tickets.find(x => x.id === tid); if (t?.ledger) db.ledger = db.ledger.filter(r => !(r.id === t.ledger && !r.paid)); s.tickets = s.tickets.filter(x => x.id !== tid); save(); closeAll(); renderAdmin(); toast('Atendimento excluído'); return; }
+    if ((el = T('[data-kpi]'))) { kpiDetail(el.dataset.kpi); return; }
     if (T('#new-entry')) entryModal(null);
     if ((el = T('[data-edit-entry]'))) { entryModal(db.ledger.find(x => x.id === el.dataset.editEntry)); return; }
     if ((el = T('[data-del-entry]'))) { delEntryModal(db.ledger.find(x => x.id === el.dataset.delEntry)); return; }
@@ -2911,7 +3086,7 @@ table.rs-tbl { min-width: 560px; } table.rs-tbl td { padding: 8px 6px; } table.r
       const items = $('#sy-q').value.split('\n').map(l => l.trim()).filter(Boolean).map(l => { const m = l.match(/^(.*?)(?:\s+[—–-]\s+(?:R\$\s*)?([\d.,]+))?$/); return { d: m[1].trim(), v: m[2] ? parseMoney(m[2]) || 0 : 0 }; });
       Object.assign(sy, { name: $('#sy-n').value.trim() || c.name, url, status: $('#sy-s').value, modules: parseLines($('#sy-mod').value), steps: parseLines($('#sy-step').value), quote: { items, approved: $('#sy-qa').value, paid: $('#sy-qp').checked }, support: parseMoney($('#sy-sup').value) || 0 });
       Object.keys(INFRA).forEach(k => { sy.svc[k] = { plan: $('#sv-p-' + k).value, brl: parseMoney($('#sv-v-' + k).value) || 0 }; });
-      const tot = sysMonthly(sy); if (tot !== c.value) { c.value = tot; db.ledger.filter(r => r.client === c.id && r.type === 'in' && !r.paid && r.due >= TODAY).forEach(r => (r.val = tot)); }
+      const tot = sysMonthly(sy); if (tot !== c.value) { c.value = tot; db.ledger.filter(r => r.client === c.id && r.type === 'in' && !r.paid && r.due >= TODAY && r.kind !== 'parcela' && r.kind !== 'avulso' && !r.free).forEach(r => (r.val = tot)); }
       if (save()) { renderAdmin(); toast('Sistema salvo. O cliente já vê as mudanças.'); } return; }
     if ((el = T('#us-save'))) { const c = clientById(el.dataset.id), sy = sysOf(c); const u = { updated: $('#us-up').value || TODAY }; ['visits'].concat(METERS.map(m => m[1])).forEach(k => { const r0 = $('#us-' + k).value.trim(); const v = r0.includes(',') ? r0.replace(/\./g, '').replace(',', '.') : r0; u[k] = v === '' ? null : +v; }); sy.usage = u;
       const m = ym(u.updated); sy.hist = (sy.hist || []).filter(h => h.month !== m).concat([{ month: m, visits: u.visits || 0 }]).sort((a, b) => a.month.localeCompare(b.month)); save(); renderAdmin(); toast('Números salvos'); return; }
@@ -2999,6 +3174,10 @@ table.rs-tbl { min-width: 560px; } table.rs-tbl td { padding: 8px 6px; } table.r
     if (e.target.id === 'br-file' && e.target.files[0]) { const f = e.target.files[0]; $('#e-br').textContent = ''; if (!/^image\//.test(f.type)) { $('#e-br').textContent = 'Envie um arquivo de imagem.'; return; } const fr = new FileReader(); fr.onload = () => monoLogo(fr.result).then(r => { db.brands.push({ id: uid(), on: true, name: f.name.replace(/\.[^.]+$/, '').replace(/[-_]+/g, ' '), ...r }); if (save()) { renderSite(); renderAdmin(); toast('Logo adicionada ao site. Confira o nome da marca.'); } }, err => { $('#e-br').textContent = err.message; }); fr.readAsDataURL(f); return; }
     if (e.target.id === 'bk-file') { const f = e.target.files[0]; pendingBk = null; $('#e-bk').textContent = ''; if (!f) return; if (f.size <= 1.5e6) { const fr = new FileReader(); fr.onload = () => (pendingBk = { name: f.name, size: f.size, data: fr.result }); fr.readAsDataURL(f); } else pendingBk = { name: f.name, size: f.size, data: null }; return; }
     if (e.target.id === 'ne-rep') { $('#ne-rep-w').hidden = !e.target.checked; return; }
+    if (e.target.id === 'cv-pk') { syncSysForm(); return; }
+    if (['cv-inst', 'cv-instd'].includes(e.target.id)) { sysPrev(); return; }
+    if (['pi-n', 'pi-d'].includes(e.target.id)) { instPrev(); return; }
+    if (e.target.id === 'tk-charge') { $('#tk-val-w').hidden = !e.target.checked; return; }
     if (e.target.id === 'cp-p') { const p = packById(e.target.value); if (p.price != null) $('#cp-v').value = (p.price / 100).toFixed(2).replace('.', ','); return; }
     if (e.target.id === 'lg-file' && e.target.files[0]) { $('#e-lg').textContent = ''; readImg(e.target.files[0], 256, 'image/png').then(d => { pendingLogo = d; $('#lg-prev').innerHTML = logoAv({ name: '', logo: d }, 'xl'); }, err => { $('#e-lg').textContent = err.message; }); return; }
     if (e.target.id === 'ci-file' && e.target.files[0]) { $('#e-cover').textContent = ''; readImg(e.target.files[0], 720, 'image/jpeg', .76).then(d => { pendingCover = d; const t = $('#ci-thumb'); t.classList.add('has-cover'); t.querySelector('h4')?.remove(); let im = t.querySelector('img'); if (!im) { im = document.createElement('img'); im.className = 'cover'; im.alt = ''; t.prepend(im); } im.src = d; }, err => { $('#e-cover').textContent = err.message; }); return; }
@@ -3016,6 +3195,8 @@ table.rs-tbl { min-width: 560px; } table.rs-tbl td { padding: 8px 6px; } table.r
     if (id === 'ff-s') { FF.status = e.target.value; FF.page = 1; renderAdmin(); }
   });
   let qT; document.addEventListener('input', e => {
+    if (['cv-impl', 'cv-sup'].includes(e.target.id)) sysPrev();
+    if (e.target.id === 'pi-v') instPrev();
     if (e.target.id === 'f-phone') { const d = e.target.value.replace(/\D/g, '').slice(0, 11); e.target.value = d.length >= 10 ? phoneFmt(d) : d; }
     if (e.target.id === 'msg-txt') { const l = db.leads.find(x => x.id === $('#drawer').dataset.id); $('#wa-send').href = `https://wa.me/${l.phone}?text=${encodeURIComponent(e.target.value)}`; }
     if (e.target.id === 'ff-q') { FF.q = e.target.value; FF.page = 1; clearTimeout(qT); qT = setTimeout(() => { const pos = e.target.selectionStart; renderAdmin(); const n = $('#ff-q'); n.focus(); n.setSelectionRange(pos, pos); }, 250); }

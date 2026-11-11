@@ -1451,6 +1451,68 @@ table.rs-tbl { min-width: 560px; } table.rs-tbl td { padding: 8px 6px; } table.r
 @media (max-width: 760px) { .fin-form { grid-template-columns: 1fr; } }
 @media (max-width: 560px) { .admin .kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; } .admin .kpi { padding: 13px; } .admin .kpi b { font-size: clamp(17px, 5vw, 22px); } .admin .kpi .k-l svg { width: 24px; height: 24px; padding: 5px; } .admin .kpi .k-l { font-size: 12px; white-space: normal; align-items: flex-start; line-height: 1.25; } }
 
+/* ===== financeiro: indicadores com detalhe, tabela compacta ===== */
+.fkpi { position: relative; padding-bottom: 12px !important; }
+.kpi-more { justify-self: start; display: inline-flex; align-items: center; gap: 6px; margin-top: 4px; padding: 5px 9px 5px 7px; border-radius: 7px; border: 1px solid var(--line-2); background: transparent; color: var(--ink-2); font-size: 12px; font-weight: 600; cursor: pointer; }
+.kpi-more:hover { color: var(--ink); border-color: var(--orange-2); background: rgba(255,122,61,.08); }
+.kpi-more svg { width: 14px; height: 14px; }
+.admin .kpi.warn { border-color: rgba(255,94,78,.45); background: linear-gradient(180deg, rgba(255,94,78,.1), var(--surface) 70%); }
+.admin .kpi.warn b { color: var(--crit); }
+.kpi-what { display: flex; gap: 10px; align-items: flex-start; padding: 12px 14px; border-radius: 12px; background: rgba(255,255,255,.035); border: 1px solid var(--line); color: var(--ink-2); font-size: 14px; line-height: 1.55; }
+.kpi-what svg { width: 18px; height: 18px; color: var(--orange-2); flex: none; margin-top: 2px; }
+.kpi-what b { color: var(--ink); }
+.fin-tbl tfoot td { border-top: 1px solid var(--line); background: rgba(255,255,255,.02); }
+.fin-main, .fin-mini { min-width: 0 !important; }
+.fin-main th, .fin-main td { padding: 8px 8px; }
+.fin-main th:first-child, .fin-main td:first-child { padding-left: 14px; }
+.fin-main .fin-desc { min-width: 150px; }
+.fin-main th { letter-spacing: .04em; }
+.fin-main .fin-desc small { margin-top: 1px; }
+.fin-mini th, .fin-mini td { padding: 9px 12px; }
+.fin-mini .fin-desc { min-width: 160px; }
+.fin-tbl .row-acts { gap: 4px; }
+.fin-tbl .ibtn { width: 30px; height: 30px; border-radius: 7px; }
+.fin-tbl .ibtn svg { width: 15px; height: 15px; }
+@media (max-width: 1180px) { .fin-main { min-width: 820px !important; } }
+/* sistema: valores no cadastro e parcelas */
+.sysbox { display: grid; gap: 12px; padding: 14px; border-radius: 12px; border: 1px solid rgba(255,122,61,.3); background: rgba(255,90,26,.05); }
+.sysbox-h { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.sysbox-h svg { width: 18px; height: 18px; color: var(--orange-2); }
+.sysbox-h small { color: var(--ink-3); font-size: 12.5px; }
+.sysbox .cfg { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+#cv-sys-prev { line-height: 1.6; }
+.ipv { display: flex; gap: 8px; flex-wrap: wrap; }
+.ip { display: grid; gap: 2px; padding: 10px 14px; border-radius: 10px; border: 1px solid var(--line-2); background: rgba(255,255,255,.03); min-width: 120px; }
+.ip b { color: var(--orange-2); font-size: 12px; }
+.ip small { color: var(--ink-3); font-size: 12px; }
+@media (max-width: 760px) { .sysbox .cfg { grid-template-columns: 1fr; } }
+/* área do cliente: entrada com fundo animado */
+.login-anim { position: relative; overflow: hidden; isolation: isolate; background: var(--bg); }
+.lg-bg { position: absolute; inset: 0; z-index: -1; pointer-events: none; }
+.lg-grid { position: absolute; inset: -40px; background-image: linear-gradient(rgba(255,255,255,.045) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.045) 1px, transparent 1px); background-size: 46px 46px; -webkit-mask-image: radial-gradient(70% 60% at 50% 40%, #000 30%, transparent 75%); mask-image: radial-gradient(70% 60% at 50% 40%, #000 30%, transparent 75%); }
+.lg-bg i { position: absolute; border-radius: 50%; filter: blur(70px); opacity: .55; }
+.lg-bg .o1 { width: 520px; height: 520px; left: 50%; top: -260px; margin-left: -260px; background: radial-gradient(circle, rgba(255,90,26,.75), transparent 65%); }
+.lg-bg .o2 { width: 380px; height: 380px; left: -120px; bottom: -140px; background: radial-gradient(circle, rgba(255,122,61,.45), transparent 65%); }
+.lg-bg .o3 { width: 320px; height: 320px; right: -100px; top: 30%; background: radial-gradient(circle, rgba(226,35,26,.4), transparent 65%); }
+.lg-line { position: absolute; left: -30%; width: 160%; height: 1px; background: linear-gradient(90deg, transparent, rgba(255,122,61,.55), transparent); opacity: 0; }
+.lg-line.l1 { top: 28%; } .lg-line.l2 { top: 56%; } .lg-line.l3 { top: 78%; }
+@media (prefers-reduced-motion: no-preference) {
+  .lg-grid { animation: lgGrid 18s linear infinite; }
+  .lg-bg .o1 { animation: lgFloat1 14s ease-in-out infinite alternate; }
+  .lg-bg .o2 { animation: lgFloat2 17s ease-in-out infinite alternate; }
+  .lg-bg .o3 { animation: lgFloat3 12s ease-in-out infinite alternate; }
+  .lg-line { animation: lgScan 9s ease-in-out infinite; }
+  .lg-line.l2 { animation-delay: 3s; } .lg-line.l3 { animation-delay: 6s; }
+  .login-anim .box { animation: lgIn .7s cubic-bezier(.2,.8,.2,1) both; }
+}
+@keyframes lgGrid { to { transform: translate(46px, 46px); } }
+@keyframes lgFloat1 { to { transform: translate(60px, 90px) scale(1.12); } }
+@keyframes lgFloat2 { to { transform: translate(140px, -80px) scale(1.2); } }
+@keyframes lgFloat3 { to { transform: translate(-120px, 60px) scale(.9); } }
+@keyframes lgScan { 0%, 100% { opacity: 0; transform: translateX(-20%); } 50% { opacity: 1; transform: translateX(20%); } }
+@keyframes lgIn { from { opacity: 0; transform: translateY(14px) scale(.98); } }
+.login-anim .box { background: rgba(20, 16, 14, .82); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
+
 /* ===== modo nuvem: carregamento, login da equipe, status de gravação ===== */
 #fx-boot { position: fixed; inset: 0; z-index: 200; display: grid; place-items: center; padding: 24px max(16px, env(safe-area-inset-right, 0px)) 24px max(16px, env(safe-area-inset-left, 0px)); background: radial-gradient(60% 40% at 50% 0%, rgba(255,90,26,.14), transparent 70%), #070504; color: var(--ink); }
 #fx-boot .fx-boot-in { display: grid; gap: 14px; justify-items: center; text-align: center; width: min(420px, 100%); }
