@@ -12,6 +12,16 @@ Plataforma da **FX Mídia Social**: site com formulários de diagnóstico, links
 
 Peças: **Supabase** (banco, login, arquivos), **Netlify** (hospedagem), **GitHub** (código e histórico).
 
+## Onde está publicado
+
+| Peça | Onde |
+|---|---|
+| Site e sistema | https://fxhub-midiasocial.netlify.app (Netlify, projeto `fxhub-midiasocial`) |
+| Banco | Supabase, projeto **fxgestão** (`vdipydhimbwvulqilstg`), que divide o banco com o FX Gestão e o CRM da RG CAVE. As tabelas e funções do FX HUB são separadas e não mexem nas deles. |
+| Código | GitHub `RobsonCam/fxhub` |
+
+Ao trocar para um domínio próprio, adicione-o em `DEFAULT_ORIGINS` na função `client-access` (ou no segredo `ALLOWED_ORIGINS`) e em *Authentication → URL Configuration* no Supabase.
+
 ---
 
 ## Estrutura

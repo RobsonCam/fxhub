@@ -6,7 +6,9 @@
 // O código de acesso do cliente vira a senha do login dele.
 import { createClient } from 'jsr:@supabase/supabase-js@2';
 
-const ALLOWED = (Deno.env.get('ALLOWED_ORIGINS') ?? '').split(',').map((s) => s.trim()).filter(Boolean);
+// Endereços que podem chamar esta função. O segredo ALLOWED_ORIGINS, se existir, substitui esta lista.
+const DEFAULT_ORIGINS = 'https://fxhub-midiasocial.netlify.app';
+const ALLOWED = (Deno.env.get('ALLOWED_ORIGINS') || DEFAULT_ORIGINS).split(',').map((s) => s.trim()).filter(Boolean);
 
 function cors(req: Request) {
   const origin = req.headers.get('Origin') ?? '';
