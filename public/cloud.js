@@ -306,6 +306,8 @@
   };
   C.removeBackup = async p => { if (p) await sb.storage.from('backups').remove([p]); };
   C.backupUrl = async p => { const { data, error } = await sb.storage.from('backups').createSignedUrl(p, 300, { download: true }); if (error) throw error; return data.signedUrl; };
+  // cliente excluído: desliga o login dele da empresa (o login em si continua no Supabase)
+  C.unlinkClient = async id => { try { await sb.from('client_users').delete().eq('client_id', id); } catch (e) { console.warn('[FX HUB] desligar acesso', e); } };
   C.clientAccess = async (c) => {
     const { data, error } = await sb.functions.invoke('client-access', { body: { client_id: c.id, email: c.email, code: c.portalCode } });
     if (error) { let msg = error.message; try { msg = (await error.context.json()).error || msg; } catch (e) {} throw new Error(msg); }

@@ -1518,6 +1518,17 @@ table.rs-tbl { min-width: 560px; } table.rs-tbl td { padding: 8px 6px; } table.r
 @keyframes lgScan { 0%, 100% { opacity: 0; transform: translateX(-20%); } 50% { opacity: 1; transform: translateX(20%); } }
 @keyframes lgIn { from { opacity: 0; transform: translateY(14px) scale(.98); } }
 .login-anim .box { background: rgba(20, 16, 14, .82); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
+
+/* editar cobrança mensal */
+.bm-h { display: grid; gap: 2px; }
+.bm-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 8px; max-height: 340px; overflow: auto; padding-right: 2px; }
+.bm { display: grid; gap: 6px; padding: 10px; border-radius: 10px; border: 1px solid var(--line); background: rgba(255,255,255,.025); }
+.bm.cur { border-color: rgba(255,122,61,.5); }
+.bm.free { background: rgba(63,208,143,.06); }
+.bm.off { opacity: .62; }
+.bm-m { font-weight: 650; font-size: 14px; text-transform: capitalize; }
+.bm-m small { color: var(--orange-2); font-weight: 600; text-transform: none; }
+.bm .in.sm { height: 34px; font-size: 13.5px; padding: 0 10px; }
 </style>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -1835,12 +1846,14 @@ table.rs-tbl { min-width: 560px; } table.rs-tbl td { padding: 8px 6px; } table.r
   const addInstallments = (c, total, n, firstDue) => { const grp = uid(), day = +firstDue.slice(8);
     splitCents(total, n).forEach((v, k) => { const m = addMonths(ym(firstDue), k); db.ledger.push({ id: uid(), type: 'in', desc: n > 1 ? `Implantação do sistema · parcela ${k + 1}/${n}` : 'Implantação do sistema · à vista', client: c.id, cat: 'sistema', sup: '', comp: m + '-01', due: dueIn(m, day), paid: null, val: v, group: n > 1 ? grp : null, kind: 'parcela' }); }); };
   const supportEntry = (c, m, free) => ({ id: uid(), type: 'in', desc: `Suporte e manutenção · ${mLabel(m)}${free ? ' (1º mês grátis)' : ''}`, client: c.id, cat: 'sistema', sup: '', comp: m + '-01', due: dueIn(m, c.dueDay), paid: free ? (c.start > dueIn(m, c.dueDay) ? c.start : dueIn(m, c.dueDay)) : null, val: free ? 0 : c.value, kind: 'suporte', free: !!free });
+  const monthlyEntry = (c, m, free) => isSys(c) ? supportEntry(c, m, free) : { id: uid(), type: 'in', desc: `${packById(c.package).name} · ${mLabel(m)}${free ? ' (grátis)' : ''}`, client: c.id, cat: 'servico', sup: '', comp: m + '-01', due: dueIn(m, c.dueDay), paid: free ? dueIn(m, c.dueDay) : null, val: free ? 0 : c.value, free: !!free };
+  const planOf = (c, m) => (c.billEnd && m > c.billEnd) ? 'off' : (c.billPlan || {})[m] || 'charge';
   // mensalidades seguem sendo lançadas sozinhas, mês a mês, até o mês seguinte ao atual
   const ensureBilling = () => { if (window.FX_CLOUD && window.FX_CLOUD.realm !== 'painel') return false; const until = addMonths(CUR, 1); let ch = false;
     db.clients.forEach(c => { if (!c.monthly || c.status !== 'ativo') return;
       if (!c.billedThrough) { const ms = db.ledger.filter(r => r.client === c.id && r.type === 'in' && r.kind !== 'parcela' && r.kind !== 'avulso').map(r => ym(r.comp)).sort(); c.billedThrough = ms.at(-1) || ym(c.start); ch = true; }
       let m = addMonths(c.billedThrough, 1);
-      while (m <= until) { if (c.value > 0) db.ledger.push(isSys(c) ? supportEntry(c, m, false) : { id: uid(), type: 'in', desc: `${packById(c.package).name} · ${mLabel(m)}`, client: c.id, cat: 'servico', sup: '', comp: m + '-01', due: dueIn(m, c.dueDay), paid: null, val: c.value }); c.billedThrough = m; m = addMonths(m, 1); ch = true; } });
+      while (m <= until) { const st = planOf(c, m); if (st === 'free' || (st === 'charge' && c.value > 0)) db.ledger.push(monthlyEntry(c, m, st === 'free')); c.billedThrough = m; m = addMonths(m, 1); ch = true; } });
     return ch; };
   // ---------- criação de cliente (gera contrato e cobranças) ----------
   const createClient = o => {
@@ -1848,7 +1861,7 @@ table.rs-tbl { min-width: 560px; } table.rs-tbl td { padding: 8px 6px; } table.r
     const c = { id: o.id || uid(), name: o.name, segment: o.segment || 'outro', instagram: o.instagram || '', owner: o.owner || '', phone: o.phone || '', email: o.email || '', package: o.package, value: o.value ?? p.price ?? 0, monthly: p.period === '/mês' || (p.price == null && o.monthly), start: o.start || TODAY, dueDay: o.dueDay || 10, renewal: o.renewal || (p.period === '/mês' ? addDays(o.start || TODAY, 180) : null), status: 'ativo', portalCode: code6(), approval: true, example: !!o.example, leadId: o.leadId || null, created: Date.now() };
     db.clients.push(c);
     if (o.sysPlan) { const sp = o.sysPlan, s = sysOf(c); c.value = sp.sup; c.monthly = true; c.renewal = null; s.support = sp.sup; if (sp.impl > 0) { s.quote = { items: [{ d: 'Implantação do sistema', v: sp.impl }], approved: c.start, paid: false, inst: sp.n }; addInstallments(c, sp.impl, sp.n, sp.d1); }
-      let m = ym(c.start), first = true; while (m <= addMonths(CUR, 1)) { if (sp.sup > 0) db.ledger.push(supportEntry(c, m, first)); first = false; m = addMonths(m, 1); } c.billedThrough = addMonths(CUR, 1); return c; }
+      c.billPlan = { [ym(c.start)]: 'free' }; let m = ym(c.start), first = true; while (m <= addMonths(CUR, 1)) { if (sp.sup > 0) db.ledger.push(supportEntry(c, m, first)); first = false; m = addMonths(m, 1); } c.billedThrough = addMonths(CUR, 1); return c; }
     const months = c.monthly ? (() => { const out = []; let m = ym(c.start); while (m <= addMonths(CUR, 1)) { out.push(m); m = addMonths(m, 1); } return out; })() : [ym(c.start)];
     months.forEach(m => { const due = `${m}-${pad2(Math.min(c.dueDay, dim(m)))}`; db.ledger.push({ id: uid(), type: 'in', desc: `${p.name} · ${mLabel(m)}`, client: c.id, cat: 'servico', sup: '', comp: m + '-01', due, paid: null, val: c.value, example: c.example }); });
     if (c.monthly) c.billedThrough = months.at(-1);
@@ -2711,7 +2724,7 @@ table.rs-tbl { min-width: 560px; } table.rs-tbl td { padding: 8px 6px; } table.r
     if (sysC && A.ctab !== 'contrato') body = sysAdmin(c) || body;
     M.innerHTML = `<div class="crumb"><button data-sec="clientes" data-clear-client>Clientes</button> / <span>${esc(c.name)}</span></div>
       <div class="client-head">${logoAv(c, 'lg')}<div><h1>${esc(c.name)}</h1><div class="filters" style="margin-top:8px"><span class="tag">${esc(p.name)} · ${brl(c.value)}${c.monthly ? '/mês' : ''}</span><span class="tag">${esc(segName(c.segment))}</span>${exTag(c)}</div></div>
-        <div class="acts"><button class="pill" data-edit-client="${c.id}">${icon('pen')}Editar perfil e logo</button><button class="pill" data-as-client="${c.id}">${icon('eye')}Ver como o cliente</button>${sysC ? `<button class="pill orange" data-ctab="backups">${icon('shield')}Enviar backup</button>` : `<button class="pill orange" data-new-content="${c.id}">${icon('plus')}Novo conteúdo</button>`}</div></div>
+        <div class="acts"><button class="pill danger-ghost" data-del-client="${c.id}" title="Excluir cliente">${icon('trash')}Excluir</button><button class="pill" data-edit-client="${c.id}">${icon('pen')}Editar perfil e logo</button><button class="pill" data-as-client="${c.id}">${icon('eye')}Ver como o cliente</button>${sysC ? `<button class="pill orange" data-ctab="backups">${icon('shield')}Enviar backup</button>` : `<button class="pill orange" data-new-content="${c.id}">${icon('plus')}Novo conteúdo</button>`}</div></div>
       <div class="seg" style="overflow-x:auto;max-width:100%">${TABS.map(t => `<button data-ctab="${t[0]}" aria-pressed="${A.ctab === t[0]}">${t[1]}</button>`).join('')}</div>${body}`;
   };
   const statusFilter = () => `<label class="sr" for="cst-f">Situação</label><select class="in sm" id="cst-f" style="width:auto"><option value="all">Todas as situações</option>${Object.entries(CST).map(([k, v]) => `<option value="${k}" ${A.contStatus === k ? 'selected' : ''}>${v[0]}</option>`).join('')}</select>`;
@@ -2755,16 +2768,16 @@ table.rs-tbl { min-width: 560px; } table.rs-tbl td { padding: 8px 6px; } table.r
     const P = L.filter(r => r.kind === 'parcela'), S = L.filter(r => r.kind !== 'parcela' && r.kind !== 'avulso'), X = L.filter(r => r.kind === 'avulso');
     const open = L.filter(r => !r.paid), late = open.filter(r => r.due < TODAY), recv = L.filter(r => r.paid && ym(r.paid).slice(0, 4) === CUR.slice(0, 4));
     const T = sys ? (sysOf(c).tickets || []).slice().sort((a, b) => b.date.localeCompare(a.date)) : [], tm = T.filter(t => ym(t.date) === CUR);
-    const k = sys ? `${kpi('Implantação', brl(sum(P)), P.length ? `${P.filter(r => r.paid).length} de ${P.length} parcela(s) paga(s)` : 'sem parcelas lançadas', '', 'split')}${kpi('Suporte mensal', brl(c.value), '1º mês grátis', '', 'support')}${kpi('Em aberto', brl(sum(open)), late.length ? `${late.length} vencida(s)` : 'nada vencido', late.length ? 'hl' : '', 'clock')}${kpi('Atendimentos no mês', String(tm.length), `${tm.reduce((a, t) => a + (t.mins || 0), 0)} min de suporte`, '', 'chat')}`
+    const k = sys ? `${kpi('Implantação', brl(sum(P)), P.length ? `${P.filter(r => r.paid).length} de ${P.length} parcela(s) paga(s)` : 'sem parcelas lançadas', '', 'split')}${kpi('Suporte mensal', brl(c.value), c.billEnd ? 'até ' + mLabel(c.billEnd) : 'sem data para terminar', '', 'support')}${kpi('Em aberto', brl(sum(open)), late.length ? `${late.length} vencida(s)` : 'nada vencido', late.length ? 'hl' : '', 'clock')}${kpi('Atendimentos no mês', String(tm.length), `${tm.reduce((a, t) => a + (t.mins || 0), 0)} min de suporte`, '', 'chat')}`
       : `${kpi('Mensalidade', brl(c.value), esc(packById(c.package).name), '', 'refresh')}${kpi(`Recebido em ${CUR.slice(0, 4)}`, brl(sum(recv)), `${recv.length} pagamento(s)`, '', 'down')}${kpi('Em aberto', brl(sum(open)), `${open.length} cobrança(s)`, '', 'clock')}${kpi('Em atraso', brl(sum(late)), late.length ? `${late.length} vencida(s)` : 'nada vencido', late.length ? 'hl' : '', 'alert')}`;
     return `<div class="kpis k4">${k}</div>
       ${sys ? `<div class="glass panel"><div class="panel-h"><h3>Parcelas da implantação</h3><button class="pill sm" data-inst="${c.id}">${icon('split')}${P.length ? 'Refazer parcelas' : 'Parcelar implantação'}</button></div>${finTable(P, ['Nenhuma parcela', 'Use "Parcelar implantação" para gerar até 3 parcelas.'])}</div>
-        <div class="glass panel"><div class="panel-h"><h3>Mensalidades de suporte</h3><small>${brl(c.value)}/mês · lançadas mês a mês</small></div>${finTable(S.slice(-6), ['Sem mensalidades', 'Defina o suporte mensal na aba "Sistema e orçamento".'])}</div>
+        <div class="glass panel"><div class="panel-h"><h3>Mensalidades de suporte</h3><div class="filters"><small>${brl(c.value)}/mês${c.billEnd ? ' até ' + mLabel(c.billEnd) : ''}</small><button class="pill sm" data-bill="${c.id}">${icon('pen')}Editar suporte</button></div></div>${finTable(S.slice(-12), ['Sem mensalidades', 'Defina o suporte mensal na aba "Sistema e orçamento".'])}</div>
       <div class="glass panel"><div class="panel-h"><h3>Registro de suporte</h3><button class="pill sm orange" data-tk-new="${c.id}">${icon('plus')}Registrar atendimento</button></div>
         <p class="hint">Cada atendimento feito para este cliente: correções, ajustes, dúvidas e manutenções. O que for cobrado à parte vira um lançamento no financeiro.</p>
         ${T.length ? `<div class="tbl-wrap"><table class="fin-tbl"><thead><tr><th>Data</th><th>Tipo</th><th>O que foi feito</th><th class="r">Tempo</th><th class="r">Cobrança</th><th></th></tr></thead><tbody>${T.map(t => { const lr = t.ledger ? db.ledger.find(r => r.id === t.ledger) : null; return `<tr><td class="num">${brShort(t.date)}/${t.date.slice(2, 4)}</td><td><span class="tag">${SUP_KIND[t.kind] || 'Atendimento'}</span></td><td class="fin-desc">${esc(t.desc)}</td><td class="r num">${t.mins ? t.mins + ' min' : '—'}</td><td class="r num">${lr ? `<b class="fin-val pos">${brl(lr.val)}</b>${lr.paid ? '<small class="hint"> recebido</small>' : ''}` : '<span class="hint">incluso no suporte</span>'}</td><td><div class="acts row-acts"><button class="ibtn" data-tk-edit="${c.id}|${t.id}" aria-label="Editar atendimento" title="Editar">${icon('pen')}</button><button class="ibtn danger" data-tk-del="${c.id}|${t.id}" aria-label="Excluir atendimento" title="Excluir">${icon('trash')}</button></div></td></tr>`; }).join('')}</tbody></table></div>` : emptyBox('support', 'Nenhum atendimento registrado', 'Registre cada suporte prestado para ter o histórico do cliente.')}</div>
       ${X.length ? `<div class="glass panel"><div class="panel-h"><h3>Suportes cobrados à parte</h3></div>${finTable(X, ['', ''])}</div>` : ''}`
-      : `<div class="glass panel"><div class="panel-h"><h3>Cobranças deste cliente</h3><small>${brl(c.value)}/mês · lançadas mês a mês</small></div>${finTable(L.slice().reverse(), ['Nenhuma cobrança', 'As mensalidades aparecem aqui.'])}</div>`}`; };
+      : `<div class="glass panel"><div class="panel-h"><h3>Cobranças deste cliente</h3><div class="filters"><small>${brl(c.value)}/mês${c.billEnd ? ' até ' + mLabel(c.billEnd) : ''}</small><button class="pill sm" data-bill="${c.id}">${icon('pen')}Editar mensalidade</button></div></div>${finTable(L.slice().reverse(), ['Nenhuma cobrança', 'As mensalidades aparecem aqui.'])}</div>`}`; };
   const instPrev = () => { const el = $('#pi-prev'); if (!el) return; const paid = +(el.dataset.paid || 0), v = (parseMoney($('#pi-v').value) || 0) - paid, n = +$('#pi-n').value, d = $('#pi-d').value || TODAY; el.innerHTML = v > 0 ? (paid ? `<span class="hint" style="flex-basis:100%">Já pago: ${brl(paid)}. Falta parcelar ${brl(v)}.</span>` : '') + splitCents(v, n).map((x, k) => `<span class="ip"><b>${k + 1}ª</b> ${brl(x)}<small>${brShort(dueIn(addMonths(ym(d), k), +d.slice(8)))}/${addMonths(ym(d), k).slice(2, 4)}</small></span>`).join('') : '<span class="hint">Informe o valor.</span>'; };
   const ticketModal = (c, t) => { const lr = t?.ledger ? db.ledger.find(r => r.id === t.ledger) : null;
     openModal(`<div class="m-head"><span class="m-ic">${icon('support')}</span><div><h2>${t ? 'Editar atendimento' : 'Registrar atendimento'}</h2><p>${esc(c.name)}</p></div></div>
@@ -2776,6 +2789,37 @@ table.rs-tbl { min-width: 560px; } table.rs-tbl td { padding: 8px 6px; } table.r
         <div class="field" id="tk-val-w" ${lr ? '' : 'hidden'}><label for="tk-v">Valor cobrado</label><div class="in-pre"><span>R$</span><input class="in num" id="tk-v" inputmode="decimal" value="${lr ? moneyTxt(lr.val) : ''}" ${lr?.paid ? 'disabled' : ''}></div></div>
         <span class="err-t full" id="e-tk" role="alert"></span></div>
       <div class="m-foot"><span></span><div class="filters"><button class="pill" data-close>Cancelar</button><button class="pill orange" id="tk-ok" data-id="${c.id}|${t?.id || ''}">${icon('check')}Salvar atendimento</button></div></div>`, true); };
+  // ---------- editar cobrança mensal de um cliente ----------
+  const billEntries = (c, m) => db.ledger.filter(r => r.client === c.id && r.type === 'in' && r.kind !== 'parcela' && r.kind !== 'avulso' && ym(r.comp) === m);
+  const billModal = c => { const sys = isSys(c), from = ym(c.start) < addMonths(CUR, -3) ? addMonths(CUR, -3) : ym(c.start), to = addMonths(CUR, 12), months = []; for (let m = from; m <= to; m = addMonths(m, 1)) months.push(m);
+    const cell = m => { const E = billEntries(c, m), locked = E.find(r => r.paid && !r.free), st = locked ? 'paid' : E.length ? (E.some(r => r.free) ? 'free' : 'charge') : (m <= (c.billedThrough || '') ? 'off' : planOf(c, m));
+      return `<div class="bm ${st}${m === CUR ? ' cur' : ''}"><span class="bm-m">${mLabel(m)}${m === CUR ? ' <small>atual</small>' : ''}</span>${locked ? `<span class="tag dot good">Pago ${brl(locked.val)}</span>` : `<select class="in sm" data-bm="${m}" aria-label="Cobrança de ${mLabel(m)}" ${c.billEnd && m > c.billEnd ? 'disabled' : ''}><option value="charge" ${st === 'charge' ? 'selected' : ''}>Cobrar</option><option value="free" ${st === 'free' ? 'selected' : ''}>Grátis</option><option value="off" ${st === 'off' ? 'selected' : ''}>${sys ? 'Sem suporte' : 'Sem cobrança'}</option></select>`}</div>`; };
+    openModal(`<div class="m-head"><span class="m-ic">${icon(sys ? 'support' : 'refresh')}</span><div><h2>${sys ? 'Editar suporte mensal' : 'Editar mensalidade'}</h2><p>${esc(c.name)} · escolha o valor e como fica cada mês</p></div></div>
+      <div class="cfg fin-form"><div class="field"><label for="bm-v">${sys ? 'Valor do suporte' : 'Valor da mensalidade'} <small>(por mês)</small></label><div class="in-pre"><span>R$</span><input class="in num" id="bm-v" inputmode="decimal" value="${moneyTxt(c.value)}"></div></div>
+        <div class="field"><label for="bm-end">${sys ? 'Suporte até' : 'Cobrança até'} <small>(vazio = sem data para terminar)</small></label><input class="in" type="month" id="bm-end" value="${c.billEnd || ''}"></div></div>
+      <div class="bm-h"><b>Mês a mês</b><span class="hint">Cobrar usa o valor acima. Grátis registra o mês sem cobrar. Meses já pagos não mudam.</span></div>
+      <div class="bm-grid">${months.map(cell).join('')}</div>
+      <span class="err-t" id="e-bm" role="alert"></span>
+      <div class="m-foot"><span class="hint">O novo valor vale para os meses a partir de ${mLabel(CUR)} ainda não pagos.</span><div class="filters"><button class="pill" data-close>Cancelar</button><button class="pill orange" id="bm-ok" data-id="${c.id}">${icon('check')}Salvar cobrança</button></div></div>`, true); };
+  const applyBill = c => { const v = parseMoney($('#bm-v').value), end = $('#bm-end').value || null; if (!(v >= 0)) { $('#e-bm').textContent = 'Informe o valor mensal (pode ser 0,00).'; return false; }
+    c.value = v; if (isSys(c)) sysOf(c).support = v; c.billEnd = end; c.billPlan = { ...(c.billPlan || {}) };
+    $$('[data-bm]').forEach(sel => { const m = sel.dataset.bm; if (sel.value === 'charge') delete c.billPlan[m]; else c.billPlan[m] = sel.value; });
+    let changed = 0; const last = c.billedThrough || addMonths(CUR, 1), first = ym(c.start);
+    for (let m = first; m <= last; m = addMonths(m, 1)) { const E = billEntries(c, m); if (E.some(r => r.paid && !r.free)) continue; const st = planOf(c, m), sel = $(`[data-bm="${m}"]`);
+      if (!sel && m < CUR && st === 'charge') continue;   // meses antigos fora da lista ficam como estão
+      if (st === 'off') { if (E.length) { db.ledger = db.ledger.filter(r => !E.includes(r)); changed++; } continue; }
+      const want = monthlyEntry(c, m, st === 'free');
+      if (E.length) { const r = E[0]; const before = JSON.stringify([r.val, r.free, r.paid]); if (m >= CUR || st === 'free' || r.free) Object.assign(r, { desc: want.desc, val: want.val, free: want.free, paid: want.paid, kind: want.kind || r.kind }); if (JSON.stringify([r.val, r.free, r.paid]) !== before) changed++; db.ledger = db.ledger.filter(x => !E.slice(1).includes(x)); }
+      else if (sel) { db.ledger.push(want); changed++; } }
+    return changed; };
+  // ---------- excluir cliente ----------
+  const delClientModal = c => { const n = k => db[k].filter(x => x.client === c.id).length, L = db.ledger.filter(r => r.client === c.id), paid = L.filter(r => r.paid && !r.free);
+    openModal(`<div class="m-head"><span class="m-ic danger">${icon('trash')}</span><div><h2>Excluir ${esc(c.name)}?</h2><p>O cliente sai do sistema e perde o acesso à área do cliente. Não dá para desfazer.</p></div></div>
+      <div class="del-sum"><b>O que será apagado</b><span>${[[n('contents'), 'conteúdo(s)'], [n('meetings'), 'reunião(ões)'], [n('metrics'), 'mês(es) de métricas'], [n('reports'), 'relatório(s)'], [n('tasks'), 'tarefa(s)'], [n('evaluations'), 'avaliação(ões)'], [L.length - paid.length, 'cobrança(s) não paga(s)']].filter(x => x[0]).map(x => x.join(' ')).join(' · ') || 'Nenhum registro ligado a este cliente.'}</span></div>
+      ${paid.length ? `<label class="consent" for="dc-keep"><input type="checkbox" id="dc-keep" checked><span><b>Manter no financeiro os ${paid.length} pagamento(s) já recebido(s)</b> (${brl(sum(paid))}), para o caixa e os relatórios não mudarem. Ficam marcados como "ex-cliente".</span></label>` : ''}
+      <div class="field"><label for="dc-name">Para confirmar, digite o nome do cliente</label><input class="in" id="dc-name" autocomplete="off" placeholder="${esc(c.name)}"></div>
+      <span class="err-t" id="e-dc" role="alert"></span>
+      <div class="m-foot"><span></span><div class="filters"><button class="pill" data-close>Cancelar</button><button class="pill danger" id="dc-ok" data-id="${c.id}">${icon('trash')}Excluir cliente</button></div></div>`); };
   const monthDiff = (a, b) => (+b.slice(0, 4) - +a.slice(0, 4)) * 12 + (+b.slice(5, 7) - +a.slice(5, 7));
   const moneyTxt = c => c != null ? (c / 100).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : '';
   const entryModal = r => { const ed = !!r, t = r?.type || 'in', L = t === 'in' ? CAT_IN : CAT_OUT, paid = !!r?.paid, next = r?.group ? db.ledger.filter(x => x.group === r.group && x.id !== r.id && !x.paid && x.comp > r.comp).length : 0;
@@ -2989,6 +3033,13 @@ table.rs-tbl { min-width: 560px; } table.rs-tbl td { padding: 8px 6px; } table.r
     if ((el = T('[data-sort]'))) { const k = el.dataset.sort; FF.sort = FF.sort.key === k ? { key: k, dir: FF.sort.dir === 'asc' ? 'desc' : 'asc' } : { key: k, dir: k === 'val' ? 'desc' : 'asc' }; renderAdmin(); }
     if ((el = T('[data-page]'))) { FF.page += +el.dataset.page; renderAdmin(); }
     if ((el = T('[data-pay]'))) { const r = db.ledger.find(x => x.id === el.dataset.pay); r.paid = TODAY; save(); renderAdmin(); toast(r.type === 'in' ? `Recebimento de ${brl(r.val)} registrado` : `Pagamento de ${brl(r.val)} registrado`); }
+    if ((el = T('[data-bill]'))) { billModal(clientById(el.dataset.bill)); return; }
+    if ((el = T('#bm-ok'))) { const c = clientById(el.dataset.id), n = applyBill(c); if (n === false) return; save(); closeAll(); renderAdmin(); toast(n ? `Cobrança atualizada · ${n} mês(es) ajustado(s) no financeiro` : 'Cobrança atualizada'); return; }
+    if ((el = T('[data-del-client]'))) { delClientModal(clientById(el.dataset.delClient)); return; }
+    if ((el = T('#dc-ok'))) { const c = clientById(el.dataset.id); if ($('#dc-name').value.trim().toLowerCase() !== c.name.trim().toLowerCase()) { $('#e-dc').textContent = 'O nome digitado não confere.'; $('#dc-name').focus(); return; }
+      const keep = $('#dc-keep')?.checked; ['contents', 'meetings', 'metrics', 'reports', 'tasks', 'evaluations', 'planRequests', 'evalRequests'].forEach(k => { if (Array.isArray(db[k])) db[k] = db[k].filter(x => x.client !== c.id); });
+      db.ledger = db.ledger.filter(r => r.client !== c.id || (keep && r.paid && !r.free)); db.ledger.forEach(r => { if (r.client === c.id) { r.client = null; r.note = [r.note, `ex-cliente: ${c.name}`].filter(Boolean).join(' · '); } });
+      db.clients = db.clients.filter(x => x.id !== c.id); if (A.client === c.id) A.client = null; save(); window.FX_CLOUD?.unlinkClient?.(c.id); closeAll(); A.sec = 'clientes'; renderAdmin(); toast(`${c.name} foi excluído`); return; }
     if ((el = T('[data-inst]'))) { const c = clientById(el.dataset.inst), s = sysOf(c), qt = (s.quote?.items || []).reduce((a, x) => a + (x.v || 0), 0), old = db.ledger.filter(r => r.client === c.id && r.kind === 'parcela'), paid = old.filter(r => r.paid);
       openModal(`<div class="m-head"><span class="m-ic">${icon('split')}</span><div><h2>Parcelar implantação</h2><p>${esc(c.name)} · em até 3x sem juros</p></div></div>
         <div class="cfg fin-form"><div class="field"><label for="pi-v">Valor total da implantação</label><div class="in-pre"><span>R$</span><input class="in num" id="pi-v" inputmode="decimal" value="${moneyTxt(sum(old) || qt || null)}"></div></div>
@@ -3175,6 +3226,8 @@ table.rs-tbl { min-width: 560px; } table.rs-tbl td { padding: 8px 6px; } table.r
     if (e.target.id === 'bk-file') { const f = e.target.files[0]; pendingBk = null; $('#e-bk').textContent = ''; if (!f) return; if (f.size <= 1.5e6) { const fr = new FileReader(); fr.onload = () => (pendingBk = { name: f.name, size: f.size, data: fr.result }); fr.readAsDataURL(f); } else pendingBk = { name: f.name, size: f.size, data: null }; return; }
     if (e.target.id === 'ne-rep') { $('#ne-rep-w').hidden = !e.target.checked; return; }
     if (e.target.id === 'cv-pk') { syncSysForm(); return; }
+    if (e.target.id === 'bm-end') { const end = e.target.value; $$('[data-bm]').forEach(sel => { const after = !!end && sel.dataset.bm > end; if (after) sel.value = 'off'; else if (sel.disabled) sel.value = 'charge'; sel.disabled = after; sel.closest('.bm').classList.toggle('off', after || sel.value === 'off'); }); return; }
+    if (e.target.dataset?.bm) { const b = e.target.closest('.bm'); b.classList.remove('charge', 'free', 'off'); b.classList.add(e.target.value); return; }
     if (['cv-inst', 'cv-instd'].includes(e.target.id)) { sysPrev(); return; }
     if (['pi-n', 'pi-d'].includes(e.target.id)) { instPrev(); return; }
     if (e.target.id === 'tk-charge') { $('#tk-val-w').hidden = !e.target.checked; return; }

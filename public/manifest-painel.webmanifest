@@ -19,7 +19,7 @@
   ],
   "shortcuts": [
     { "name": "Leads e funil", "url": "/painel?app=1#painel", "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }] },
-    { "name": "Ver o site", "url": "/", "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }] }
+    { "name": "Ver o site", "url": "/site", "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }] }
   ],
   "screenshots": [
     { "src": "/icons/shot-wide.png", "sizes": "1280x800", "type": "image/png", "form_factor": "wide", "label": "Painel da FX no computador" },
