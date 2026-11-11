@@ -1388,7 +1388,8 @@ table.rs-tbl { min-width: 560px; } table.rs-tbl td { padding: 8px 6px; } table.r
 .admin td { padding: 12px 14px; }
 .admin tbody tr:hover td { background: rgba(255,255,255,.02); }
 .admin .tag { border-radius: 6px; font-size: 12px; padding: 3px 8px; }
-.row-acts { justify-content: flex-start; gap: 6px; flex-wrap: nowrap; }
+.row-acts { justify-content: flex-start; gap: 6px; flex-wrap: wrap; }
+.fin-tbl .row-acts { flex-wrap: nowrap; }
 .ibtn { width: 34px; height: 34px; display: inline-grid; place-items: center; border-radius: 8px; border: 1px solid var(--line-2); background: transparent; color: var(--ink-2); cursor: pointer; flex: none; }
 .ibtn:hover { color: var(--ink); background: rgba(255,255,255,.06); }
 .ibtn.ok { color: var(--good); border-color: rgba(63,208,143,.35); }
@@ -1523,6 +1524,48 @@ table.rs-tbl { min-width: 560px; } table.rs-tbl td { padding: 8px 6px; } table.r
 .bm-m { font-weight: 650; font-size: 14px; text-transform: capitalize; }
 .bm-m small { color: var(--orange-2); font-weight: 600; text-transform: none; }
 .bm .in.sm { height: 34px; font-size: 13.5px; padding: 0 10px; }
+
+/* ===== celular: avaliações, WhatsApp e botões ===== */
+.wa-btn { white-space: nowrap; }
+.wa-btn span { white-space: nowrap; }
+.it .grow .row-acts { display: flex; margin-top: 10px; }
+@media (max-width: 760px) {
+  .it .grow .row-acts { display: grid; grid-template-columns: 1fr; gap: 8px; width: 100%; }
+  .it .grow .row-acts .pill { white-space: nowrap; }
+  .it .grow .row-acts .wa-btn { grid-column: 1 / -1; }
+  .it .grow .row-acts .pill { width: 100%; justify-content: center; height: 42px; }
+  .it .grow .row-acts .hint { grid-column: 1 / -1; }
+  .admin .a-head .acts, .admin .a-head > div:last-child { width: 100%; }
+  .admin .acts { flex-wrap: wrap; }
+  .admin .filters { flex-wrap: wrap; }
+  .admin .panel-h { flex-wrap: wrap; gap: 8px; }
+  .admin .a-head .pill { flex: 1 1 auto; justify-content: center; }
+  .admin .a-head .acts { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .admin .a-head .acts .pill { width: 100%; font-size: 13px; padding: 0 10px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  #modal .box { max-height: calc(100dvh - 24px); }
+}
+/* área do cliente: marca do cliente no topo */
+.pt-brand { display: flex; align-items: center; gap: 12px; min-width: 0; }
+.pt-brand .av.pt-logo { width: 40px; height: 40px; border-radius: 10px; font-size: 14px; flex: none; }
+.pt-name { display: grid; line-height: 1.2; min-width: 0; }
+.pt-name b { font-size: 16px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.pt-name small { font-size: 12px; color: var(--ink-3); font-weight: 500; }
+/* métricas agrupadas */
+.mg { display: grid; gap: 8px; }
+.mg-l { font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-3); }
+.admin .kpis.mk { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+.admin .kpis.mk .kpi b { font-size: clamp(20px, 1.7vw, 24px); }
+@media (max-width: 560px) { .admin .kpis.mk { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+/* mensagens prontas */
+.tpl-list { display: grid; gap: 12px; }
+.tpl { display: grid; gap: 8px; padding: 12px; border-radius: 12px; border: 1px solid var(--line); background: rgba(255,255,255,.02); }
+.tpl-h { display: grid; grid-template-columns: minmax(0, 1fr) auto auto; gap: 8px; align-items: center; }
+.tpl-h .in.sm { height: 38px; }
+.tpl-name { font-weight: 650; }
+@media (max-width: 560px) { .tpl-h { grid-template-columns: minmax(0, 1fr) auto; } .tpl-h select { grid-column: 1 / -1; grid-row: 2; } }
+/* conteúdo: referência */
+.ref-row { display: flex; gap: 6px; align-items: center; }
+.ref-row .ibtn { width: 44px; height: 44px; }
 
 /* ===== modo nuvem: carregamento, login da equipe, status de gravação ===== */
 #fx-boot { position: fixed; inset: 0; z-index: 200; display: grid; place-items: center; padding: 24px max(16px, env(safe-area-inset-right, 0px)) 24px max(16px, env(safe-area-inset-left, 0px)); background: radial-gradient(60% 40% at 50% 0%, rgba(255,90,26,.14), transparent 70%), #070504; color: var(--ink); }
