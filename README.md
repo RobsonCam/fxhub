@@ -21,6 +21,8 @@ public/                 o que vai para o ar (Netlify publica esta pasta)
   index.html            página única
   app.js / app.css      o sistema (gerado pelo build.py)
   cloud.js              ligação com o Supabase (login, gravação, backups)
+  pwa.js, sw.js         app instalável (computador e celular) e abertura rápida
+  manifest-*.webmanifest, icons/   nome, ícones e telas do app instalado
   app-config.js         URL e chave pública do Supabase  ← você preenche
 src/
   fx-hub.html           protótipo completo (fonte do app.js / app.css)
@@ -34,6 +36,23 @@ docs/arquitetura.md     como os dados ficam guardados e protegidos
 ```
 
 Sem `app-config.js` preenchido, o sistema abre em **modo demonstração** (dados só no navegador, com exemplos).
+
+## Instalar como aplicativo (computador e celular)
+
+O FX HUB é instalável (PWA). Não precisa de loja de aplicativos: instala direto do navegador, com ícone da FX, janela própria e abertura rápida.
+
+| Quem | Endereço | Nome do app |
+|---|---|---|
+| Equipe FX | `/painel` | **FX HUB** |
+| Clientes | `/cliente` | **FX Cliente** |
+
+- **Computador (Chrome ou Edge)**: botão **Instalar app** no topo do sistema, ou o ícone de instalar na barra de endereço.
+- **Android (Chrome)**: aparece o aviso **Instale FX HUB** no rodapé; ou menu ⋮ → *Instalar app*.
+- **iPhone/iPad (Safari)**: o botão mostra o passo a passo: Compartilhar → *Adicionar à Tela de Início*.
+- O aviso some por 14 dias se a pessoa tocar em ×; o botão do topo continua disponível.
+- Sem internet, o app abre e avisa que está sem conexão. Os dados vêm sempre do Supabase e nunca ficam guardados no aparelho.
+- A instalação só funciona no endereço publicado com HTTPS (o Netlify já entrega assim). Não funciona dentro do artefato de demonstração.
+- Cada publicação gera uma versão nova do app; quem já instalou recebe a atualização ao abrir.
 
 ---
 

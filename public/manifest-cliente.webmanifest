@@ -1,0 +1,22 @@
+{
+  "id": "/cliente",
+  "name": "Área do Cliente · FX Mídia Social",
+  "short_name": "FX Cliente",
+  "description": "Aprove conteúdos, veja resultados, relatórios, valores e backups da sua empresa com a FX.",
+  "lang": "pt-BR",
+  "start_url": "/cliente?app=1",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#0a0807",
+  "theme_color": "#0a0807",
+  "categories": ["business"],
+  "icons": [
+    { "src": "/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/icons/maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "screenshots": [
+    { "src": "/icons/shot-cliente.png", "sizes": "390x844", "type": "image/png", "form_factor": "narrow", "label": "Área do cliente no celular" }
+  ]
+}

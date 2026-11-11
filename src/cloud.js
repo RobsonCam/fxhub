@@ -29,6 +29,11 @@
   const linkSlug = params.get('l') || (path.startsWith('/c/') ? path.slice(3) : '') || '';
 
   document.documentElement.classList.add('realm-' + REALM);
+  if (!window.supabase || !window.supabase.createClient) {   // biblioteca não carregou (sem internet ou bloqueio)
+    const show = () => { const d = document.createElement('div'); d.id = 'fx-boot'; d.innerHTML = '<div class="fx-boot-in"><span class="hub-word"><em>FX</em> HUB</span><h1>Sem conexão.</h1><p>Confira a internet e tente de novo.</p><button class="pill orange" id="fx-retry">Tentar de novo</button></div>'; document.body.appendChild(d); document.getElementById('fx-retry').addEventListener('click', () => location.reload()); };
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', show); else show();
+    return;
+  }
   const sb = window.supabase.createClient(CFG.supabaseUrl, CFG.supabaseKey, {
     auth: { persistSession: true, autoRefreshToken: true, storageKey: REALM === 'portal' ? 'fxhub-cliente' : 'fxhub-equipe' },
   });

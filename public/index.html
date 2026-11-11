@@ -6,6 +6,10 @@
 <meta name="description" content="FX Mídia Social: identidade visual, conteúdo, gestão de redes e sistemas internos em Uruguaiana.">
 <meta name="theme-color" content="#0a0807">
 <link rel="icon" href="/favicon.png">
+<link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <title>FX HUB</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -85,6 +89,7 @@
       <span class="sync" id="sync-st" hidden></span>
       <span class="livepill"><i></i>Ao vivo</span>
       <button class="pill sm" data-go-portal>Área do cliente</button>
+      <button class="pill sm" data-fx-install-top hidden title="Instalar o FX HUB como aplicativo"><svg class="i"><use href="#i-down"/></svg><span class="lbl">Instalar app</span></button>
       <button class="pill orange sm" data-open-site="bio">Ver site <svg class="i"><use href="#i-arrow"/></svg></button>
       <button class="pill sm" id="cloud-out" hidden>Sair</button>
     </div>
@@ -206,6 +211,7 @@
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script src="/app-config.js"></script>
+<script src="/pwa.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js" crossorigin="anonymous"></script>
 <script src="/cloud.js"></script>
 <script src="/app.js"></script>

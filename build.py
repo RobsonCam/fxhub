@@ -57,6 +57,11 @@ rep("    if (T('#tm-ok')) {",
     "      $('#e-tm').textContent = 'Salvando…'; window.FX_CLOUD.addTeam(m, n, r).then(() => { const ex = db.team.find(u => u.email === m); if (ex) Object.assign(ex, { name: n, role: r }); else db.team.push({ id: uid(), name: n, email: m, role: r }); save(); closeAll(); renderAdmin(); toast(`${n} agora tem acesso ao sistema`); }, err => { $('#e-tm').textContent = /user_not_found/.test(err.message) ? 'Crie primeiro o login desta pessoa no Supabase (Authentication → Users → Add user) com este e-mail.' : 'Não foi possível salvar: ' + err.message; }); return; }\n"
     "    if (T('#tm-ok')) {")
 rep("Object.entries(ROLES).filter(r => r[0] !== 'admin')", "Object.entries(ROLES).filter(r => ['admin', 'criadora', 'captacao'].includes(r[0]))")
+# instalar como aplicativo: botão no topo do sistema e da área do cliente
+rep("      <button class=\"pill orange sm\" data-open-site=\"bio\">Ver site",
+    "      <button class=\"pill sm\" data-fx-install-top hidden title=\"Instalar o FX HUB como aplicativo\"><svg class=\"i\"><use href=\"#i-down\"/></svg><span class=\"lbl\">Instalar app</span></button>\n      <button class=\"pill orange sm\" data-open-site=\"bio\">Ver site")
+rep("<div class=\"right\"><button class=\"pill sm\" id=\"lg-out\">Sair</button></div>",
+    "<div class=\"right\">${P.fromAdmin ? '' : `<button class=\"pill sm\" data-fx-install-top hidden title=\"Instalar como aplicativo\"><svg class=\"i\"><use href=\"#i-down\"/></svg><span class=\"lbl\">Instalar app</span></button>`}<button class=\"pill sm\" id=\"lg-out\">Sair</button></div>")
 # acessos dos clientes: criar login real
 rep("data-copy-access=\"${c.id}\">${icon('copy')}Copiar</button>",
     "data-copy-access=\"${c.id}\">${icon('copy')}Copiar</button>${window.FX_CLOUD ? `<button class=\"pill sm\" data-cloud-access=\"${c.id}\">${icon('shield')}Ativar login</button>` : ''}")
@@ -80,13 +85,13 @@ js = re.search(r'<script>\n?(.*?)</script>', s, re.S)
 extra_css = (ROOT / 'src' / 'cloud.css').read_text(encoding='utf-8')
 html = s[:css.start()] + '<link rel="stylesheet" href="/app.css">' + s[css.end():]
 js2 = re.search(r'<script>\n?(.*?)</script>', html, re.S)
-html = html[:js2.start()] + '<script src="/app-config.js"></script>\n<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js" integrity="" crossorigin="anonymous"></script>\n<script src="/cloud.js"></script>\n<script src="/app.js"></script>' + html[js2.end():]
+html = html[:js2.start()] + '<script src="/app-config.js"></script>\n<script src="/pwa.js"></script>\n<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js" integrity="" crossorigin="anonymous"></script>\n<script src="/cloud.js"></script>\n<script src="/app.js"></script>' + html[js2.end():]
 html = html.replace(' integrity=""', '')
 html = html.replace('<meta name="claude:viewport-fit-sides" content="cover">\n', '')
 head = ('<!doctype html>\n<html lang="pt-BR">\n<head>\n<meta charset="utf-8">\n'
         '<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">\n'
         '<meta name="description" content="FX Mídia Social: identidade visual, conteúdo, gestão de redes e sistemas internos em Uruguaiana.">\n'
-        '<meta name="theme-color" content="#0a0807">\n<link rel="icon" href="/favicon.png">\n')
+        '<meta name="theme-color" content="#0a0807">\n<link rel="icon" href="/favicon.png">\n<link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">\n<meta name="apple-mobile-web-app-capable" content="yes">\n<meta name="mobile-web-app-capable" content="yes">\n<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">\n')
 # a página do protótipo começa direto pelo <title>; aqui vira um documento completo
 body_start = html.index('</style>') if '</style>' in html else None
 first_tag_end = html.index('<link rel="stylesheet" href="/app.css">') + len('<link rel="stylesheet" href="/app.css">')
@@ -97,6 +102,12 @@ OUT.mkdir(exist_ok=True)
 (OUT / 'app.css').write_text(css.group(1) + '\n' + extra_css, encoding='utf-8')
 (OUT / 'app.js').write_text(js.group(1), encoding='utf-8')
 shutil.copy(ROOT / 'src' / 'cloud.js', OUT / 'cloud.js')
+import hashlib, time
+build_id = hashlib.sha1((js.group(1) + extra_css + (ROOT / 'src' / 'cloud.js').read_text(encoding='utf-8')).encode()).hexdigest()[:10]
+shutil.copy(ROOT / 'src' / 'pwa' / 'pwa.js', OUT / 'pwa.js')
+(OUT / 'sw.js').write_text((ROOT / 'src' / 'pwa' / 'sw.js').read_text(encoding='utf-8').replace('__BUILD__', build_id), encoding='utf-8')
+for m in ('manifest-painel.webmanifest', 'manifest-cliente.webmanifest'):
+    shutil.copy(ROOT / 'src' / 'pwa' / m, OUT / m)
 if not (OUT / 'app-config.js').exists():
     shutil.copy(ROOT / 'src' / 'app-config.example.js', OUT / 'app-config.js')
 print('ok:', ', '.join(f'{p.name} {p.stat().st_size // 1024} KB' for p in sorted(OUT.iterdir()) if p.is_file()))
