@@ -8,25 +8,10 @@
 
 # Endereços amigáveis: tudo abre o mesmo app, que decide o que mostrar
 #   /            sistema da equipe FX (também /painel)     /cliente   área do cliente
-#   /site        site público          /c/bio  ou  /?l=bio   link de captação rastreado
+#   /site        site público          /bio, /anuncio...     link de captação rastreado (/c/bio também vale)
 #   /avaliar     avaliação mensal do cliente
 # endereços do sistema antigo (FX Gestão) que já foram divulgados
-[[redirects]]
-  from = "/diagnostico"
-  to = "/site"
-  status = 301
-[[redirects]]
-  from = "/diagnostico.html"
-  to = "/site"
-  status = 301
-[[redirects]]
-  from = "/sistema"
-  to = "/site"
-  status = 301
-[[redirects]]
-  from = "/sistema.html"
-  to = "/site"
-  status = 301
+# (/diagnostico e /sistema abrem o site normalmente, como qualquer link)
 [[redirects]]
   from = "/avaliacao"
   to = "/avaliar"

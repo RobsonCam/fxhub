@@ -1343,6 +1343,119 @@ table.rs-tbl { min-width: 560px; } table.rs-tbl td { padding: 8px 6px; } table.r
   .a-head h1 { font-size: 24px; }
   .client-head .acts { grid-template-columns: 1fr; }
 }
+
+/* =====================================================================
+   SISTEMA · acabamento profissional (vale para o painel e a área do cliente;
+   o site público não usa estas regras)
+   ===================================================================== */
+.admin { --r-card: 14px; --r-ctl: 10px; --surface: #141110; --surface-2: #1a1614; --line-s: rgba(255,255,255,.08); }
+.admin .glass { background: var(--surface); border-color: var(--line-s); border-radius: var(--r-card); box-shadow: 0 1px 0 rgba(255,255,255,.03) inset; }
+/* topo */
+.admin .a-top { background: rgba(12, 10, 9, .92); }
+.admin .a-top .in-wrap { padding-block: 10px; }
+.admin .a-top .pill { height: 38px; font-size: 14px; padding: 0 16px; border-radius: var(--r-ctl); }
+.admin .a-top .pill.orange { box-shadow: none; }
+.admin .livepill { height: 34px; }
+/* títulos de página: compactos, como num painel de gestão */
+.admin .a-main { padding-block: 26px 72px; gap: 18px; }
+.admin .a-head { align-items: center; padding-bottom: 6px; }
+.admin .a-head .label { font-size: 11.5px; letter-spacing: .08em; }
+.admin .a-head h1 { font-size: 28px !important; line-height: 1.15 !important; letter-spacing: -.02em !important; font-weight: 700; margin-top: 4px !important; }
+.admin .a-head p { font-size: 14.5px; margin-top: 4px; color: var(--ink-3); }
+/* botões e campos */
+.admin .pill { border-radius: var(--r-ctl); height: 40px; padding: 0 16px; font-size: 14px; font-weight: 600; gap: 8px; backdrop-filter: none; -webkit-backdrop-filter: none; background: var(--surface-2); border-color: var(--line-2); }
+.admin .pill.sm { height: 34px; padding: 0 12px; font-size: 13px; }
+.admin .pill.orange { background: var(--orange); border-color: var(--orange); color: #fff; box-shadow: none; }
+.admin .pill.orange:hover { background: #ff6a2e; }
+.admin .pill.icon-only { width: 40px; }
+.admin .pill svg, .admin .pill.sm svg { width: 16px; height: 16px; }
+.admin .seg { border-radius: var(--r-ctl); }
+.admin .seg button { border-radius: 8px; }
+.admin .in, #modal .in { height: 44px; border-radius: var(--r-ctl); font-size: 15px; padding: 0 14px; }
+.admin textarea.in, #modal textarea.in { height: auto; padding: 12px 14px; }
+.admin .in.sm { height: 38px; font-size: 14px; }
+.admin .in-pre span, #modal .in-pre span { left: 14px; }
+.admin .in-pre .in, #modal .in-pre .in { padding-left: 42px; }
+/* cartões, painéis e números */
+.admin .panel { padding: 20px; gap: 14px; }
+.admin .panel-h h3 { font-size: 16px; font-weight: 650; letter-spacing: -.01em; }
+.admin .panel-h small { font-size: 12.5px; }
+.admin .kpis { grid-template-columns: repeat(auto-fit, minmax(168px, 1fr)); gap: 12px; }
+.admin .kpi .k-l { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+.admin .kpi { border-radius: var(--r-card); background: var(--surface); border-color: var(--line-s); padding: 16px 18px; gap: 8px; }
+.admin .kpi span.k-l, .admin .kpi > span:first-child { font-size: 13px; font-weight: 600; color: var(--ink-2); display: flex; align-items: center; gap: 8px; }
+.admin .kpi .k-l svg { width: 28px; height: 28px; padding: 6px; border-radius: 8px; background: rgba(255,122,61,.12); color: var(--orange-2); stroke-width: 2; }
+.admin .kpi b { font-size: clamp(22px, 1.9vw, 28px); letter-spacing: -.02em; }
+.admin .kpi.hl { background: linear-gradient(180deg, rgba(255,90,26,.12), var(--surface) 70%); border-color: rgba(255,122,61,.35); }
+/* tabelas */
+.admin .tbl-wrap { border-radius: 12px; border-color: var(--line-s); }
+.admin table { font-size: 14px; }
+.admin th { font-size: 11.5px; text-transform: uppercase; letter-spacing: .06em; color: var(--ink-3); background: rgba(255,255,255,.02); padding: 11px 14px; }
+.admin td { padding: 12px 14px; }
+.admin tbody tr:hover td { background: rgba(255,255,255,.02); }
+.admin .tag { border-radius: 6px; font-size: 12px; padding: 3px 8px; }
+.row-acts { justify-content: flex-start; gap: 6px; flex-wrap: nowrap; }
+.ibtn { width: 34px; height: 34px; display: inline-grid; place-items: center; border-radius: 8px; border: 1px solid var(--line-2); background: transparent; color: var(--ink-2); cursor: pointer; flex: none; }
+.ibtn:hover { color: var(--ink); background: rgba(255,255,255,.06); }
+.ibtn.ok { color: var(--good); border-color: rgba(63,208,143,.35); }
+.ibtn.ok:hover { background: rgba(63,208,143,.1); color: var(--good); }
+.ibtn.danger:hover { color: var(--crit); border-color: rgba(255,94,78,.5); background: rgba(255,94,78,.08); }
+.ibtn svg { width: 16px; height: 16px; }
+/* menu lateral: letra maior, itens mais juntos */
+.admin .side { gap: 1px; padding-top: 16px; }
+.admin .side .who { padding: 4px 10px 14px; margin-bottom: 4px; }
+.admin .side .grp { font-family: var(--f-body); font-size: 11.5px; font-weight: 700; letter-spacing: .08em; padding: 12px 12px 3px; color: var(--ink-3); }
+.admin .side button { font-size: 15.5px; font-weight: 550; padding: 7px 12px; gap: 12px; border-radius: 9px; color: var(--ink-2); position: relative; min-height: 37px; line-height: 1.25; }
+.admin .side button svg { width: 19px; height: 19px; color: var(--ink-3); stroke-width: 1.8; }
+.admin .side button:hover svg { color: var(--ink-2); }
+.admin .side button[aria-current="page"] { background: rgba(255,90,26,.12); color: #fff; font-weight: 650; }
+.admin .side button[aria-current="page"] svg { color: var(--orange-2); }
+.admin .side button[aria-current="page"]::before { content: ""; position: absolute; left: 0; top: 9px; bottom: 9px; width: 3px; border-radius: 0 3px 3px 0; background: var(--orange); }
+.admin .side .cnt { border-radius: 6px; }
+@media (max-width: 980px) {
+  .admin .side button { font-size: 11.5px; padding: 9px 2px; min-height: 0; }
+  .admin .side button svg { width: 21px; height: 21px; }
+  .admin .side button[aria-current="page"]::before { left: 0; top: 10px; bottom: 10px; }
+  .admin .a-head h1 { font-size: 24px !important; }
+}
+.fin-tbl td { vertical-align: middle; }
+.fin-desc b { font-weight: 600; }
+.fin-desc small { display: block; color: var(--ink-3); font-size: 12.5px; margin-top: 2px; }
+.ft { font-weight: 600; }
+.ft.pos { color: var(--good); }
+.ft.neg { color: var(--ink-2); }
+.fin-val { font-weight: 650; white-space: nowrap; }
+.fin-val.pos { color: var(--good); }
+.fin-desc { min-width: 230px; }
+.fin-tbl th, .fin-tbl td { white-space: nowrap; }
+.fin-tbl td.fin-desc { white-space: normal; }
+.nowrap { white-space: nowrap; }
+/* janelas (modal) */
+#modal .box { border-radius: 16px; }
+.m-head { display: flex; gap: 14px; align-items: flex-start; }
+.m-head h2 { font-size: 21px !important; letter-spacing: -.015em; }
+.m-head p { color: var(--ink-3); font-size: 14px; margin-top: 4px; }
+.m-ic { width: 42px; height: 42px; border-radius: 11px; display: grid; place-items: center; flex: none; background: rgba(255,122,61,.13); color: var(--orange-2); }
+.m-ic.out { background: rgba(255,255,255,.07); color: var(--ink); }
+.m-ic.in { background: rgba(63,208,143,.12); color: var(--good); }
+.m-ic.danger { background: rgba(255,94,78,.13); color: var(--crit); }
+.m-ic svg { width: 21px; height: 21px; }
+.m-foot { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; padding-top: 4px; }
+.seg.wide { display: grid; grid-template-columns: 1fr 1fr; width: 100%; }
+.seg.wide button { display: inline-flex; justify-content: center; align-items: center; gap: 8px; height: 40px; }
+.seg.wide button svg { width: 16px; height: 16px; }
+.flabel { font-size: 13px; font-weight: 600; color: var(--ink-2); }
+.field label small, .flabel small { font-weight: 400; color: var(--ink-3); }
+.fin-form { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px 16px; }
+.fin-form .seg { width: max-content; }
+.del-sum { display: grid; gap: 4px; padding: 14px 16px; border-radius: 12px; border: 1px solid var(--line); background: rgba(255,255,255,.03); }
+.del-sum span { color: var(--ink-2); font-size: 14px; }
+.pill.danger { background: var(--crit) !important; border-color: var(--crit) !important; color: #fff !important; }
+.pill.danger-ghost { color: var(--crit) !important; border-color: rgba(255,94,78,.4) !important; background: transparent !important; }
+.pill.danger-ghost:hover { background: rgba(255,94,78,.08) !important; }
+#modal .pill { border-radius: 10px; height: 42px; box-shadow: none; }
+@media (max-width: 760px) { .fin-form { grid-template-columns: 1fr; } }
+@media (max-width: 560px) { .admin .kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; } .admin .kpi { padding: 13px; } .admin .kpi b { font-size: clamp(17px, 5vw, 22px); } .admin .kpi .k-l svg { width: 24px; height: 24px; padding: 5px; } .admin .kpi .k-l { font-size: 12px; white-space: normal; align-items: flex-start; line-height: 1.25; } }
 </style>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -1598,7 +1711,8 @@ table.rs-tbl { min-width: 560px; } table.rs-tbl td { padding: 8px 6px; } table.r
   const CST = { planejado: ['Planejado', 'cold'], em_producao: ['Em produção', 'info'], em_revisao: ['Em revisão', 'info'], aguardando_aprovacao: ['Aguardando aprovação', 'warm'], aprovado: ['Aprovado', 'hot'], agendado: ['Agendado', 'hot'], publicado: ['Publicado', 'good'] };
   const STAGES = [['novo', 'Novo lead', 'var(--orange)'], ['contato', 'Em contato', '#9fb8ff'], ['proposta', 'Proposta enviada', 'var(--warn)'], ['negociacao', 'Negociação', 'var(--warn)'], ['fechado', 'Fechado', 'var(--good)'], ['perdido', 'Perdido', 'var(--crit)']];
   const stageName = k => STAGES.find(s => s[0] === k)?.[1] || k;
-  const CAT = { servico: 'Serviço', ferramentas: 'Ferramentas', anuncios: 'Anúncios', freelancer: 'Freelancer', transporte: 'Transporte', equipamentos: 'Equipamentos', impostos: 'Impostos', outros: 'Outros' };
+  const CAT = { servico: 'Serviço de mídia social', sistema: 'Sistema / desenvolvimento', identidade: 'Identidade visual', ferramentas: 'Ferramentas e assinaturas', anuncios: 'Anúncios', freelancer: 'Freelancer', transporte: 'Transporte', equipamentos: 'Equipamentos', impostos: 'Impostos e taxas', aluguel: 'Aluguel e estrutura', outros: 'Outros' };
+  const CAT_IN = ['servico', 'sistema', 'identidade', 'outros'], CAT_OUT = ['ferramentas', 'anuncios', 'freelancer', 'transporte', 'equipamentos', 'impostos', 'aluguel', 'outros'];
   const ROLES = { admin: 'Administrador', criadora: 'Criadora de conteúdo', captacao: 'Captação de materiais', gestor: 'Gestor', designer: 'Designer', editor: 'Editor de vídeo', social: 'Social media', colaborador: 'Colaborador' };
   const TEAM = () => db.team.map(u => u.name);
   const METRICS = [['reach', 'Alcance', 'contas diferentes que viram o perfil ou os posts'], ['impressions', 'Impressões', 'vezes que os conteúdos apareceram'], ['engagement', 'Engajamento', 'interações divididas pelo alcance, em %'], ['followers', 'Seguidores', 'total no fim do mês'], ['profile_visits', 'Visitas ao perfil', 'acessos à página do perfil'], ['link_clicks', 'Cliques no link', 'cliques no link da bio']];
@@ -1643,7 +1757,9 @@ table.rs-tbl { min-width: 560px; } table.rs-tbl td { padding: 8px 6px; } table.r
   const packById = id => db.packages.find(p => p.id === id) || (id ? { id, name: 'Pacote removido', price: null, period: '', items: [], quota: {}, visible: false } : undefined);
   const priceTxt = p => (p.price == null ? 'Sob proposta' : `${brl(p.price)}${p.period === '/mês' ? '/mês' : ''}`);
   const linkById = id => db.links.find(l => l.id === id) || { id: id || 'direto', name: id === 'manual' ? 'Cadastro manual' : 'Acesso direto', slug: '' };
-  const linkUrl = l => { const base = window.FX_CLOUD ? location.origin : 'https://' + db.config.domain; return l.slug ? `${base}/c/${l.slug}` : `${base}/site`; };
+  const siteBase = () => window.FX_CLOUD ? location.origin : 'https://' + db.config.domain;
+  const linkUrl = l => { const base = siteBase(); return l.slug ? `${base}/${l.slug}` : `${base}/site`; };
+  const RESERVED_SLUGS = ['painel', 'cliente', 'avaliar', 'site', 'c', 'icons', 'index', 'app', 'admin', 'login', 'api'];
   const clientById = id => db.clients.find(c => c.id === id);
   const clientName = id => clientById(id)?.name || 'Sem cliente';
 
@@ -2206,7 +2322,7 @@ table.rs-tbl { min-width: 560px; } table.rs-tbl td { padding: 8px 6px; } table.r
   const renderSide = () => {
     $('#a-side').innerHTML = `<div class="who"><span class="av">RB</span><div><b>Robson</b><small>Administrador · FX</small></div></div>` + NAV.map(([g, items]) => (g ? `<span class="grp">${g}</span>` : '') + items.map(([k, l, ic, sh]) => { const n = badge(k); return `<button data-sec="${k}" aria-current="${A.sec === k ? 'page' : 'false'}" title="${l}">${icon(ic)}<span class="lf">${l}</span><span class="ls">${sh}</span>${n ? `<span class="cnt">${n}</span>` : ''}</button>`; }).join('')).join('');
   };
-  const head = (lab, h, p, tools = '') => `<div class="a-head"><div><span class="label">${lab}</span><h1 style="margin-top:10px">${h}</h1>${p ? `<p>${p}</p>` : ''}</div>${tools ? `<div class="tools">${tools}</div>` : ''}</div>`;
+  const head = (lab, h, p, tools = '') => `<div class="a-head"><div><span class="label">${lab}</span><h1 style="margin-top:10px">${String(h).replace(/\.$/, '')}</h1>${p ? `<p>${p}</p>` : ''}</div>${tools ? `<div class="tools">${tools}</div>` : ''}</div>`;
   const kpi = (l, v, s = '', cls = '', ic = '') => `<div class="kpi ${cls}"><span class="k-l">${ic ? icon(ic) : ''}${l}</span><b>${v}</b>${s ? `<small>${s}</small>` : ''}</div>`;
   const exTag = o => (o?.example ? '<span class="tag ex">Exemplo</span>' : '');
 
@@ -2312,7 +2428,7 @@ table.rs-tbl { min-width: 560px; } table.rs-tbl td { padding: 8px 6px; } table.r
         <div class="filters" style="justify-content:flex-end"><button class="pill" data-close>Fechar</button></div>`, true); }
   };
   // avaliação mensal
-  const evalLink = c => `https://${db.config.domain}/avaliar?cliente=${c.id}&mes=${CUR}`;
+  const evalLink = c => `${siteBase()}/avaliar?cliente=${c.id}&mes=${CUR}`;
   const evalDone = (cid, m = CUR) => db.evaluations.find(e => e.client === cid && (e.month || ym(iso(new Date(e.t)))) === m);
   const evalMsg = c => `Olá, ${(c.owner || '').split(' ')[0] || 'tudo bem'}! Aqui é da FX Mídia Social. Como foi ${mLong(CUR).toLowerCase()} com a gente? Sua avaliação leva 1 minuto e ajuda a FX a melhorar: ${evalLink(c)}`;
   const evalRow = c => { const d = evalDone(c.id), req = (db.evalRequests || []).filter(r => r.client === c.id && r.month === CUR).at(-1); const m = d ? QS_KEYS.reduce((x, k) => x + (d.r?.[k] || 0), 0) / 5 : 0;
@@ -2456,7 +2572,7 @@ table.rs-tbl { min-width: 560px; } table.rs-tbl td { padding: 8px 6px; } table.r
     ${db.links.map(l => { const v = sessionsWith('visit', l.id), ld = sessionsWith('lead', l.id), bn = sessionsWith('bonus', l.id), last = db.events.filter(e => e.link === l.id).at(-1);
       return `<tr><td><b>${esc(l.name)}</b><small class="url">${esc(linkUrl(l))}</small></td><td class="r">${v}</td><td class="r">${ld}</td><td class="r">${v ? Math.round(ld / v * 100) + '%' : '—'}</td><td class="r">${bn}</td><td>${last ? ago(last.t) : '<span style="color:var(--ink-3)">nunca acessado</span>'}</td>
       <td><div class="acts"><button class="pill sm" data-copy="${l.id}">${icon('copy')}Copiar</button><button class="pill sm orange" data-open-site="${l.id}">${icon('ext')}Abrir site</button><button class="pill sm icon-only" data-del-link="${l.id}" aria-label="Excluir ${esc(l.name)}">${icon('trash')}</button></div></td></tr>`; }).join('')}</tbody></table></div>`;
-  const secLinks = M => { fdInit(); M.innerHTML = head('Comercial', 'Links de captação.', 'Todos abrem o mesmo site, mas o sistema sabe de onde cada pessoa veio.', `<button class="pill orange" id="new-link">${icon('plus')}Criar link</button>`) + `<div class="glass panel">${linksTable()}<p class="hint">O endereço usa o domínio de "Site e bônus". Enquanto o domínio não estiver no ar, use "Abrir site" para testar.</p></div>` + formEditor(); };
+  const secLinks = M => { fdInit(); M.innerHTML = head('Comercial', 'Links de captação.', 'Todos abrem o mesmo site, mas o sistema sabe de onde cada pessoa veio.', `<button class="pill orange" id="new-link">${icon('plus')}Criar link</button>`) + `<div class="glass panel">${linksTable()}<p class="hint">${window.FX_CLOUD ? `Cada link é o endereço do sistema com um final curto, como ${esc(siteBase().replace(/^https?:\/\//, ''))}/bio. Use em bio, anúncios, QR Code e WhatsApp.` : 'O endereço usa o domínio de "Site e bônus". Enquanto o domínio não estiver no ar, use "Abrir site" para testar.'}</p></div>` + formEditor(); };
 
   // ---------- CLIENTES ----------
   const secClientes = M => {
@@ -2528,6 +2644,31 @@ table.rs-tbl { min-width: 560px; } table.rs-tbl td { padding: 8px 6px; } table.r
   const stOf = r => (r.paid ? 'paid' : r.due < TODAY ? 'overdue' : 'pending');
   const ST = { paid: ['Pago', 'good'], overdue: ['Em atraso', 'crit'], pending: ['A vencer', 'warm'] };
   const tickFmt = t => (t === 0 ? 'R$ 0' : Math.abs(t) >= 100000 ? `R$ ${(t / 100000).toLocaleString('pt-BR', { maximumFractionDigits: 1 })} mil` : `R$ ${(t / 100).toLocaleString('pt-BR')}`);
+  const monthDiff = (a, b) => (+b.slice(0, 4) - +a.slice(0, 4)) * 12 + (+b.slice(5, 7) - +a.slice(5, 7));
+  const moneyTxt = c => c != null ? (c / 100).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : '';
+  const entryModal = r => { const ed = !!r, t = r?.type || 'in', L = t === 'in' ? CAT_IN : CAT_OUT, paid = !!r?.paid, next = r?.group ? db.ledger.filter(x => x.group === r.group && x.id !== r.id && !x.paid && x.comp > r.comp).length : 0;
+    openModal(`<div class="m-head"><span class="m-ic ${t === 'in' ? 'in' : 'out'}">${icon('wallet')}</span><div><h2>${ed ? 'Editar lançamento' : 'Novo lançamento'}</h2><p>${ed ? 'Corrija o que estiver errado. A mudança vale na hora para o caixa e os relatórios.' : 'Registre uma entrada ou saída de dinheiro da FX.'}</p></div></div>
+      <div class="seg wide" role="group" aria-label="Tipo"><button data-ne="in" aria-pressed="${t === 'in'}">${icon('down')}Receita</button><button data-ne="out" aria-pressed="${t === 'out'}">${icon('up')}Despesa</button></div>
+      <div class="cfg fin-form">
+        <div class="field full"><label for="ne-d">Descrição</label><input class="in" id="ne-d" maxlength="120" value="${esc(r?.desc || '')}" placeholder="Ex.: Mensalidade de novembro, Adobe, Meta Ads"></div>
+        <div class="field"><label for="ne-v">Valor</label><div class="in-pre"><span>R$</span><input class="in num" id="ne-v" inputmode="decimal" placeholder="0,00" value="${moneyTxt(r?.val)}"></div></div>
+        <div class="field"><label for="ne-k">Categoria</label><select class="in" id="ne-k">${L.map(k => `<option value="${k}" ${r?.cat === k ? 'selected' : ''}>${CAT[k]}</option>`).join('')}</select></div>
+        <div class="field"><label for="ne-c">Cliente <small>(opcional)</small></label><select class="in" id="ne-c"><option value="">Sem cliente</option>${db.clients.map(c => `<option value="${c.id}" ${r?.client === c.id ? 'selected' : ''}>${esc(c.name)}</option>`).join('')}</select></div>
+        <div class="field" id="ne-sup-w" ${t === 'in' ? 'hidden' : ''}><label for="ne-sup">Fornecedor <small>(opcional)</small></label><input class="in" id="ne-sup" maxlength="80" value="${esc(r?.sup || '')}" placeholder="Ex.: Meta, Canva, freelancer"></div>
+        <div class="field"><label for="ne-due">Vencimento</label><input class="in" type="date" id="ne-due" value="${r?.due || TODAY}"></div>
+        <div class="field"><label for="ne-m">Competência <small>(mês do serviço)</small></label><input class="in" type="month" id="ne-m" value="${r ? ym(r.comp) : FF.month}"></div>
+        <div class="field full"><span class="flabel">Situação</span><div class="seg" role="group" aria-label="Situação"><button data-nst="open" aria-pressed="${!paid}">A vencer</button><button data-nst="paid" aria-pressed="${paid}"><span id="ne-st-l">${t === 'in' ? 'Recebido' : 'Pago'}</span></button></div></div>
+        <div class="field" id="ne-paid-w" ${paid ? '' : 'hidden'}><label for="ne-paid">Data do pagamento</label><input class="in" type="date" id="ne-paid" value="${r?.paid || ''}"></div>
+        <div class="field full"><label for="ne-note">Observação <small>(opcional)</small></label><input class="in" id="ne-note" maxlength="200" value="${esc(r?.note || '')}" placeholder="Ex.: nota fiscal 123, pago no Pix"></div>
+        ${ed ? (next ? `<label class="consent full" for="ne-all"><input type="checkbox" id="ne-all"><span>Aplicar também aos <b>${next} próximos meses</b> ainda não pagos desta repetição</span></label>` : '')
+             : `<label class="consent full" for="ne-rep"><input type="checkbox" id="ne-rep"><span><b>Repetir todo mês</b> com o mesmo valor e dia de vencimento (mensalidade, aluguel, assinatura)</span></label><div class="field full" id="ne-rep-w" hidden><label for="ne-rep-n">Repetir por</label><select class="in" id="ne-rep-n"><option value="3">3 meses</option><option value="6">6 meses</option><option value="12" selected>12 meses</option><option value="24">24 meses</option></select></div>`}
+        <span class="err-t full" id="e-ne" role="alert"></span></div>
+      <div class="m-foot">${ed ? `<button class="pill danger-ghost" id="ne-del" data-id="${r.id}">${icon('trash')}Excluir</button>` : '<span></span>'}<div class="filters"><button class="pill" data-close>Cancelar</button><button class="pill orange" id="ne-ok" ${ed ? `data-id="${r.id}"` : ''}>${icon('check')}${ed ? 'Salvar alterações' : 'Lançar'}</button></div></div>`, true); };
+  const delEntryModal = r => { if (!r) return; const next = r.group ? db.ledger.filter(x => x.group === r.group && x.id !== r.id && !x.paid && x.comp > r.comp).length : 0;
+    openModal(`<div class="m-head"><span class="m-ic danger">${icon('trash')}</span><div><h2>Excluir lançamento?</h2><p>Esta ação não pode ser desfeita.</p></div></div>
+      <div class="del-sum"><b>${esc(r.desc)}</b><span>${r.type === 'in' ? 'Receita' : 'Despesa'} de ${brl(r.val)} · vence ${brShort(r.due)}${r.client ? ' · ' + esc(clientName(r.client)) : ''}${r.paid ? ' · já ' + (r.type === 'in' ? 'recebido' : 'pago') : ''}</span></div>
+      ${next ? `<label class="consent" for="de-all"><input type="checkbox" id="de-all"><span>Excluir também os <b>${next} próximos meses</b> ainda não pagos desta repetição</span></label>` : ''}
+      <div class="m-foot"><span></span><div class="filters"><button class="pill" data-close>Cancelar</button><button class="pill danger" id="de-ok" data-id="${r.id}">${icon('trash')}Excluir</button></div></div>`); };
   const secFinanceiro = M => {
     const MS = finMonths(); if (!MS.includes(FF.month)) FF.month = CUR;
     const m = FF.month, a = agg(m), i = MS.indexOf(m), pm = MS[i - 1], p = pm ? agg(pm) : null, partial = m === CUR;
@@ -2545,18 +2686,18 @@ table.rs-tbl { min-width: 560px; } table.rs-tbl td { padding: 8px 6px; } table.r
     const q = FF.q.trim().toLowerCase(); if (q) rows = rows.filter(r => [r.desc, clientName(r.client), r.sup, CAT[r.cat]].join(' ').toLowerCase().includes(q));
     const k = FF.sort.key, dir = FF.sort.dir === 'asc' ? 1 : -1, val = r => (k === 'val' ? r.val : k === 'client' ? clientName(r.client) : r[k] || ''); rows.sort((x, z) => (val(x) > val(z) ? 1 : val(x) < val(z) ? -1 : 0) * dir);
     const PAGE = 8, pages = Math.max(1, Math.ceil(rows.length / PAGE)); FF.page = Math.min(FF.page, pages); const slice = rows.slice((FF.page - 1) * PAGE, FF.page * PAGE);
-    const cols = [['type', 'Tipo', 0], ['desc', 'Descrição', 1], ['client', 'Cliente', 1], ['comp', 'Competência', 1], ['due', 'Vencimento', 1], ['paid', 'Pago em', 1], ['val', 'Valor', 1, 'r'], ['st', 'Situação', 0], ['act', '', 0]];
+    const cols = [['desc', 'Descrição', 1], ['client', 'Cliente', 1], ['comp', 'Competência', 1], ['due', 'Vencimento', 1], ['val', 'Valor', 1, 'r'], ['st', 'Situação', 0], ['act', '', 0]];
     const profit = db.clients.filter(c => FF.client === 'all' || c.id === FF.client).map(c => { const rev = sum(db.ledger.filter(r => r.type === 'in' && r.client === c.id && ym(r.comp) === m)), cost = sum(db.ledger.filter(r => r.type === 'out' && r.client === c.id && ym(r.comp) === m)); return { c, rev, cost, mar: rev - cost }; }); const pmax = Math.max(1, ...profit.map(x => x.rev));
     M.innerHTML = head('Gestão', 'Financeiro da FX.', 'Receitas dos contratos, despesas e resultado. Nada daqui aparece para os clientes.', `<button class="pill orange" id="new-entry">${icon('plus')}Novo lançamento</button>`)
       + `<div class="filters"><label class="sr" for="ff-m">Período</label><select class="in sm" id="ff-m" style="width:auto">${MS.map(x => `<option value="${x}" ${x === m ? 'selected' : ''}>${mLong(x)}${x === CUR ? ' (em andamento)' : ''}</option>`).join('')}</select>${clientSelect('ff-c', FF.client)}<div class="seg"><button data-regime="caixa" aria-pressed="${FF.regime === 'caixa'}">Caixa</button><button data-regime="competencia" aria-pressed="${FF.regime === 'competencia'}">Competência</button></div></div>
       <p class="src">${icon('clock')}Lançamentos do sistema · ${FF.regime === 'caixa' ? 'regime de caixa: conta quando o dinheiro entra ou sai' : 'regime de competência: conta no mês a que o serviço pertence'}${partial ? ' · mês em andamento' : ''}</p>
-      <div class="kpis">${kpi('Receita prevista', brl(a.recPrev), dl(a.recPrev, p?.recPrev))}${kpi('Recebido', brl(a.recRec), dl(a.recRec, p?.recRec))}${kpi('Despesas pagas', brl(a.desPag), dl(a.desPag, p?.desPag, true))}${kpi('Resultado', brl(resOf(a)), dl(resOf(a), p ? resOf(p) : null), 'hl')}${kpi('Em atraso', brl(sum(overdue)), `${overdue.length} recebimento(s) vencido(s)`)}${kpi('Receita recorrente', brl(mrr), 'contratos mensais ativos')}</div>
+      <div class="kpis">${kpi('Receita prevista', brl(a.recPrev), dl(a.recPrev, p?.recPrev), '', 'chart')}${kpi('Recebido', brl(a.recRec), dl(a.recRec, p?.recRec), '', 'down')}${kpi('Despesas pagas', brl(a.desPag), dl(a.desPag, p?.desPag, true), '', 'up')}${kpi('Resultado', brl(resOf(a)), dl(resOf(a), p ? resOf(p) : null), 'hl', 'wallet')}${kpi('Em atraso', brl(sum(overdue)), `${overdue.length} recebimento(s) vencido(s)`, '', 'alert')}${kpi('Receita recorrente', brl(mrr), 'contratos mensais ativos', '', 'refresh')}</div>
       <div class="cols2"><div class="glass panel"><div class="panel-h"><h3>Receitas, despesas e resultado</h3><small>${mLabel(ms6[0].m)} a ${mLabel(ms6.at(-1).m)}</small></div><div class="legend"><span><i style="background:#ff7a3d"></i>${FF.regime === 'caixa' ? 'Recebido' : 'Receita prevista'}</span><span><i style="background:rgba(255,255,255,.35)"></i>${FF.regime === 'caixa' ? 'Pago' : 'Despesa prevista'}</span><span><i style="background:var(--good);border-radius:50%"></i>Resultado</span></div><div class="chart">${chart}</div>${ms6.some(x => x.m === CUR) ? '<p class="hint">* mês em andamento</p>' : ''}</div>
         <div class="glass panel"><div class="panel-h"><h3>Rentabilidade por cliente</h3><small>competência de ${mLabel(m)}</small></div>${profit.length ? `<div class="bars">${profit.map(x => `<div class="bar-row"><div class="bar-label"><b>${esc(x.c.name)}</b><span class="num">${x.rev ? `${brl(x.mar)} <small class="hint">margem ${Math.round(x.mar / x.rev * 100)}%</small>` : '<small class="hint">sem receita no período</small>'}</span></div><div class="bar-track"><i class="rev" style="width:${x.rev / pmax * 100}%"></i><i class="cost" style="width:${x.cost / pmax * 100}%"></i></div><small class="hint num">Receita ${brl(x.rev)} · custo alocado ${brl(x.cost)}</small></div>`).join('')}</div><p class="hint">Custos sem cliente (ferramentas, anúncios) não entram neste cálculo.</p>` : emptyBox('wallet', 'Sem clientes', 'Cadastre um cliente para ver a rentabilidade.')}</div></div>
       <div class="glass panel" id="lanc"><div class="panel-h"><h3>Lançamentos</h3><small>${FF.regime === 'caixa' ? `pagos em ${mLabel(m)} ou em aberto com vencimento em ${mLabel(m)}` : `competência ${mLabel(m)}`}</small></div>
         <div class="filters"><label class="sr" for="ff-q">Buscar</label><input class="in sm" id="ff-q" style="flex:1 1 220px;width:auto" placeholder="Buscar por descrição, cliente ou fornecedor" value="${esc(FF.q)}"><select class="in sm" id="ff-t" style="width:auto" aria-label="Tipo"><option value="all">Receitas e despesas</option><option value="in" ${FF.type === 'in' ? 'selected' : ''}>Só receitas</option><option value="out" ${FF.type === 'out' ? 'selected' : ''}>Só despesas</option></select><select class="in sm" id="ff-s" style="width:auto" aria-label="Situação"><option value="all">Todas as situações</option>${Object.entries(ST).map(([kk, v]) => `<option value="${kk}" ${FF.status === kk ? 'selected' : ''}>${v[0]}</option>`).join('')}</select></div>
-        <div class="tbl-wrap"><table style="min-width:900px"><thead><tr>${cols.map(c => c[2] ? `<th class="${c[3] || ''}" aria-sort="${FF.sort.key === c[0] ? (FF.sort.dir === 'asc' ? 'ascending' : 'descending') : 'none'}"><button class="sort" data-sort="${c[0]}">${c[1]}<span>${FF.sort.key === c[0] ? (FF.sort.dir === 'asc' ? '↑' : '↓') : '↕'}</span></button></th>` : `<th>${c[1]}</th>`).join('')}</tr></thead><tbody>
-          ${slice.map(r => { const s = stOf(r); return `<tr><td><span class="tag ${r.type === 'in' ? 'hot' : ''}">${r.type === 'in' ? 'Receita' : 'Despesa'}</span></td><td>${esc(r.desc)}${r.group ? ' <span class="tag">mensal</span>' : ''}<small>${esc(CAT[r.cat] || '')}${r.sup ? ' · ' + esc(r.sup) : ''}</small></td><td>${r.client ? esc(clientName(r.client)) : '<span class="hint">Sem cliente</span>'}</td><td class="num">${mLabel(ym(r.comp))}</td><td class="num">${brShort(r.due)}</td><td class="num">${brShort(r.paid)}</td><td class="r">${r.type === 'out' ? '−' : ''}${brl(r.val)}</td><td><span class="tag dot ${ST[s][1]}">${ST[s][0]}</span></td><td><div class="acts" style="justify-content:flex-start">${r.paid ? '' : `<button class="pill sm" data-pay="${r.id}">${r.type === 'in' ? 'Receber' : 'Pagar'}</button>`}${r.group && db.ledger.some(x => x.group === r.group && !x.paid && x.comp > r.comp) ? `<button class="pill sm" data-stoprep="${r.id}" title="Mantém este lançamento e apaga os dos próximos meses ainda não pagos">Parar repetição</button>` : ''}</div></td></tr>`; }).join('') || `<tr><td colspan="9">${emptyBox('wallet', 'Nenhum lançamento', 'Nada neste período e filtro.')}</td></tr>`}</tbody></table></div>
+        <div class="tbl-wrap"><table class="fin-tbl" style="min-width:900px"><thead><tr>${cols.map(c => c[2] ? `<th class="${c[3] || ''}" aria-sort="${FF.sort.key === c[0] ? (FF.sort.dir === 'asc' ? 'ascending' : 'descending') : 'none'}"><button class="sort" data-sort="${c[0]}">${c[1]}<span>${FF.sort.key === c[0] ? (FF.sort.dir === 'asc' ? '↑' : '↓') : '↕'}</span></button></th>` : `<th>${c[1]}</th>`).join('')}</tr></thead><tbody>
+          ${slice.map(r => { const s = stOf(r); return `<tr><td class="fin-desc"><b>${esc(r.desc)}</b>${r.group ? ' <span class="tag">mensal</span>' : ''}<small><span class="ft ${r.type === 'in' ? 'pos' : 'neg'}">${r.type === 'in' ? 'Receita' : 'Despesa'}</span> · ${esc(CAT[r.cat] || '')}${r.sup ? ' · ' + esc(r.sup) : ''}${r.note ? ' · ' + esc(r.note) : ''}</small></td><td class="nowrap">${r.client ? esc(clientName(r.client)) : '<span class="hint">—</span>'}</td><td class="num">${mLabel(ym(r.comp))}</td><td class="num">${brShort(r.due)}</td><td class="r num fin-val ${r.type === 'in' ? 'pos' : 'neg'}">${r.type === 'out' ? '−' : '+'}${brl(r.val)}</td><td><span class="tag dot ${ST[s][1]}">${s === 'paid' ? (r.type === 'in' ? 'Recebido' : 'Pago') + ' ' + brShort(r.paid) : ST[s][0]}</span></td><td><div class="acts row-acts">${r.paid ? '' : `<button class="ibtn ok" data-pay="${r.id}" aria-label="${r.type === 'in' ? 'Marcar como recebido hoje' : 'Marcar como pago hoje'}" title="${r.type === 'in' ? 'Marcar como recebido hoje' : 'Marcar como pago hoje'}">${icon('check')}</button>`}<button class="ibtn" data-edit-entry="${r.id}" aria-label="Editar lançamento" title="Editar">${icon('pen')}</button><button class="ibtn danger" data-del-entry="${r.id}" aria-label="Excluir lançamento" title="Excluir">${icon('trash')}</button></div></td></tr>`; }).join('') || `<tr><td colspan="7">${emptyBox('wallet', 'Nenhum lançamento', 'Nada neste período e filtro.')}</td></tr>`}</tbody></table></div>
         ${rows.length ? `<div class="pager"><span>Mostrando ${(FF.page - 1) * PAGE + 1}–${Math.min(FF.page * PAGE, rows.length)} de ${rows.length} · receitas ${brl(sum(rows.filter(r => r.type === 'in')))} · despesas ${brl(sum(rows.filter(r => r.type === 'out')))}</span><span style="display:flex;gap:6px;align-items:center"><button class="pill sm icon-only" data-page="-1" ${FF.page === 1 ? 'disabled' : ''} aria-label="Anterior">${icon('left')}</button><span class="num">${FF.page} de ${pages}</span><button class="pill sm icon-only" data-page="1" ${FF.page === pages ? 'disabled' : ''} aria-label="Próxima">${icon('arrow')}</button></span></div>` : ''}</div>`;
   };
 
@@ -2669,7 +2810,7 @@ table.rs-tbl { min-width: 560px; } table.rs-tbl td { padding: 8px 6px; } table.r
     if ((el = T('[data-del-link]'))) { const l = linkById(el.dataset.delLink); openModal(`<h2 style="font-size:26px">Excluir "${esc(l.name)}"?</h2><p style="color:var(--ink-2)">O link para de funcionar. Visitas e leads que vieram por ele continuam no sistema.</p><div class="filters" style="justify-content:flex-end"><button class="pill" data-close>Cancelar</button><button class="pill orange" data-del-ok="${l.id}">Excluir link</button></div>`); }
     if ((el = T('[data-del-ok]'))) { db.links = db.links.filter(l => l.id !== el.dataset.delOk); save(); closeAll(); renderAdmin(); toast('Link excluído'); }
     if (T('#new-link')) openModal(`<h2 style="font-size:26px">Criar link</h2><div class="field"><label for="nk-n">Nome</label><input class="in" id="nk-n" placeholder="Ex.: Parceria com academia"></div><div class="field"><label for="nk-s">Final do endereço</label><input class="in" id="nk-s" placeholder="parceria-academia"><span class="err-t" id="e-nk"></span></div><div class="filters" style="justify-content:flex-end"><button class="pill" data-close>Cancelar</button><button class="pill orange" id="nk-ok">Criar link</button></div>`);
-    if (T('#nk-ok')) { const n = $('#nk-n').value.trim(), s = $('#nk-s').value.trim().toLowerCase() || n.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''); if (n.length < 2 || !/^[a-z0-9]+(-[a-z0-9]+)*$/.test(s)) { $('#e-nk').textContent = 'Preencha o nome e um final com letras minúsculas, números e hífen.'; return; } if (db.links.some(l => l.slug === s)) { $('#e-nk').textContent = 'Já existe um link com esse final.'; return; } db.links.push({ id: uid(), name: n, slug: s }); save(); closeAll(); renderAdmin(); toast('Link criado'); }
+    if (T('#nk-ok')) { const n = $('#nk-n').value.trim(), s = $('#nk-s').value.trim().toLowerCase() || n.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''); if (n.length < 2 || !/^[a-z0-9]+(-[a-z0-9]+)*$/.test(s)) { $('#e-nk').textContent = 'Preencha o nome e um final com letras minúsculas, números e hífen.'; return; } if (db.links.some(l => l.slug === s)) { $('#e-nk').textContent = 'Já existe um link com esse final.'; return; } if (RESERVED_SLUGS.includes(s)) { $('#e-nk').textContent = `O final /${s} é usado pelo sistema. Escolha outro.`; return; } db.links.push({ id: uid(), name: n, slug: s }); save(); closeAll(); renderAdmin(); toast('Link criado'); }
     // conteúdos, reuniões, tarefas
     if ((el = T('[data-new-content]'))) { const cid = el.dataset.newContent; if (!db.clients.length) { toast('Cadastre um cliente primeiro'); return; }
       openModal(`<h2 style="font-size:26px">Novo conteúdo</h2><div class="cfg"><div class="field full"><label for="nc-c">Cliente</label><select class="in" id="nc-c">${db.clients.map(c => `<option value="${c.id}" ${c.id === cid ? 'selected' : ''}>${esc(c.name)}</option>`).join('')}</select></div><div class="field"><label for="nc-f">Formato</label><select class="in" id="nc-f">${Object.entries(FORMATS).map(([k, v]) => `<option value="${k}">${v}</option>`).join('')}</select></div><div class="field"><label for="nc-s">Situação</label><select class="in" id="nc-s">${Object.entries(CST).map(([k, v]) => `<option value="${k}">${v[0]}</option>`).join('')}</select></div><div class="field full"><label for="nc-t">Tema</label><input class="in" id="nc-t" placeholder="Ex.: Oferta de verão"></div><div class="field full"><label for="nc-cap">Legenda</label><textarea class="in" id="nc-cap" rows="2"></textarea></div><div class="field"><label for="nc-d">Data</label><input class="in" type="date" id="nc-d" value="${el.dataset.date || addDays(TODAY, 3)}"></div><div class="field"><label for="nc-h">Horário</label><input class="in" type="time" id="nc-h" value="18:30"></div><div class="field full"><label for="nc-a">Responsável</label><select class="in" id="nc-a"><option>Designer</option><option>Editor de vídeo</option><option>Social media</option></select></div><span class="err-t full" id="e-nc"></span></div><div class="filters" style="justify-content:flex-end"><button class="pill" data-close>Cancelar</button><button class="pill orange" id="nc-ok">Salvar conteúdo</button></div>`, true); }
@@ -2700,14 +2841,33 @@ table.rs-tbl { min-width: 560px; } table.rs-tbl td { padding: 8px 6px; } table.r
     if ((el = T('[data-sort]'))) { const k = el.dataset.sort; FF.sort = FF.sort.key === k ? { key: k, dir: FF.sort.dir === 'asc' ? 'desc' : 'asc' } : { key: k, dir: k === 'val' ? 'desc' : 'asc' }; renderAdmin(); }
     if ((el = T('[data-page]'))) { FF.page += +el.dataset.page; renderAdmin(); }
     if ((el = T('[data-pay]'))) { const r = db.ledger.find(x => x.id === el.dataset.pay); r.paid = TODAY; save(); renderAdmin(); toast(r.type === 'in' ? `Recebimento de ${brl(r.val)} registrado` : `Pagamento de ${brl(r.val)} registrado`); }
-    if (T('#new-entry')) openModal(`<h2 style="font-size:26px">Novo lançamento</h2><div class="seg" role="group" aria-label="Tipo"><button data-ne="in" aria-pressed="true">Receita</button><button data-ne="out" aria-pressed="false">Despesa</button></div><div class="cfg"><div class="field full"><label for="ne-d">Descrição</label><input class="in" id="ne-d"></div><div class="field"><label for="ne-c">Cliente</label><select class="in" id="ne-c"><option value="">Sem cliente</option>${db.clients.map(c => `<option value="${c.id}">${esc(c.name)}</option>`).join('')}</select></div><div class="field"><label for="ne-k">Categoria</label><select class="in" id="ne-k">${Object.entries(CAT).map(([k, v]) => `<option value="${k}">${v}</option>`).join('')}</select></div><div class="field"><label for="ne-v">Valor (R$)</label><input class="in num" id="ne-v" inputmode="decimal" placeholder="0,00"></div><div class="field"><label for="ne-m">Competência</label><input class="in" type="month" id="ne-m" value="${FF.month}"></div><div class="field"><label for="ne-due">Vencimento</label><input class="in" type="date" id="ne-due" value="${TODAY}"></div><label class="consent full" for="ne-p"><input type="checkbox" id="ne-p"><span>Já foi pago ou recebido hoje</span></label><label class="consent full" for="ne-rep"><input type="checkbox" id="ne-rep"><span><b>Repetir todo mês</b> com o mesmo valor e dia de vencimento (mensalidade de cliente, aluguel, assinaturas)</span></label><div class="field full" id="ne-rep-w" hidden><label for="ne-rep-n">Repetir por</label><select class="in" id="ne-rep-n"><option value="3">3 meses</option><option value="6">6 meses</option><option value="12" selected>12 meses</option><option value="24">24 meses</option></select></div><span class="err-t full" id="e-ne"></span></div><div class="filters" style="justify-content:flex-end"><button class="pill" data-close>Cancelar</button><button class="pill orange" id="ne-ok">Salvar</button></div>`, true);
-    if ((el = T('[data-ne]'))) { $$('[data-ne]').forEach(b => b.setAttribute('aria-pressed', b === el)); $('#ne-k').value = el.dataset.ne === 'in' ? 'servico' : 'ferramentas'; }
-    if (T('#ne-ok')) { const d = $('#ne-d').value.trim(), v = parseMoney($('#ne-v').value), due = $('#ne-due').value; if (d.length < 2 || !(v > 0) || !due) { $('#e-ne').textContent = 'Preencha descrição, valor e vencimento.'; return; } const type = $('[data-ne][aria-pressed="true"]').dataset.ne; const rep = $('#ne-rep').checked, n = rep ? +$('#ne-rep-n').value : 1, grp = rep ? uid() : null, cm = $('#ne-m').value || CUR, day = +due.slice(8);
-      for (let k = 0; k < n; k++) { const mk = addMonths(ym(due), k); db.ledger.push({ id: uid(), type, desc: d, client: $('#ne-c').value || null, cat: $('#ne-k').value, sup: '', comp: addMonths(cm, k) + '-01', due: `${mk}-${pad2(Math.min(day, dim(mk)))}`, paid: k === 0 && $('#ne-p').checked ? TODAY : null, val: v, group: grp }); }
-      save(); closeAll(); renderAdmin(); toast(rep ? `${type === 'in' ? 'Receita' : 'Despesa'} de ${brl(v)} lançada para os próximos ${n} meses` : `${type === 'in' ? 'Receita' : 'Despesa'} de ${brl(v)} lançada`); }
+    if (T('#new-entry')) entryModal(null);
+    if ((el = T('[data-edit-entry]'))) { entryModal(db.ledger.find(x => x.id === el.dataset.editEntry)); return; }
+    if ((el = T('[data-del-entry]'))) { delEntryModal(db.ledger.find(x => x.id === el.dataset.delEntry)); return; }
+    if ((el = T('[data-ne]'))) { $$('[data-ne]').forEach(b => b.setAttribute('aria-pressed', b === el)); const L = el.dataset.ne === 'in' ? CAT_IN : CAT_OUT, cur = $('#ne-k').value; $('#ne-k').innerHTML = L.map(k => `<option value="${k}">${CAT[k]}</option>`).join(''); $('#ne-k').value = L.includes(cur) ? cur : L[0]; $('#ne-sup-w').hidden = el.dataset.ne === 'in'; $('#ne-st-l').textContent = el.dataset.ne === 'in' ? 'Recebido' : 'Pago'; return; }
+    if ((el = T('[data-nst]'))) { $$('[data-nst]').forEach(b => b.setAttribute('aria-pressed', b === el)); $('#ne-paid-w').hidden = el.dataset.nst !== 'paid'; if (el.dataset.nst === 'paid' && !$('#ne-paid').value) $('#ne-paid').value = TODAY; return; }
+    if (T('#ne-ok')) { const id = $('#ne-ok').dataset.id, r0 = id ? db.ledger.find(x => x.id === id) : null;
+      const d = $('#ne-d').value.trim(), v = parseMoney($('#ne-v').value), due = $('#ne-due').value, type = $('[data-ne][aria-pressed="true"]').dataset.ne, paidOn = $('[data-nst][aria-pressed="true"]').dataset.nst === 'paid', paid = paidOn ? $('#ne-paid').value : null;
+      const bad = (sel, msg) => { $('#e-ne').textContent = msg; $(sel)?.focus(); };
+      if (d.length < 2) return bad('#ne-d', 'Escreva uma descrição com pelo menos 2 letras.');
+      if (!(v > 0)) return bad('#ne-v', 'Informe um valor maior que zero. Ex.: 1.250,00');
+      if (!due) return bad('#ne-due', 'Informe a data de vencimento.');
+      if (paidOn && !paid) return bad('#ne-paid', `Informe a data em que foi ${type === 'in' ? 'recebido' : 'pago'}.`);
+      const cm = $('#ne-m').value || ym(due), base = { type, desc: d, client: $('#ne-c').value || null, cat: $('#ne-k').value, sup: type === 'out' ? $('#ne-sup').value.trim() : '', note: $('#ne-note').value.trim(), val: v };
+      if (r0) { const all = r0.group && $('#ne-all')?.checked, dDay = +due.slice(8), dm = monthDiff(ym(r0.due), ym(due)), cmDiff = monthDiff(ym(r0.comp), cm);
+        Object.assign(r0, base, { comp: cm + '-01', due, paid });
+        let n = 0; if (all) db.ledger.filter(x => x.group === r0.group && x.id !== r0.id && !x.paid && x.comp > r0.comp).forEach(x => { const mk = addMonths(ym(x.due), dm); Object.assign(x, base, { due: `${mk}-${pad2(Math.min(dDay, dim(mk)))}`, comp: addMonths(ym(x.comp), cmDiff) + '-01' }); n++; });
+        save(); closeAll(); renderAdmin(); toast(n ? `Lançamento atualizado, junto com ${n} dos próximos meses` : 'Lançamento atualizado'); return; }
+      const rep = $('#ne-rep').checked, n = rep ? +$('#ne-rep-n').value : 1, grp = rep ? uid() : null, day = +due.slice(8);
+      for (let k = 0; k < n; k++) { const mk = addMonths(ym(due), k); db.ledger.push({ id: uid(), ...base, comp: addMonths(cm, k) + '-01', due: `${mk}-${pad2(Math.min(day, dim(mk)))}`, paid: k === 0 ? paid : null, group: grp }); }
+      save(); closeAll(); renderAdmin(); toast(rep ? `${type === 'in' ? 'Receita' : 'Despesa'} de ${brl(v)} lançada para os próximos ${n} meses` : `${type === 'in' ? 'Receita' : 'Despesa'} de ${brl(v)} lançada`); return; }
+    if (T('#ne-del')) { const r = db.ledger.find(x => x.id === $('#ne-del').dataset.id); if (r) delEntryModal(r); return; }
+    if (T('#de-ok')) { const r = db.ledger.find(x => x.id === $('#de-ok').dataset.id); if (!r) { closeAll(); return; } const all = r.group && $('#de-all')?.checked; const before = db.ledger.length;
+      db.ledger = db.ledger.filter(x => x.id !== r.id && !(all && x.group === r.group && !x.paid && x.comp > r.comp)); if (r.group && !db.ledger.some(x => x.group === r.group && x.comp > r.comp)) db.ledger.filter(x => x.group === r.group).forEach(x => (x.group = null));
+      const n = before - db.ledger.length; save(); closeAll(); renderAdmin(); toast(n > 1 ? `${n} lançamentos excluídos` : 'Lançamento excluído'); return; }
     // contrato e acesso
     if ((el = T('[data-approval]'))) { const c = clientById(el.dataset.approval); c.approval = !c.approval; save(); el.setAttribute('aria-checked', c.approval); toast(c.approval ? 'Cliente aprova pelo portal' : 'Aprovação pelo cliente desligada'); }
-    if ((el = T('[data-copy-access]'))) { const c = clientById(el.dataset.copyAccess); const txt = `Área do cliente FX: https://${db.config.domain}/cliente · e-mail ${c.email} · código ${c.portalCode}`; try { navigator.clipboard.writeText(txt).then(() => toast('Acesso copiado'), () => toast(txt)); } catch (x) { toast(txt); } }
+    if ((el = T('[data-copy-access]'))) { const c = clientById(el.dataset.copyAccess); const txt = `Área do cliente FX: ${siteBase()}/cliente · e-mail ${c.email} · código ${c.portalCode}`; try { navigator.clipboard.writeText(txt).then(() => toast('Acesso copiado'), () => toast(txt)); } catch (x) { toast(txt); } }
     if ((el = T('[data-new-code]'))) { const c = clientById(el.dataset.newCode); c.portalCode = code6(); save(); renderAdmin(); toast('Novo código gerado. O anterior não funciona mais.'); }
     if ((el = T('[data-onsite]'))) { const ev = db.evaluations.find(x => x.id === el.dataset.onsite); ev.onSite = ev.onSite === false; save(); el.setAttribute('aria-checked', ev.onSite); renderSite(); toast(ev.onSite ? 'Depoimento no site' : 'Depoimento retirado do site'); }
     if (T('#new-testi')) openModal(`<h2 style="font-size:26px">Adicionar depoimento</h2><p style="color:var(--ink-2)">Para depoimentos recebidos por WhatsApp ou pessoalmente, com autorização do cliente.</p><div class="cfg"><div class="field"><label for="nt2-c">Empresa</label><input class="in" id="nt2-c"></div><div class="field"><label for="nt2-n">Nome e cargo</label><input class="in" id="nt2-n" placeholder="Ex.: Ana, proprietária"></div><div class="field full"><label for="nt2-s">Segmento</label><select class="in" id="nt2-s">${SEGMENTS.map(x => `<option value="${x[0]}">${x[1]}</option>`).join('')}</select></div><div class="field full"><label for="nt2-t">Depoimento</label><textarea class="in" id="nt2-t" rows="4"></textarea></div><div class="field full"><label for="nt2-r">Nota</label><select class="in" id="nt2-r"><option>5</option><option>4</option><option>3</option></select></div><label class="consent full" for="nt2-ok2"><input type="checkbox" id="nt2-ok2"><span>O cliente autorizou mostrar este depoimento no site.</span></label><span class="err-t full" id="e-nt2"></span></div><div class="filters" style="justify-content:flex-end"><button class="pill" data-close>Cancelar</button><button class="pill orange" id="nt2-ok">Salvar depoimento</button></div>`, true);

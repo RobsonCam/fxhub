@@ -6,7 +6,7 @@ Plataforma da **FX Mídia Social**: site com formulários de diagnóstico, links
 |---|---|
 | `/` (ou `/painel`) | Sistema da equipe FX (login com e-mail e senha) |
 | `/site` | Site público |
-| `/c/bio` ou `/?l=bio` | Site com o link de captação "bio" (o sistema registra de onde a pessoa veio) |
+| `/bio`, `/anuncio`, `/qrcode`... | Site com o link de captação (o sistema registra de onde a pessoa veio). `/c/bio` também funciona. |
 | `/cliente` | Área do cliente (e-mail + código de acesso) |
 | `/avaliar` | Área do cliente já na avaliação do mês |
 
@@ -16,7 +16,7 @@ Peças: **Supabase** (banco, login, arquivos), **Netlify** (hospedagem), **GitHu
 
 | Peça | Onde |
 |---|---|
-| Site e sistema | https://fxmidiasocial.netlify.app (Netlify, projeto `fxmidiasocial`, que antes publicava o FX Gestão). Os endereços antigos `/diagnostico` e `/sistema` redirecionam para `/site`, e `/avaliacao` para `/avaliar`. |
+| Site e sistema | https://fxmidiasocial.netlify.app (Netlify, projeto `fxmidiasocial`, que antes publicava o FX Gestão). Os endereços antigos `/diagnostico` e `/sistema` abrem o site, e `/avaliacao` vai para `/avaliar`. |
 | Banco | Supabase, projeto **fxgestão** (`vdipydhimbwvulqilstg`), que divide o banco com o FX Gestão e o CRM da RG CAVE. As tabelas e funções do FX HUB são separadas e não mexem nas deles. |
 | Código | GitHub `RobsonCam/fx-gestao` (o Netlify publica daqui) e cópia em `RobsonCam/fxhub` |
 
@@ -120,7 +120,7 @@ window.FX_CONFIG = {
 2. **Site e bônus → Redes sociais no rodapé do site**: preencha WhatsApp (com a mensagem automática), Instagram e Facebook, ligue ou desligue cada um e clique em **Salvar redes sociais**. Depois confira domínio e pacotes.
 3. **Equipe**: crie os logins da Bruna e da Renata em *Supabase → Authentication → Add user* e depois use **Convidar pessoa** no sistema com o mesmo e-mail.
 4. **Clientes**: cadastre o cliente com e-mail e, em **Equipe → Acessos dos clientes**, clique em **Ativar login**. O cliente entra em `/cliente` com o e-mail e o código.
-5. **Links de captação**: copie em **Links de captação** (formato `https://seu-endereço/c/bio`). Para divulgar o site sem rastreio, use `/site`.
+5. **Links de captação**: copie em **Links de captação** (formato `https://seu-endereço/bio`). Para divulgar o site sem rastreio, use `/site`.
 
 ---
 

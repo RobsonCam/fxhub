@@ -24,10 +24,14 @@
   const hash = location.hash.slice(1);
   const params = new URLSearchParams(location.search);
   // o endereço principal abre o sistema da equipe; o site fica em /site e nos links /c/...
-  const linkSlug = params.get('l') || params.get('origem') || (path.startsWith('/c/') ? path.slice(3) : '') || '';
+  // links de captação: /bio, /anuncio... (um nome só depois da barra). /c/bio continua valendo.
+  const RESERVED = ['', 'painel', 'cliente', 'avaliar', 'site', 'c', 'icons', 'index', 'app', 'admin', 'login', 'api'];
+  const seg = path.split('/').filter(Boolean);
+  const pathSlug = seg[0] === 'c' && seg[1] ? seg[1] : (seg.length === 1 && !RESERVED.includes(seg[0].toLowerCase()) && !seg[0].includes('.') ? seg[0] : '');
+  const linkSlug = (params.get('l') || params.get('origem') || pathSlug || '').toLowerCase();
   let REALM = 'painel';
   if (path === '/cliente' || path === '/avaliar') REALM = 'portal';
-  else if (path === '/site' || path.startsWith('/c/') || linkSlug) REALM = 'site';
+  else if (path === '/site' || linkSlug) REALM = 'site';
 
   document.documentElement.classList.add('realm-' + REALM);
   if (!window.supabase || !window.supabase.createClient) {   // biblioteca não carregou (sem internet ou bloqueio)
