@@ -10,6 +10,32 @@
 #   /            site público          /c/bio  ou  /?l=bio   link de captação rastreado
 #   /painel      sistema da equipe FX   /cliente              área do cliente
 #   /avaliar     avaliação mensal do cliente
+# endereços do sistema antigo (FX Gestão) que já foram divulgados
+[[redirects]]
+  from = "/diagnostico"
+  to = "/"
+  status = 301
+[[redirects]]
+  from = "/diagnostico.html"
+  to = "/"
+  status = 301
+[[redirects]]
+  from = "/sistema"
+  to = "/"
+  status = 301
+[[redirects]]
+  from = "/sistema.html"
+  to = "/"
+  status = 301
+[[redirects]]
+  from = "/avaliacao"
+  to = "/avaliar"
+  status = 301
+[[redirects]]
+  from = "/avaliacao.html"
+  to = "/avaliar"
+  status = 301
+
 [[redirects]]
   from = "/*"
   to = "/index.html"
