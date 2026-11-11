@@ -62,11 +62,7 @@ rep("      <button class=\"pill orange sm\" data-open-site=\"bio\">Ver site",
     "      <button class=\"pill sm\" data-fx-install-top hidden title=\"Instalar o FX HUB como aplicativo\"><svg class=\"i\"><use href=\"#i-down\"/></svg><span class=\"lbl\">Instalar app</span></button>\n      <button class=\"pill orange sm\" data-open-site=\"bio\">Ver site")
 rep("<div class=\"right\"><button class=\"pill sm\" id=\"lg-out\">Sair</button></div>",
     "<div class=\"right\">${P.fromAdmin ? '' : `<button class=\"pill sm\" data-fx-install-top hidden title=\"Instalar como aplicativo\"><svg class=\"i\"><use href=\"#i-down\"/></svg><span class=\"lbl\">Instalar app</span></button>`}<button class=\"pill sm\" id=\"lg-out\">Sair</button></div>")
-# acessos dos clientes: criar login real
-rep("data-copy-access=\"${c.id}\">${icon('copy')}Copiar</button>",
-    "data-copy-access=\"${c.id}\">${icon('copy')}Copiar</button>${window.FX_CLOUD ? `<button class=\"pill sm\" data-cloud-access=\"${c.id}\">${icon('shield')}Ativar login</button>` : ''}")
-rep("    // equipe\n",
-    "    if ((el = T('[data-cloud-access]')) && window.FX_CLOUD) { const c = clientById(el.dataset.cloudAccess); if (!c.email) { toast('Cadastre o e-mail do cliente antes'); return; } el.disabled = true; window.FX_CLOUD.clientAccess(c).then(() => { el.disabled = false; toast(`Login ativado: ${c.email} com o código ${c.portalCode}`); }, err => { el.disabled = false; toast('Não foi possível ativar: ' + err.message); }); return; }\n    // equipe\n")
+# acessos dos clientes: o login é ativado pelo próprio sistema (ensureLogin)
 # topo do sistema: status de gravação e sair
 rep("      <span class=\"livepill\"><i></i>Ao vivo</span>",
     "      <span class=\"sync\" id=\"sync-st\" hidden></span>\n      <span class=\"livepill\"><i></i>Ao vivo</span>")
@@ -91,7 +87,7 @@ html = html.replace('<meta name="claude:viewport-fit-sides" content="cover">\n',
 head = ('<!doctype html>\n<html lang="pt-BR">\n<head>\n<meta charset="utf-8">\n'
         '<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">\n'
         '<meta name="description" content="FX Mídia Social: identidade visual, conteúdo, gestão de redes e sistemas internos em Uruguaiana.">\n'
-        '<meta name="theme-color" content="#0a0807">\n<link rel="icon" href="/favicon.png">\n<link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">\n<meta name="apple-mobile-web-app-capable" content="yes">\n<meta name="mobile-web-app-capable" content="yes">\n<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">\n')
+        '<meta name="theme-color" content="#0a0807">\n<link rel="icon" href="/favicon.png?v=2">\n<link rel="apple-touch-icon" href="/icons/apple-touch-icon.png?v=2">\n<meta name="apple-mobile-web-app-capable" content="yes">\n<meta name="mobile-web-app-capable" content="yes">\n<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">\n')
 # a página do protótipo começa direto pelo <title>; aqui vira um documento completo
 body_start = html.index('</style>') if '</style>' in html else None
 first_tag_end = html.index('<link rel="stylesheet" href="/app.css">') + len('<link rel="stylesheet" href="/app.css">')

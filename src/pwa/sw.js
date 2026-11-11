@@ -5,7 +5,7 @@
    - Nunca guarda dados do Supabase (login, clientes, leads): esses vêm sempre do servidor. */
 const VERSION = 'fxhub-__BUILD__';
 const SHELL = ['/', '/index.html', '/app.js', '/app.css', '/cloud.js', '/pwa.js', '/app-config.js', '/favicon.png',
-  '/icons/icon-192.png', '/icons/icon-512.png', '/icons/apple-touch-icon.png',
+  '/icons/fx-icon-192.png', '/icons/fx-icon-512.png', '/icons/apple-touch-icon.png',
   '/manifest-painel.webmanifest', '/manifest-cliente.webmanifest'];
 
 self.addEventListener('install', e => {
