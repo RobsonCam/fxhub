@@ -23,10 +23,11 @@
   const path = location.pathname.replace(/\/+$/, '');
   const hash = location.hash.slice(1);
   const params = new URLSearchParams(location.search);
-  let REALM = 'site';
-  if (path === '/painel' || hash === 'painel') REALM = 'painel';
-  else if (path === '/cliente' || path === '/avaliar' || hash === 'portal') REALM = 'portal';
-  const linkSlug = params.get('l') || (path.startsWith('/c/') ? path.slice(3) : '') || '';
+  // o endereço principal abre o sistema da equipe; o site fica em /site e nos links /c/...
+  const linkSlug = params.get('l') || params.get('origem') || (path.startsWith('/c/') ? path.slice(3) : '') || '';
+  let REALM = 'painel';
+  if (path === '/cliente' || path === '/avaliar') REALM = 'portal';
+  else if (path === '/site' || path.startsWith('/c/') || linkSlug) REALM = 'site';
 
   document.documentElement.classList.add('realm-' + REALM);
   if (!window.supabase || !window.supabase.createClient) {   // biblioteca não carregou (sem internet ou bloqueio)
@@ -247,7 +248,7 @@
     const pub = pubRes.data?.data || {};
     if (!s.session) { C.db = pub.config ? baseDb(pub) : null; return; }
     const { data: who } = await sb.rpc('whoami');
-    if (!who?.client_id) { await sb.auth.signOut(); C.db = pub.config ? baseDb(pub) : null; C.loginError = 'Este login não é de um cliente. A equipe entra pelo endereço /painel.'; return; }
+    if (!who?.client_id) { await sb.auth.signOut(); C.db = pub.config ? baseDb(pub) : null; C.loginError = 'Este login não é de um cliente. A equipe entra pelo endereço principal do sistema.'; return; }
     const st = await rpc('portal_state');
     const db = baseDb(pub);
     ['clients', 'contents', 'meetings', 'metrics', 'reports', 'ledger', 'evaluations', 'planRequests', 'packages'].forEach(k => { db[k] = st[k] || []; });
@@ -284,8 +285,8 @@
     if (!who?.client_id) { await sb.auth.signOut(); return 'Este login não é de um cliente.'; }
     location.reload(); return null;
   };
-  C.logout = async () => { await sb.auth.signOut(); location.href = REALM === 'portal' ? '/cliente' : '/painel'; };
-  C.goRealm = h => { const to = h === 'painel' ? '/painel' : h === 'portal' ? '/cliente' : '/'; if (location.pathname !== to || REALM !== (h === 'portal' ? 'portal' : h === 'painel' ? 'painel' : 'site')) { location.href = to; return true; } return false; };
+  C.logout = async () => { await sb.auth.signOut(); location.href = REALM === 'portal' ? '/cliente' : '/'; };
+  C.goRealm = h => { const to = h === 'painel' ? '/' : h === 'portal' ? '/cliente' : '/site'; if (location.pathname !== to || REALM !== (h === 'portal' ? 'portal' : h === 'painel' ? 'painel' : 'site')) { location.href = to; return true; } return false; };
   C.uploadBackup = async (clientId, month, file) => {
     const safe = file.name.normalize('NFD').replace(/[^\w.-]+/g, '-').slice(-80);
     const p = `${clientId}/${month}-${safe}`;

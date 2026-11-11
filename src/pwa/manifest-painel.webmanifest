@@ -4,7 +4,7 @@
   "short_name": "FX HUB",
   "description": "Sistema da FX Mídia Social: leads, clientes, conteúdos, calendário, métricas e financeiro.",
   "lang": "pt-BR",
-  "start_url": "/painel?app=1",
+  "start_url": "/?app=1",
   "scope": "/",
   "display": "standalone",
   "display_override": ["window-controls-overlay", "standalone"],

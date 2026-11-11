@@ -2,7 +2,7 @@
 (() => {
   const path = location.pathname.replace(/\/+$/, ''), hash = location.hash.slice(1);
   const cloud = !!(window.FX_CONFIG && window.FX_CONFIG.supabaseUrl);
-  const realm = path === '/painel' || hash === 'painel' ? 'painel' : (path === '/cliente' || path === '/avaliar' || hash === 'portal') ? 'cliente' : (cloud ? 'site' : 'painel');
+  const realm = (path === '/cliente' || path === '/avaliar' || hash === 'portal') ? 'cliente' : (cloud && (path === '/site' || path.startsWith('/c/') || /[?&](l|origem)=/.test(location.search))) ? 'site' : 'painel';
   const standalone = matchMedia('(display-mode: standalone)').matches || matchMedia('(display-mode: window-controls-overlay)').matches || navigator.standalone === true;
   const ua = navigator.userAgent;
   const ios = /iphone|ipad|ipod/i.test(ua) || (/macintosh/i.test(ua) && 'ontouchend' in document);

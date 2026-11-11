@@ -4,9 +4,9 @@ Plataforma da **FX Mídia Social**: site com formulários de diagnóstico, links
 
 | Endereço | O que abre |
 |---|---|
-| `/` | Site público |
+| `/` (ou `/painel`) | Sistema da equipe FX (login com e-mail e senha) |
+| `/site` | Site público |
 | `/c/bio` ou `/?l=bio` | Site com o link de captação "bio" (o sistema registra de onde a pessoa veio) |
-| `/painel` | Sistema da equipe FX (login com e-mail e senha) |
 | `/cliente` | Área do cliente (e-mail + código de acesso) |
 | `/avaliar` | Área do cliente já na avaliação do mês |
 
@@ -16,7 +16,7 @@ Peças: **Supabase** (banco, login, arquivos), **Netlify** (hospedagem), **GitHu
 
 | Peça | Onde |
 |---|---|
-| Site e sistema | https://fxmidiasocial.netlify.app (Netlify, projeto `fxmidiasocial`, que antes publicava o FX Gestão). Os endereços antigos `/diagnostico`, `/sistema` e `/avaliacao` redirecionam para o site e para `/avaliar`. |
+| Site e sistema | https://fxmidiasocial.netlify.app (Netlify, projeto `fxmidiasocial`, que antes publicava o FX Gestão). Os endereços antigos `/diagnostico` e `/sistema` redirecionam para `/site`, e `/avaliacao` para `/avaliar`. |
 | Banco | Supabase, projeto **fxgestão** (`vdipydhimbwvulqilstg`), que divide o banco com o FX Gestão e o CRM da RG CAVE. As tabelas e funções do FX HUB são separadas e não mexem nas deles. |
 | Código | GitHub `RobsonCam/fx-gestao` (o Netlify publica daqui) e cópia em `RobsonCam/fxhub` |
 
@@ -116,11 +116,11 @@ window.FX_CONFIG = {
 
 ### 5. Primeiro acesso
 
-1. Entre em `/painel` com o login do passo 1.5. Na primeira vez o sistema cria a estrutura vazia e publica o site.
+1. Entre no endereço principal com o login do passo 1.5. Na primeira vez o sistema cria a estrutura vazia e publica o site.
 2. **Site e bônus → Redes sociais no rodapé do site**: preencha WhatsApp (com a mensagem automática), Instagram e Facebook, ligue ou desligue cada um e clique em **Salvar redes sociais**. Depois confira domínio e pacotes.
 3. **Equipe**: crie os logins da Bruna e da Renata em *Supabase → Authentication → Add user* e depois use **Convidar pessoa** no sistema com o mesmo e-mail.
 4. **Clientes**: cadastre o cliente com e-mail e, em **Equipe → Acessos dos clientes**, clique em **Ativar login**. O cliente entra em `/cliente` com o e-mail e o código.
-5. **Links de captação**: use `https://seu-dominio/c/bio`, `/c/anuncio`, `/c/whatsapp`, `/c/qrcode` nas campanhas.
+5. **Links de captação**: copie em **Links de captação** (formato `https://seu-endereço/c/bio`). Para divulgar o site sem rastreio, use `/site`.
 
 ---
 

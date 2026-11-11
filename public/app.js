@@ -106,7 +106,7 @@ window.__fxStart = () => {
   const packById = id => db.packages.find(p => p.id === id) || (id ? { id, name: 'Pacote removido', price: null, period: '', items: [], quota: {}, visible: false } : undefined);
   const priceTxt = p => (p.price == null ? 'Sob proposta' : `${brl(p.price)}${p.period === '/mês' ? '/mês' : ''}`);
   const linkById = id => db.links.find(l => l.id === id) || { id: id || 'direto', name: id === 'manual' ? 'Cadastro manual' : 'Acesso direto', slug: '' };
-  const linkUrl = l => `https://${db.config.domain}/${l.slug ? '?origem=' + l.slug : ''}`;
+  const linkUrl = l => { const base = window.FX_CLOUD ? location.origin : 'https://' + db.config.domain; return l.slug ? `${base}/c/${l.slug}` : `${base}/site`; };
   const clientById = id => db.clients.find(c => c.id === id);
   const clientName = id => clientById(id)?.name || 'Sem cliente';
 

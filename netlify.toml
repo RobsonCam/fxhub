@@ -7,25 +7,25 @@
   command = ""
 
 # Endereços amigáveis: tudo abre o mesmo app, que decide o que mostrar
-#   /            site público          /c/bio  ou  /?l=bio   link de captação rastreado
-#   /painel      sistema da equipe FX   /cliente              área do cliente
+#   /            sistema da equipe FX (também /painel)     /cliente   área do cliente
+#   /site        site público          /c/bio  ou  /?l=bio   link de captação rastreado
 #   /avaliar     avaliação mensal do cliente
 # endereços do sistema antigo (FX Gestão) que já foram divulgados
 [[redirects]]
   from = "/diagnostico"
-  to = "/"
+  to = "/site"
   status = 301
 [[redirects]]
   from = "/diagnostico.html"
-  to = "/"
+  to = "/site"
   status = 301
 [[redirects]]
   from = "/sistema"
-  to = "/"
+  to = "/site"
   status = 301
 [[redirects]]
   from = "/sistema.html"
-  to = "/"
+  to = "/site"
   status = 301
 [[redirects]]
   from = "/avaliacao"
