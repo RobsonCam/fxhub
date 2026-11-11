@@ -3,7 +3,7 @@
    - Páginas e scripts: busca na internet primeiro (sempre a versão mais nova);
      sem internet, usa a cópia guardada.
    - Nunca guarda dados do Supabase (login, clientes, leads): esses vêm sempre do servidor. */
-const VERSION = 'fxhub-952ea8967f';
+const VERSION = 'fxhub-b5f9663edd';
 const SHELL = ['/', '/index.html', '/app.js', '/app.css', '/cloud.js', '/pwa.js', '/app-config.js', '/favicon.png',
   '/icons/icon-192.png', '/icons/icon-512.png', '/icons/apple-touch-icon.png',
   '/manifest-painel.webmanifest', '/manifest-cliente.webmanifest',

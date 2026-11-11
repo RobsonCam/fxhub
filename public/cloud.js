@@ -95,7 +95,7 @@
     const ids = new Set(ev.map(e => e.client));
     const c = db.config || {};
     return {
-      config: { headline: c.headline, whatsapp: c.whatsapp, instagram: c.instagram, facebook: c.facebook, domain: c.domain, bonusSocial: c.bonusSocial, bonusSystem: c.bonusSystem, forms: c.forms, logo: c.logo || null },
+      config: { headline: c.headline, whatsapp: c.whatsapp, instagram: c.instagram, facebook: c.facebook, waMsg: c.waMsg || null, footer: c.footer || null, domain: c.domain, bonusSocial: c.bonusSocial, bonusSystem: c.bonusSystem, forms: c.forms, logo: c.logo || null },
       packages: db.packages || [], links: (db.links || []).map(l => ({ id: l.id, name: l.name, slug: l.slug })), brands: (db.brands || []).filter(b => b.on),
       evaluations: ev.map(e => ({ id: e.id, client: e.client, company: e.company, text: e.text, r: e.r, t: e.t, month: e.month, consent: true, onSite: true })),
       clients: (db.clients || []).filter(x => ids.has(x.id) && !x.example).map(x => ({ id: x.id, name: x.name, logo: x.logo || null, segment: x.segment })),
