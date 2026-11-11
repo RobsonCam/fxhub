@@ -31,6 +31,13 @@
 
   document.documentElement.classList.add('realm-' + REALM);
   if (!window.supabase || !window.supabase.createClient) {   // biblioteca não carregou (sem internet ou bloqueio)
+    // uma versão antiga do app instalável podia barrar a biblioteca: remove e recarrega uma vez
+    let healed = false; try { healed = sessionStorage.getItem('fx-sw-heal') === '1'; } catch (e) {}
+    if (!healed && navigator.serviceWorker && navigator.serviceWorker.controller && navigator.onLine !== false) {
+      try { sessionStorage.setItem('fx-sw-heal', '1'); } catch (e) {}
+      navigator.serviceWorker.getRegistrations().then(rs => Promise.all(rs.map(r => r.unregister()))).then(() => caches?.keys?.()).then(ks => ks && Promise.all(ks.map(k => caches.delete(k)))).catch(() => null).then(() => location.reload());
+      return;
+    }
     const show = () => { const d = document.createElement('div'); d.id = 'fx-boot'; d.innerHTML = '<div class="fx-boot-in"><span class="hub-word"><em>FX</em> HUB</span><h1>Sem conexão.</h1><p>Confira a internet e tente de novo.</p><button class="pill orange" id="fx-retry">Tentar de novo</button></div>'; document.body.appendChild(d); document.getElementById('fx-retry').addEventListener('click', () => location.reload()); };
     if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', show); else show();
     return;
