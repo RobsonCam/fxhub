@@ -26,7 +26,7 @@ $$;
 
 -- documento -> módulo que pode gravar
 create or replace function public.doc_module(p_key text)
-returns text language sql immutable as $$
+returns text language sql immutable set search_path = public as $$
   select case
     when p_key = 'ledger' then 'financeiro'
     when p_key = 'team' then 'equipe'
