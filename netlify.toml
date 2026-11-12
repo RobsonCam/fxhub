@@ -37,12 +37,29 @@
     Strict-Transport-Security = "max-age=31536000; includeSubDomains"
 
 # o app.js e o app.css mudam a cada publicação: o navegador sempre confere
+# arquivos do sistema: o endereço muda a cada publicação (?v=...), então podem ficar guardados no aparelho
 [[headers]]
-  for = "/*.js"
+  for = "/app.js"
   [headers.values]
-    Cache-Control = "public, max-age=0, must-revalidate"
+    Cache-Control = "public, max-age=31536000, immutable"
+
 [[headers]]
-  for = "/*.css"
+  for = "/app.css"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/cloud.js"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/pwa.js"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/app-config.js"
   [headers.values]
     Cache-Control = "public, max-age=0, must-revalidate"
 

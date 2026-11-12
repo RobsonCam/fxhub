@@ -81,25 +81,32 @@ js = re.search(r'<script>\n?(.*?)</script>', s, re.S)
 extra_css = (ROOT / 'src' / 'cloud.css').read_text(encoding='utf-8')
 html = s[:css.start()] + '<link rel="stylesheet" href="/app.css">' + s[css.end():]
 js2 = re.search(r'<script>\n?(.*?)</script>', html, re.S)
-html = html[:js2.start()] + '<script src="/app-config.js"></script>\n<script src="/pwa.js"></script>\n<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js" integrity="" crossorigin="anonymous"></script>\n<script src="/cloud.js"></script>\n<script src="/app.js"></script>' + html[js2.end():]
+# velocidade: logos de exemplo do primeiro uso já estão no banco; não vão no app publicado
+js_txt = re.sub(r'const BRAND_SEED = \[.*?\];\n', 'const BRAND_SEED = [];\n', js.group(1), count=1, flags=re.S)
+import hashlib
+build_id = hashlib.sha1((js_txt + extra_css + (ROOT / 'src' / 'cloud.js').read_text(encoding='utf-8') + (ROOT / 'src' / 'pwa' / 'pwa.js').read_text(encoding='utf-8')).encode()).hexdigest()[:10]
+V = '?v=' + build_id
+html = html[:js2.start()] + f'<script src="/app-config.js"></script>\n<script src="/pwa.js{V}"></script>\n<script src="/cloud.js{V}"></script>\n<script src="/app.js{V}"></script>' + html[js2.end():]
+html = html.replace('<link rel="stylesheet" href="/app.css">', f'<link rel="stylesheet" href="/app.css{V}">')
 html = html.replace(' integrity=""', '')
 html = html.replace('<meta name="claude:viewport-fit-sides" content="cover">\n', '')
+cfg_txt = (OUT / 'app-config.js').read_text(encoding='utf-8') if (OUT / 'app-config.js').exists() else ''
+SB_ORIGINS = [m.group(1) for m in re.finditer(r"supabaseUrl:\s*'(https://[^'/]+)", cfg_txt)]
 head = ('<!doctype html>\n<html lang="pt-BR">\n<head>\n<meta charset="utf-8">\n'
         '<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">\n'
         '<meta name="description" content="FX Mídia Social: identidade visual, conteúdo, gestão de redes e sistemas internos em Uruguaiana.">\n'
+        + ''.join(f'<link rel="preconnect" href="{u}" crossorigin>\n' for u in SB_ORIGINS) + f'<link rel="preload" href="/app.js{V}" as="script">\n<link rel="preload" href="/cloud.js{V}" as="script">\n'
         '<meta name="theme-color" content="#0a0807">\n<link rel="icon" href="/favicon.png?v=2">\n<link rel="apple-touch-icon" href="/icons/apple-touch-icon.png?v=2">\n<meta name="apple-mobile-web-app-capable" content="yes">\n<meta name="mobile-web-app-capable" content="yes">\n<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">\n')
 # a página do protótipo começa direto pelo <title>; aqui vira um documento completo
 body_start = html.index('</style>') if '</style>' in html else None
-first_tag_end = html.index('<link rel="stylesheet" href="/app.css">') + len('<link rel="stylesheet" href="/app.css">')
+first_tag_end = html.index(f'<link rel="stylesheet" href="/app.css{V}">') + len(f'<link rel="stylesheet" href="/app.css{V}">')
 html = head + html[:first_tag_end] + '\n</head>\n<body>' + html[first_tag_end:] + '\n</body>\n</html>\n'
 
 OUT.mkdir(exist_ok=True)
 (OUT / 'index.html').write_text(html, encoding='utf-8')
 (OUT / 'app.css').write_text(css.group(1) + '\n' + extra_css, encoding='utf-8')
-(OUT / 'app.js').write_text(js.group(1), encoding='utf-8')
+(OUT / 'app.js').write_text(js_txt, encoding='utf-8')
 shutil.copy(ROOT / 'src' / 'cloud.js', OUT / 'cloud.js')
-import hashlib, time
-build_id = hashlib.sha1((js.group(1) + extra_css + (ROOT / 'src' / 'cloud.js').read_text(encoding='utf-8')).encode()).hexdigest()[:10]
 shutil.copy(ROOT / 'src' / 'pwa' / 'pwa.js', OUT / 'pwa.js')
 (OUT / 'sw.js').write_text((ROOT / 'src' / 'pwa' / 'sw.js').read_text(encoding='utf-8').replace('__BUILD__', build_id), encoding='utf-8')
 for m in ('manifest-painel.webmanifest', 'manifest-cliente.webmanifest'):

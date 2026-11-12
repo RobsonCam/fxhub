@@ -717,22 +717,22 @@ th .sort span { color: var(--ink-3); font-size: 11px; }
 .step3:hover { transform: translateY(-4px); border-color: rgba(255,122,61,.45); }
 .stat { transition: background .3s; }
 @media (prefers-reduced-motion: no-preference) {
-  .anim .rv { opacity: 0; transform: translateY(30px); transition: opacity .75s cubic-bezier(.2,.8,.2,1) var(--d, 0ms), transform .75s cubic-bezier(.2,.8,.2,1) var(--d, 0ms); }
+  .anim .rv { opacity: 0; transform: translateY(24px); transition: opacity .5s cubic-bezier(.2,.8,.2,1) var(--d, 0ms), transform .5s cubic-bezier(.2,.8,.2,1) var(--d, 0ms); }
   .anim .rv.shown { opacity: 1; transform: none; }
   .anim .pack.rv.shown:hover { transform: translateY(-6px); transition-delay: 0ms; }
   .anim .step3.rv.shown:hover { transform: translateY(-4px); transition-delay: 0ms; }
-  .hero.play .s-top { animation: fadeDown .6s cubic-bezier(.2,.8,.2,1) both; }
-  .hero.play .mega { animation: megaIn 1s cubic-bezier(.2,.8,.2,1) .05s both; }
-  .hero.play .device { animation: phoneUp 1.15s cubic-bezier(.16,.9,.25,1) .2s both; }
+  .hero.play .s-top { animation: fadeDown 0.36s cubic-bezier(.2,.8,.2,1) both; }
+  .hero.play .mega { animation: megaIn 0.6s cubic-bezier(.2,.8,.2,1) 0.01s both; }
+  .hero.play .device { animation: phoneUp 0.69s cubic-bezier(.16,.9,.25,1) 0.06s both; }
   .hero.play .phone { animation: phoneFloat 6s ease-in-out 1.4s infinite; }
-  .hero.play .ig-grid i { animation: tileIn .45s cubic-bezier(.2,.8,.2,1) both; }
-  .hero.play .ig-grid i:nth-child(1) { animation-delay: .9s; } .hero.play .ig-grid i:nth-child(2) { animation-delay: .96s; } .hero.play .ig-grid i:nth-child(3) { animation-delay: 1.02s; } .hero.play .ig-grid i:nth-child(4) { animation-delay: 1.08s; } .hero.play .ig-grid i:nth-child(5) { animation-delay: 1.14s; } .hero.play .ig-grid i:nth-child(6) { animation-delay: 1.2s; } .hero.play .ig-grid i:nth-child(7) { animation-delay: 1.26s; } .hero.play .ig-grid i:nth-child(8) { animation-delay: 1.32s; } .hero.play .ig-grid i:nth-child(9) { animation-delay: 1.38s; }
+  .hero.play .ig-grid i { animation: tileIn 0.27s cubic-bezier(.2,.8,.2,1) both; }
+  .hero.play .ig-grid i:nth-child(1) { animation-delay: 0.27s; } .hero.play .ig-grid i:nth-child(2) { animation-delay: 0.29s; } .hero.play .ig-grid i:nth-child(3) { animation-delay: 0.31s; } .hero.play .ig-grid i:nth-child(4) { animation-delay: 0.32s; } .hero.play .ig-grid i:nth-child(5) { animation-delay: 0.34s; } .hero.play .ig-grid i:nth-child(6) { animation-delay: 0.36s; } .hero.play .ig-grid i:nth-child(7) { animation-delay: 0.38s; } .hero.play .ig-grid i:nth-child(8) { animation-delay: 0.4s; } .hero.play .ig-grid i:nth-child(9) { animation-delay: 0.41s; }
   .hero.play .ig-btn { animation: btnPulse 2.4s ease-in-out 1.6s infinite; }
-  .hero.play .device .f1 { animation: popUp .7s cubic-bezier(.2,.9,.3,1.4) 1.1s both, bobY 4s ease-in-out 1.8s infinite; }
-  .hero.play .device .f2 { animation: popUp .7s cubic-bezier(.2,.9,.3,1.4) 1.45s both, bobY 4.6s ease-in-out 2.2s infinite; }
-  .hero.play .h-left > *, .hero.play .h-right > * { animation: fadeUp .8s cubic-bezier(.2,.8,.2,1) both; }
-  .hero.play .h-left > :nth-child(1) { animation-delay: .35s; } .hero.play .h-left > :nth-child(2) { animation-delay: .45s; } .hero.play .h-left > :nth-child(3) { animation-delay: .6s; }
-  .hero.play .h-right > :nth-child(1) { animation-delay: .5s; } .hero.play .h-right > :nth-child(2) { animation-delay: .6s; } .hero.play .h-right > :nth-child(3) { animation-delay: .75s; }
+  .hero.play .device .f1 { animation: popUp 0.42s cubic-bezier(.2,.9,.3,1.4) 0.33s both, bobY 4s ease-in-out 1.8s infinite; }
+  .hero.play .device .f2 { animation: popUp 0.42s cubic-bezier(.2,.9,.3,1.4) 0.43s both, bobY 4.6s ease-in-out 2.2s infinite; }
+  .hero.play .h-left > *, .hero.play .h-right > * { animation: fadeUp 0.48s cubic-bezier(.2,.8,.2,1) both; }
+  .hero.play .h-left > :nth-child(1) { animation-delay: 0s; } .hero.play .h-left > :nth-child(2) { animation-delay: .04s; } .hero.play .h-left > :nth-child(3) { animation-delay: .08s; }
+  .hero.play .h-right > :nth-child(1) { animation-delay: 0.15s; } .hero.play .h-right > :nth-child(2) { animation-delay: 0.18s; } .hero.play .h-right > :nth-child(3) { animation-delay: 0.22s; }
   .h-left .ctas .pill.orange { animation: glowPulse 2.8s ease-in-out 2s infinite; }
   .bonus-card .gift { animation: giftBounce 2.4s ease-in-out 1.6s infinite; }
   .hero::before { animation: glowDrift 12s ease-in-out infinite alternate; }
@@ -915,12 +915,12 @@ label.pill { user-select: none; }
 .s-progress i { display: block; height: 100%; width: 100%; transform-origin: 0 50%; transform: scaleX(0); background: linear-gradient(90deg, var(--orange-2), var(--red)); box-shadow: 0 0 12px rgba(255,90,26,.8); }
 #v-site:not(.on) .s-progress, body:not(.site-on) .s-progress { }
 @media (prefers-reduced-motion: no-preference) {
-  .hero.play .device .f3 { animation: popUp .7s cubic-bezier(.2,.9,.3,1.4) 1.7s both, bobY 5s ease-in-out 2.4s infinite; }
-  .hero.play .device .f4 { animation: popUp .7s cubic-bezier(.2,.9,.3,1.4) 1.95s both, bobY 4.4s ease-in-out 2.7s infinite; }
-  .hero.play .device .f5 { animation: popUp .7s cubic-bezier(.2,.9,.3,1.4) 2.2s both, bobY 5.4s ease-in-out 2.9s infinite; }
-  .hero.play .h-left > * { animation: fadeUp .8s cubic-bezier(.2,.8,.2,1) both; }
-  .hero.play .h-left > :nth-child(1) { animation-delay: .9s; } .hero.play .h-left > :nth-child(2) { animation-delay: 1s; } .hero.play .h-left > :nth-child(3) { animation-delay: 1.12s; } .hero.play .h-left > :nth-child(4) { animation-delay: 1.24s; } .hero.play .h-left > :nth-child(5) { animation-delay: 1.36s; }
-  .hero.play .hero-foot { animation: fadeUp .8s cubic-bezier(.2,.8,.2,1) 1.5s both; }
+  .hero.play .device .f3 { animation: popUp 0.42s cubic-bezier(.2,.9,.3,1.4) 0.51s both, bobY 5s ease-in-out 2.4s infinite; }
+  .hero.play .device .f4 { animation: popUp 0.42s cubic-bezier(.2,.9,.3,1.4) 0.58s both, bobY 4.4s ease-in-out 2.7s infinite; }
+  .hero.play .device .f5 { animation: popUp 0.42s cubic-bezier(.2,.9,.3,1.4) 0.66s both, bobY 5.4s ease-in-out 2.9s infinite; }
+  .hero.play .h-left > * { animation: fadeUp 0.48s cubic-bezier(.2,.8,.2,1) both; }
+  .hero.play .h-left > :nth-child(1) { animation-delay: 0s; } .hero.play .h-left > :nth-child(2) { animation-delay: .04s; } .hero.play .h-left > :nth-child(3) { animation-delay: .08s; } .hero.play .h-left > :nth-child(4) { animation-delay: .12s; } .hero.play .h-left > :nth-child(5) { animation-delay: .16s; }
+  .hero.play .hero-foot { animation: fadeUp 0.48s cubic-bezier(.2,.8,.2,1) .25s both; }
   html.anim .s-link i { transform: scaleY(.2); transform-origin: top; transition: transform 1s cubic-bezier(.2,.8,.2,1); }
   html.anim .s-link.shown i { transform: none; }
 }
@@ -999,7 +999,13 @@ button, a, .choice, .kcard, .ccard { touch-action: manipulation; -webkit-tap-hig
 /* ===== v4 ===== */
 .flow-card > *, .reco > * { min-width: 0; }
 .flow-card h2 { overflow-wrap: anywhere; }
-@media (max-width: 640px) { .flow .pill.lg { white-space: normal; height: auto; min-height: 56px; padding-block: 12px; } }
+@media (max-width: 640px) { .flow .pill.lg { white-space: normal; height: auto; min-height: 56px; padding-block: 12px; }
+  .flow .flow-nav { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 10px; }
+  .flow .flow-nav .pill, .flow .flow-nav .pill.lg { white-space: nowrap; height: 52px; min-height: 0; padding: 0 18px; font-size: 15px; gap: 8px; }
+  .flow .flow-nav #f-next { justify-content: center; min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+  .flow .flow-nav .hint { text-align: right; font-size: 13px; } }
+@media (max-width: 345px) { .flow .flow-nav #f-back { padding: 0 16px; } .flow .flow-nav #f-back .bk-t { display: none; } .flow .flow-nav .pill.lg { font-size: 14px; } }
+.drawer footer .del-lead { margin-right: auto; }
 html, body { overflow-x: clip; }
 @media (max-width: 520px) { .panel .pill { white-space: normal; height: auto; min-height: 40px; padding-block: 8px; } }
 .panel > * { min-width: 0; }
@@ -2360,7 +2366,7 @@ table.rs-tbl { min-width: 560px; } table.rs-tbl td { padding: 8px 6px; } table.r
     const show = () => { fe.textContent = fol.toLocaleString('pt-BR'); ve.textContent = fmtV(views); };
     if (!MOTION) { show(); return; }
     const t0 = performance.now(); const intro = t => { const k = Math.min(1, (t - t0) / 1600), e = 1 - Math.pow(1 - k, 3); fe.textContent = Math.round(fol * e).toLocaleString('pt-BR'); ve.textContent = fmtV(views * e); if (k < 1) requestAnimationFrame(intro); };
-    setTimeout(() => requestAnimationFrame(intro), 900);
+    setTimeout(() => requestAnimationFrame(intro), 250);
     phT = setInterval(() => { if (!$('#v-site').classList.contains('on') || document.hidden) return; fol += 1 + Math.floor(Math.random() * 4); views += 60 + Math.floor(Math.random() * 180); show(); [fe, ve].forEach(x => { x.classList.remove('tick'); void x.offsetWidth; x.classList.add('tick'); }); }, 2600); };
   const tickClock = () => { const el = $('#s-clock'); if (el) el.textContent = `Uruguaiana, RS · ${new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit', timeZone: 'America/Sao_Paulo' })}`; };
   setInterval(tickClock, 15000); tickClock();
@@ -2393,7 +2399,7 @@ table.rs-tbl { min-width: 560px; } table.rs-tbl td { padding: 8px 6px; } table.r
     const steps = stepsOf(F.track), total = steps.length, st = F.step, key = steps[st];
     $('#flow-bars').innerHTML = st < total ? Array.from({ length: total }, (_, i) => `<i class="${i <= st ? 'on' : ''}"></i>`).join('') : '';
     const qn = `<span class="q-n">${F.track === 'sistema' ? 'Sistema sob medida' : 'Mídia social'} · pergunta ${st + 1} de ${total}</span>`;
-    const back = `<button class="pill" id="f-back">${icon('left')}Voltar</button>`;
+    const back = `<button class="pill" id="f-back" aria-label="Voltar">${icon('left')}<span class="bk-t">Voltar</span></button>`;
     const navText = label => `<div class="flow-nav">${back}<button class="pill orange lg" id="f-next">${label} ${icon('arrow')}</button></div>`;
     const navAuto = `<div class="flow-nav">${back}<span class="hint">Toque em uma opção para continuar</span></div>`;
     const first = a.name ? esc(a.name.split(' ')[0]) : '', comp = esc(a.company || 'sua empresa');
@@ -2474,8 +2480,8 @@ table.rs-tbl { min-width: 560px; } table.rs-tbl td { padding: 8px 6px; } table.r
     if (F.opened) return; F.opened = true;
     const box = $('#gbox'), stage = $('#giftstage'); box.classList.add('opening');
     const lead = db.leads.find(l => l.id === F.leadId); track('bonus', { lead: lead.id, code: lead.bonusCode });
-    setTimeout(() => { box.classList.remove('opening'); box.classList.add('open'); stage.classList.add('open'); confetti(); }, 520);
-    setTimeout(() => { $('#gift-pre').hidden = true; $('#gift-post').hidden = false; }, 1000);
+    setTimeout(() => { box.classList.remove('opening'); box.classList.add('open'); stage.classList.add('open'); confetti(); }, 300);
+    setTimeout(() => { $('#gift-pre').hidden = true; $('#gift-post').hidden = false; }, 550);
   };
   const validate = () => {
     const a = F.a, key = stepsOf(F.track)[F.step]; let ok = true;
@@ -2745,7 +2751,7 @@ table.rs-tbl { min-width: 560px; } table.rs-tbl td { padding: 8px 6px; } table.r
         <div class="score"><div style="display:flex;justify-content:space-between"><b>Por que ${q.level[0].toLowerCase()}?</b><span class="num">${q.score}/100</span></div><div class="bar"><i style="width:${q.score}%"></i></div><ul>${q.reasons.map(r => `<li>+${r[1]} · ${esc(r[0])}</li>`).join('')}</ul></div>
         <div class="field"><label for="l-note">Registrar contato</label><textarea class="in" id="l-note" rows="2" placeholder="O que foi conversado?"></textarea><button class="pill sm" data-lnote style="justify-self:start">${icon('plus')}Salvar no histórico</button></div>
         <div><span class="label">Histórico</span><ul class="tl" style="margin-top:14px">${[...l.notes.map(n => ({ t: n.t, txt: n.txt })), ...evs.map(e => ({ t: e.t, txt: lab(e) }))].filter(x => x.txt).sort((x, y) => y.t - x.t).map(x => `<li><span>${esc(x.txt)}</span><time>${new Date(x.t).toLocaleDateString('pt-BR', { day: '2-digit', month: 'short' })} ${hhmm(x.t)}</time></li>`).join('') || '<li><span class="hint">Sem registros.</span><span></span></li>'}</ul></div></div>
-      <footer>${client ? `<button class="pill orange" data-open-client="${client.id}">Ver cliente ${icon('arrow')}</button>` : `<button class="pill orange" data-convert="${l.id}">${icon('check')}Converter em cliente</button>`}</footer>`, id);
+      <footer><button class="pill danger-ghost del-lead" data-del-lead="${l.id}">${icon('trash')}Excluir</button>${client ? `<button class="pill orange" data-open-client="${client.id}">Ver cliente ${icon('arrow')}</button>` : `<button class="pill orange" data-convert="${l.id}">${icon('check')}Converter em cliente</button>`}</footer>`, id);
     if (focusMsg) setTimeout(() => $('#msg-txt')?.focus(), 300);
   };
   const clientForm = (o = {}) => `<div class="cfg"><div class="field full"><label for="cv-name">Empresa</label><input class="in" id="cv-name" value="${esc(o.name || '')}"></div>
@@ -3153,6 +3159,10 @@ table.rs-tbl { min-width: 560px; } table.rs-tbl td { padding: 8px 6px; } table.r
     if (T('[data-tpl-save]')) { commitTpls(); if (db.config.templates.some(t => !t.text.trim())) { toast('Escreva o texto de todas as mensagens'); return; } save(); renderAdmin(); toast('Mensagens salvas'); return; }
     if ((el = T('[data-bill]'))) { billModal(clientById(el.dataset.bill)); return; }
     if ((el = T('#bm-ok'))) { const c = clientById(el.dataset.id), n = applyBill(c); if (n === false) return; save(); closeAll(); renderAdmin(); toast(n ? `Cobrança atualizada · ${n} mês(es) ajustado(s) no financeiro` : 'Cobrança atualizada'); return; }
+    if ((el = T('[data-del-lead]'))) { const l = db.leads.find(x => x.id === el.dataset.delLead); if (!l) return;
+      openModal(`<div class="m-head"><span class="m-ic danger">${icon('trash')}</span><div><h2>Excluir o lead ${esc(l.name || '')}?</h2><p>Ele sai da lista de leads junto com o diagnóstico e as anotações. Não dá para desfazer.</p></div></div>
+      <div class="m-foot"><span></span><div class="filters"><button class="pill" data-close>Cancelar</button><button class="pill danger" id="dl-ok" data-id="${l.id}">${icon('trash')}Excluir lead</button></div></div>`); return; }
+    if (T('#dl-ok')) { const id = $('#dl-ok').dataset.id, l = db.leads.find(x => x.id === id); db.leads = db.leads.filter(x => x.id !== id); save(); closeAll(); renderAdmin(); toast(l?.name ? `${l.name} foi excluído dos leads` : 'Lead excluído'); return; }
     if ((el = T('[data-del-client]'))) { delClientModal(clientById(el.dataset.delClient)); return; }
     if ((el = T('#dc-ok'))) { const c = clientById(el.dataset.id); if ($('#dc-name').value.trim().toLowerCase() !== c.name.trim().toLowerCase()) { $('#e-dc').textContent = 'O nome digitado não confere.'; $('#dc-name').focus(); return; }
       const keep = $('#dc-keep')?.checked; ['contents', 'meetings', 'metrics', 'reports', 'tasks', 'evaluations', 'planRequests', 'evalRequests'].forEach(k => { if (Array.isArray(db[k])) db[k] = db[k].filter(x => x.client !== c.id); });

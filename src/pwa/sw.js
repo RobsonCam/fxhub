@@ -4,7 +4,8 @@
      sem internet, usa a cópia guardada.
    - Nunca guarda dados do Supabase (login, clientes, leads): esses vêm sempre do servidor. */
 const VERSION = 'fxhub-__BUILD__';
-const SHELL = ['/', '/index.html', '/app.js', '/app.css', '/cloud.js', '/pwa.js', '/app-config.js', '/favicon.png',
+const V = '?v=__BUILD__';
+const SHELL = ['/', '/index.html', '/app.js' + V, '/app.css' + V, '/cloud.js' + V, '/pwa.js' + V, '/app-config.js', '/favicon.png',
   '/icons/fx-icon-192.png', '/icons/fx-icon-512.png', '/icons/apple-touch-icon.png',
   '/manifest-painel.webmanifest', '/manifest-cliente.webmanifest'];
 
@@ -24,5 +25,7 @@ self.addEventListener('fetch', e => {
     e.respondWith(fetch(req).then(r => { const cp = r.clone(); caches.open(VERSION).then(c => c.put('/index.html', cp)); return r; }).catch(() => caches.match('/index.html')));
     return;
   }
+  // arquivos com versão no endereço não mudam: abre direto do aparelho
+  if (url.searchParams.has('v')) { e.respondWith(caches.match(req).then(hit => hit || fetch(req).then(r => { if (r.ok) { const cp = r.clone(); caches.open(VERSION).then(c => c.put(req, cp)); } return r; }))); return; }
   e.respondWith(fetch(req).then(r => { if (r.ok) { const cp = r.clone(); caches.open(VERSION).then(c => c.put(req, cp)); } return r; }).catch(() => caches.match(req, { ignoreSearch: true })));
 });

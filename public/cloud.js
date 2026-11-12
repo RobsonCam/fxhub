@@ -34,7 +34,20 @@
   else if (path === '/site' || linkSlug) REALM = 'site';
 
   document.documentElement.classList.add('realm-' + REALM);
-  if (!window.supabase || !window.supabase.createClient) {   // biblioteca não carregou (sem internet ou bloqueio)
+  // ---------- velocidade: o site não espera a biblioteca do Supabase ----------
+  const REST = CFG.supabaseUrl.replace(/\/+$/, '') + '/rest/v1';
+  const HDR = { apikey: CFG.supabaseKey, Authorization: 'Bearer ' + CFG.supabaseKey, 'Content-Type': 'application/json' };
+  const rest = async (fn, args) => { const r = await fetch(`${REST}/rpc/${fn}`, { method: 'POST', headers: HDR, body: JSON.stringify(args || {}), keepalive: fn === 'track_event' }); const t = await r.text(); let d = null; try { d = t ? JSON.parse(t) : null; } catch (e) { d = t; } if (!r.ok) throw new Error((d && (d.message || d.error)) || r.statusText); return d; };
+  const PUB_CACHE = 'fxhub-pub';
+  const fetchPub = () => fetch(`${REST}/public_site?select=data&id=eq.1`, { headers: HDR }).then(r => { if (!r.ok) throw new Error('site ' + r.status); return r.json(); }).then(rows => rows?.[0]?.data || {});
+  const pubEarly = REALM === 'site' ? fetchPub() : null;
+  if (pubEarly) pubEarly.catch(() => null);
+  const LIB = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js';
+  const loadLib = () => new Promise((ok, no) => { if (window.supabase?.createClient) return ok(); const t = document.createElement('script'); t.src = LIB; t.crossOrigin = 'anonymous'; t.onload = () => (window.supabase?.createClient ? ok() : no(new Error('lib'))); t.onerror = () => no(new Error('lib')); document.head.appendChild(t); });
+  const libEarly = REALM === 'site' ? null : loadLib();
+  if (libEarly) libEarly.catch(() => null);
+  let sb = null;
+  const offline = () => {
     // uma versão antiga do app instalável podia barrar a biblioteca: remove e recarrega uma vez
     let healed = false; try { healed = sessionStorage.getItem('fx-sw-heal') === '1'; } catch (e) {}
     if (!healed && navigator.serviceWorker && navigator.serviceWorker.controller && navigator.onLine !== false) {
@@ -42,16 +55,14 @@
       navigator.serviceWorker.getRegistrations().then(rs => Promise.all(rs.map(r => r.unregister()))).then(() => caches?.keys?.()).then(ks => ks && Promise.all(ks.map(k => caches.delete(k)))).catch(() => null).then(() => location.reload());
       return;
     }
-    const show = () => { const d = document.createElement('div'); d.id = 'fx-boot'; d.innerHTML = '<div class="fx-boot-in"><span class="hub-word"><em>FX</em> HUB</span><h1>Sem conexão.</h1><p>Confira a internet e tente de novo.</p><button class="pill orange" id="fx-retry">Tentar de novo</button></div>'; document.body.appendChild(d); document.getElementById('fx-retry').addEventListener('click', () => location.reload()); };
-    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', show); else show();
-    return;
-  }
-  const sb = window.supabase.createClient(CFG.supabaseUrl, CFG.supabaseKey, {
-    auth: { persistSession: true, autoRefreshToken: true, storageKey: REALM === 'portal' ? 'fxhub-cliente' : 'fxhub-equipe' },
-  });
-  const rpc = async (fn, args) => { const { data, error } = await sb.rpc(fn, args); if (error) throw error; return data; };
+    const d = document.getElementById('fx-boot') || document.createElement('div'); d.id = 'fx-boot'; d.innerHTML = '<div class="fx-boot-in"><span class="hub-word"><em>FX</em> HUB</span><h1>Sem conexão.</h1><p>Confira a internet e tente de novo.</p><button class="pill orange" id="fx-retry">Tentar de novo</button></div>'; if (!d.isConnected) document.body.appendChild(d); document.getElementById('fx-retry').addEventListener('click', () => location.reload());
+  };
+  const initSb = async () => { if (sb) return sb; await (libEarly || loadLib());
+    sb = window.supabase.createClient(CFG.supabaseUrl, CFG.supabaseKey, { auth: { persistSession: true, autoRefreshToken: true, storageKey: REALM === 'portal' ? 'fxhub-cliente' : 'fxhub-equipe' } });
+    C.sb = sb; return sb; };
+  const rpc = async (fn, args) => { if (!sb) return rest(fn, args); const { data, error } = await sb.rpc(fn, args); if (error) throw error; return data; };
 
-  const C = (window.FX_CLOUD = { realm: REALM, sb, db: null, link: null, portalClient: null, portalTab: path === '/avaliar' ? 'avaliar' : null });
+  const C = (window.FX_CLOUD = { realm: REALM, sb: null, db: null, link: null, portalClient: null, portalTab: path === '/avaliar' ? 'avaliar' : null });
 
   // ---------- telas de apoio (carregando / login / erro) ----------
   const boot = document.createElement('div');
@@ -69,7 +80,7 @@
       <label for="fx-p">${esc(passLabel)}</label><input class="in" id="fx-p" type="password" autocomplete="current-password" required>
       <span class="err-t" id="fx-e">${esc(err || '')}</span>
       <button class="pill orange lg" type="submit">Entrar</button>
-      <a class="fx-back" href="/">Voltar para o site</a>
+      <a class="fx-back" href="/site">Ver o site</a>
     </form>`;
 
   const askLogin = (err) => new Promise(resolve => {
@@ -222,7 +233,7 @@
     for (const e of db.events || []) {
       if (sentEv.has(e.id)) continue; sentEv.add(e.id);
       const { id, t, type, link, session, ...payload } = e;
-      sb.rpc('track_event', { p_session: session || 'sem-sessao', p_link: link || '', p_type: type, p_payload: payload, p_ev_id: id }).then(({ error }) => { if (error) console.warn('[FX HUB] evento não enviado', error.message); });
+      rest('track_event', { p_session: session || 'sem-sessao', p_link: link || '', p_type: type, p_payload: payload, p_ev_id: id }).catch(err => console.warn('[FX HUB] evento não enviado', err.message));
     }
     for (const l of db.leads || []) {
       if (!leadTok.has(l.id) && !leadSent.has(l.id)) {
@@ -231,7 +242,7 @@
         catch (e) { leadSent.delete(l.id); console.error('[FX HUB] lead não enviado', e); window.__fxApp?.toast(/too_many/.test(e.message) ? 'Recebemos vários envios deste número hoje. A FX vai falar com você pelo WhatsApp.' : 'Não conseguimos enviar agora. Confira a internet ou fale com a FX pelo WhatsApp.'); }
       } else if (leadTok.has(l.id)) {
         const s = J([l.package, l.bonusCode]);
-        if (leadSent.get(l.id) !== s && l.package) { leadSent.set(l.id, s); sb.rpc('lead_choose', { p_id: l.id, p_token: leadTok.get(l.id), p_package: l.package, p_bonus: l.bonusCode || null }).then(({ error }) => { if (error) console.warn('[FX HUB] escolha não enviada', error.message); }); }
+        if (leadSent.get(l.id) !== s && l.package) { leadSent.set(l.id, s); rest('lead_choose', { p_id: l.id, p_token: leadTok.get(l.id), p_package: l.package, p_bonus: l.bonusCode || null }).catch(err => console.warn('[FX HUB] escolha não enviada', err.message)); }
       }
     }
   };
@@ -318,6 +329,7 @@
   // ===================== início =====================
   const start = async () => {
     try {
+      if (REALM !== 'site') { try { await initSb(); } catch (e) { hideBoot(); offline(); return; } }
       if (REALM === 'painel') {
         const { data: s } = await sb.auth.getSession();
         if (!s.session) await askLogin();
@@ -327,9 +339,10 @@
         await loadPortal();
         if (location.hash.slice(1) !== 'portal') history.replaceState(null, '', location.pathname + location.search + '#portal');
       } else {
-        const { data, error } = await sb.from('public_site').select('data').eq('id', 1).maybeSingle();
-        if (error) throw error;
-        const pub = data?.data || {};
+        let cached = null; try { cached = JSON.parse(localStorage.getItem(PUB_CACHE) || 'null'); } catch (e) {}
+        let pub;
+        if (cached?.config) { pub = cached; pubEarly.then(fresh => { const s2 = JSON.stringify(fresh); try { localStorage.setItem(PUB_CACHE, s2); } catch (e) {} if (s2 !== JSON.stringify(cached) && fresh.config && C.db) { PUB_KEYS.forEach(k => { C.db[k] = fresh[k] || (k === 'config' ? {} : []); }); window.__fxApp?.rerender?.(true); } }).catch(() => null); }
+        else { pub = await pubEarly; try { localStorage.setItem(PUB_CACHE, JSON.stringify(pub)); } catch (e) {} }
         C.db = pub.config ? baseDb(pub) : null; C.noPublish = !pub.config;
         if (linkSlug && C.db) { const L = (C.db.links || []).find(l => l.slug === linkSlug || l.id === linkSlug); C.link = L ? L.id : null; }
         if (!['site', ''].includes(location.hash.slice(1))) history.replaceState(null, '', location.pathname + location.search + '#site');
