@@ -12,7 +12,7 @@
   window.FX_CLOUD_ENABLED = true;
   document.documentElement.classList.add('fx-cloud');
 
-  const DOC_KEYS = ['config', 'packages', 'links', 'team', 'clients', 'contents', 'meetings', 'metrics', 'reports', 'ledger', 'tasks', 'evaluations', 'brands', 'planRequests', 'evalRequests'];
+  const DOC_KEYS = ['config', 'packages', 'links', 'team', 'clients', 'contents', 'meetings', 'metrics', 'reports', 'ledger', 'tasks', 'evaluations', 'brands', 'planRequests', 'evalRequests', 'services'];
   const PUB_KEYS = ['config', 'packages', 'links', 'brands', 'evaluations', 'clients'];
   const NOT_FLAGS = new Set([...DOC_KEYS, 'leads', 'events']);
   const clone = o => (o === undefined ? undefined : JSON.parse(JSON.stringify(o)));
@@ -119,7 +119,7 @@
     const c = db.config || {};
     return {
       config: { headline: c.headline, whatsapp: c.whatsapp, instagram: c.instagram, facebook: c.facebook, waMsg: c.waMsg || null, footer: c.footer || null, domain: c.domain, bonusSocial: c.bonusSocial, bonusSystem: c.bonusSystem, forms: c.forms, logo: c.logo || null },
-      packages: db.packages || [], links: (db.links || []).map(l => ({ id: l.id, name: l.name, slug: l.slug })), brands: (db.brands || []).filter(b => b.on),
+      packages: (db.packages || []).map(({ history, ...p }) => p), links: (db.links || []).map(l => ({ id: l.id, name: l.name, slug: l.slug })), brands: (db.brands || []).filter(b => b.on),
       evaluations: ev.map(e => ({ id: e.id, client: e.client, company: e.company, text: e.text, r: e.r, t: e.t, month: e.month, consent: true, onSite: true })),
       clients: (db.clients || []).filter(x => ids.has(x.id) && !x.example).map(x => ({ id: x.id, name: x.name, logo: x.logo || null, segment: x.segment })),
       publishedAt: new Date().toISOString(),
@@ -326,7 +326,7 @@
     return access({ kind: 'client', client_id: c.id, email: c.email, password: c.portalCode });
   };
   // ---------- equipe, permissões e senhas ----------
-  const DOC_MOD = { ledger: 'financeiro', team: 'equipe', config: 'site', packages: 'site', links: 'site', brands: 'site', clients: 'clientes', planRequests: 'clientes', contents: 'conteudos', meetings: 'agenda', tasks: 'agenda', metrics: 'relatorios', reports: 'relatorios', evaluations: 'relatorios', evalRequests: 'relatorios', flags: 'base' };
+  const DOC_MOD = { ledger: 'financeiro', team: 'equipe', config: 'site', packages: 'site', services: 'site', links: 'site', brands: 'site', clients: 'clientes', planRequests: 'clientes', contents: 'conteudos', meetings: 'agenda', tasks: 'agenda', metrics: 'relatorios', reports: 'relatorios', evaluations: 'relatorios', evalRequests: 'relatorios', flags: 'base' };
   C.can = mod => REALM !== 'painel' || !C.team || C.team.role === 'admin' || mod === 'base' || (C.team.perms || []).includes(mod);
   const access = async body => {
     const { data, error } = await sb.functions.invoke('client-access', { body });

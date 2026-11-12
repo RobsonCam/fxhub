@@ -1067,6 +1067,50 @@ button, a, .choice, .kcard, .ccard { touch-action: manipulation; -webkit-tap-hig
 .pw-row .ibtn { width: 44px; height: 44px; flex: none; }
 .acc-msg { white-space: pre-wrap; font-family: var(--f-body); font-size: 14.5px; line-height: 1.55; background: rgba(255,255,255,.03); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; margin: 0; }
 .m-ic.ok { background: rgba(63,208,143,.12); color: var(--good); }
+/* ===== serviços e pacotes com preço ===== */
+.svc-panel { margin-bottom: 14px; }
+.svc-list { display: grid; }
+.svc-row { display: grid; grid-template-columns: minmax(0, 1fr) 170px 150px 110px 130px auto; gap: 14px; align-items: center; padding: 12px 0; border-top: 1px solid var(--line); }
+.svc-row:first-child { border-top: 0; }
+.svc-row.off { opacity: .55; }
+.svc-n { display: grid; gap: 2px; min-width: 0; } .svc-n b { font-size: 15px; } .svc-n small { font-size: 12.5px; color: var(--ink-3); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.svc-p { font-family: var(--f-display); font-weight: 700; font-size: 17px; text-align: right; white-space: nowrap; } .svc-p small { font-size: 12px; color: var(--ink-3); font-weight: 500; margin-left: 2px; }
+.svc-u { font-size: 12.5px; text-align: right; }
+.svc-on { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--ink-2); cursor: pointer; }
+.svc-row .acts { display: flex; gap: 6px; }
+@media (max-width: 900px) { .svc-row { grid-template-columns: minmax(0, 1fr) auto; gap: 8px 12px; } .svc-k { display: none; } .svc-p { text-align: left; } .svc-u { text-align: right; } .svc-on { grid-column: 1; } .svc-row .acts { grid-column: 2; justify-self: end; } }
+.pk-priced li { display: flex; gap: 8px; align-items: baseline; } .pk-priced li span { flex: 1; min-width: 0; } .pk-priced li b { font-size: 13px; color: var(--ink-2); white-space: nowrap; }
+.pk-priced li.disc { color: var(--good); } .pk-priced li.disc b { color: var(--good); }
+.lnk { background: none; border: 0; padding: 0; color: var(--orange-2); font: inherit; cursor: pointer; text-decoration: underline; text-underline-offset: 2px; }
+.pkl { display: grid; gap: 6px; margin-bottom: 10px; }
+.pkl-row { display: grid; grid-template-columns: minmax(0, 1fr) auto 110px auto; gap: 10px; align-items: center; padding: 8px 10px; border: 1px solid var(--line); border-radius: 12px; background: rgba(255,255,255,.025); }
+.pkl-row.side { border-style: dashed; }
+.pkl-n { display: grid; min-width: 0; } .pkl-n b { font-size: 14px; } .pkl-n small { font-size: 12px; color: var(--ink-3); }
+.pkl-q { text-align: center; min-width: 40px; }
+.stepper { display: inline-flex; align-items: center; border: 1px solid var(--line-2); border-radius: 10px; overflow: hidden; }
+.stepper button { width: 32px; height: 36px; background: transparent; border: 0; color: var(--ink); font-size: 18px; cursor: pointer; } .stepper button:hover { background: rgba(255,255,255,.06); }
+.stepper .in { width: 48px; height: 36px; border: 0; border-radius: 0; text-align: center; padding: 0 4px; background: transparent; }
+.pkl-s { text-align: right; font-size: 15px; }
+.pkl-add { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; } .pkl-add select { flex: 1 1 260px; }
+.pkl-tot { margin-top: 12px; display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; padding: 12px; border-radius: 12px; background: rgba(255,122,61,.06); border: 1px solid rgba(255,122,61,.25); align-items: end; }
+.pkl-tot > div { display: grid; gap: 4px; } .pkl-tot span, .pkl-tot label { font-size: 12px; color: var(--ink-3); } .pkl-tot b { font-family: var(--f-display); font-size: 17px; }
+.pkl-tot .big b { font-size: 22px; color: var(--orange-2); }
+.pk-chg, .pk-side, .pk-extra { margin-top: 12px; padding: 12px 14px; border-radius: 12px; border: 1px solid var(--line); background: rgba(255,255,255,.025); display: grid; gap: 6px; }
+.pk-chg ul, .pk-hist ul, .pk-extra ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
+.pk-chg li, .pk-hist li { display: flex; justify-content: space-between; gap: 12px; font-size: 13.5px; }
+.pk-chg b.up, .pk-hist b.up { color: var(--warn); } .pk-chg b.down, .pk-hist b.down { color: var(--good); }
+.pk-side > div { display: flex; justify-content: space-between; gap: 12px; font-size: 14px; }
+.pk-extra li { display: flex; gap: 8px; align-items: center; font-size: 14px; } .pk-extra li .i { width: 15px; height: 15px; color: var(--good); }
+.pk-tbl tfoot td { border-top: 1px solid var(--line); padding-top: 8px; color: var(--ink-2); }
+.pk-tbl tfoot tr.disc td { color: var(--good); border-top: 0; }
+.pk-tbl tfoot tr.tot td { color: var(--ink); font-weight: 700; font-size: 15px; } .pk-tbl tfoot tr.tot td:last-child { color: var(--orange-2); font-family: var(--f-display); font-size: 18px; }
+.pk-hist { display: grid; gap: 0; }
+.ph-it { display: grid; grid-template-columns: 90px minmax(0, 1fr); gap: 12px; padding: 10px 0; border-top: 1px solid var(--line); } .ph-it:first-child { border-top: 0; }
+.ph-d { font-size: 12.5px; color: var(--ink-3); padding-top: 2px; }
+.ph-it small { display: block; margin-top: 4px; }
+.pack ul.pk-site li { display: flex; gap: 8px; align-items: baseline; } .pack ul.pk-site li span { flex: 1; } .pack ul.pk-site li b { font-size: 13px; color: var(--ink-2); white-space: nowrap; font-weight: 600; }
+.pack ul.pk-site li.disc { color: var(--good); padding-left: 24px; } .pack ul.pk-site li.disc b { color: var(--good); }
+@media (max-width: 640px) { .pkl-row { grid-template-columns: minmax(0, 1fr) auto; } .pkl-q { grid-column: 1; justify-self: start; } .pkl-s { grid-column: 2; grid-row: 1; } .pkl-row .ibtn { grid-column: 2; grid-row: 2; justify-self: end; } }
 /* ===== relatórios por período ===== */
 .rep-bar { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 14px; }
 .rep-bar .grow { flex: 1; }
@@ -1794,6 +1838,7 @@ table.rs-tbl { min-width: 560px; } table.rs-tbl td { padding: 8px 6px; } table.r
   <symbol id="i-handshake" viewBox="0 0 24 24"><path d="m11 17 2 2a1 1 0 0 0 1.4-1.4"/><path d="m14 14 2.5 2.5a1 1 0 0 0 1.4-1.4l-3.9-3.9-2.8 2.8a1.4 1.4 0 0 1-2-2L12 9.2a3 3 0 0 1 3.9-.3l.9.6a2 2 0 0 0 1.1.3H21"/><path d="M21 15h-2M3 4h8M3 15h1l5.5 5.5a1 1 0 0 0 1.4-1.4M3 4v11"/></symbol>
   <symbol id="i-sparkles" viewBox="0 0 24 24"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z"/><path d="M19 3v4M17 5h4M5 17v4M3 19h4"/></symbol>
   <symbol id="i-cpu" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6" rx="1"/><path d="M15 2v2M15 20v2M2 15h2M2 9h2M20 15h2M20 9h2M9 2v2M9 20v2"/></symbol>
+  <symbol id="i-tag" viewBox="0 0 24 24"><path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8Z"/><circle cx="7.5" cy="7.5" r="1.5"/></symbol>
   <symbol id="i-percent" viewBox="0 0 24 24"><path d="M19 5 5 19"/><circle cx="6.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></symbol>
   <symbol id="i-down" viewBox="0 0 24 24"><path d="M12 5v14M6 13l6 6 6-6"/></symbol>
   <symbol id="i-pin" viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></symbol>
@@ -1949,8 +1994,8 @@ table.rs-tbl { min-width: 560px; } table.rs-tbl td { padding: 8px 6px; } table.r
   const num = n => Math.round(n).toLocaleString('pt-BR');
   const uid = () => Math.random().toString(36).slice(2, 10);
   const code6 = () => Math.random().toString(36).slice(2, 8).toUpperCase();
-  const MODS = [['leads', 'Leads e funil', 'Atender, mover no funil e excluir leads', 'funnel'], ['site', 'Site, links e pacotes', 'Textos do site, links de captação, formulários e pacotes', 'globe'], ['clientes', 'Clientes e contratos', 'Cadastro de clientes e pacotes contratados', 'building'], ['conteudos', 'Conteúdos e calendário', 'Posts, aprovações e calendário de publicação', 'layers'], ['agenda', 'Tarefas e reuniões', 'Tarefas da equipe e reuniões com clientes', 'list-checks'], ['relatorios', 'Métricas e relatórios', 'Números do Instagram, relatórios e avaliações', 'bar'], ['financeiro', 'Financeiro', 'Receitas, despesas e cobranças', 'wallet']];
-  const SEC_MOD = { leads: 'leads', links: 'site', pacotes: 'site', site: 'site', clientes: 'clientes', conteudos: 'conteudos', calendario: 'conteudos', tarefas: 'agenda', relatorios: 'relatorios', avaliacoes: 'relatorios', financeiro: 'financeiro', equipe: 'equipe', inicio: 'base', perfil: 'base' };
+  const MODS = [['leads', 'Leads e funil', 'Atender, mover no funil e excluir leads', 'funnel'], ['site', 'Site, serviços e pacotes', 'Textos do site, links de captação, serviços, preços e pacotes', 'globe'], ['clientes', 'Clientes e contratos', 'Cadastro de clientes e pacotes contratados', 'building'], ['conteudos', 'Conteúdos e calendário', 'Posts, aprovações e calendário de publicação', 'layers'], ['agenda', 'Tarefas e reuniões', 'Tarefas da equipe e reuniões com clientes', 'list-checks'], ['relatorios', 'Métricas e relatórios', 'Números do Instagram, relatórios e avaliações', 'bar'], ['financeiro', 'Financeiro', 'Receitas, despesas e cobranças', 'wallet']];
+  const SEC_MOD = { leads: 'leads', links: 'site', pacotes: 'site', servicos: 'site', site: 'site', clientes: 'clientes', conteudos: 'conteudos', calendario: 'conteudos', tarefas: 'agenda', relatorios: 'relatorios', avaliacoes: 'relatorios', financeiro: 'financeiro', equipe: 'equipe', inicio: 'base', perfil: 'base' };
   const can = mod => !window.FX_CLOUD || window.FX_CLOUD.can(mod);
   const isAdminMe = () => !window.FX_CLOUD || window.FX_CLOUD.team?.role === 'admin';
   const meInfo = () => { const t = window.FX_CLOUD?.team; if (t) return { name: t.name, role: t.role, title: t.title || '', phone: t.phone || '', email: window.FX_CLOUD.me?.email || '', perms: t.perms || [] }; const u = db.team.find(x => x.role === 'admin') || { name: 'Robson' }; return { name: u.name, role: 'admin', title: u.title || '', phone: u.phone || '', email: u.email || '', perms: [] }; };
@@ -2059,7 +2104,7 @@ table.rs-tbl { min-width: 560px; } table.rs-tbl td { padding: 8px 6px; } table.r
   if (!db.packsV7) { const pc = db.packages.find(p => p.id === 'conteudo'), ps = db.packages.find(p => p.id === 'sistemas'); if (pc) pc.items = ['6 artes estáticas com design avançado', '6 Stories criativos', '4 Reels', 'Link na bio com direcionamento para o WhatsApp']; if (ps) ps.items = ['CRM, PDV e estoque', 'Automação do sistema', 'Integração com WhatsApp', 'Controle financeiro', 'Acesso de equipe e gerência', 'Agendamentos e documentos', 'Personalização completa do seu jeito', '1 semana de teste grátis', '30 dias de suporte técnico gratuito']; db.packsV7 = true; }
   if (db.config.instagram == null) db.config.instagram = 'fxmidiasocial';
   if (db.config.facebook == null) db.config.facebook = 'fxmidiasocial';
-  db.evalRequests = db.evalRequests || []; db.planRequests = db.planRequests || [];
+  db.evalRequests = db.evalRequests || []; db.planRequests = db.planRequests || []; db.services = db.services || [];
   if (!db.config.templates) db.config.templates = JSON.parse(JSON.stringify(DEF_TEMPLATES));
   const save = () => { try { localStorage.setItem(KEY, JSON.stringify(db)); return true; } catch (e) { toast('Não foi possível salvar: o espaço do navegador acabou. Use imagens menores.'); return false; } };
   const packById = id => db.packages.find(p => p.id === id) || (id ? { id, name: 'Pacote removido', price: null, period: '', items: [], quota: {}, visible: false } : undefined);
@@ -2304,7 +2349,7 @@ table.rs-tbl { min-width: 560px; } table.rs-tbl td { padding: 8px 6px; } table.r
         return `<div class="cols2"><div class="glass panel"><div class="panel-h"><h3>Parcelas da implantação</h3><small>${Pp.length ? `${Pp.filter(r => r.paid).length} de ${Pp.length} paga(s)` : ''}</small></div>${Pp.length ? `<div class="list">${Pp.map(row).join('')}</div>` : emptyBox('split', 'Sem parcelas lançadas', 'A FX lança aqui as parcelas da implantação.')}</div>
           <div class="glass panel"><div class="panel-h"><h3>Suporte: mensalidades e cobranças</h3><small>o 1º mês é grátis</small></div>${Ss.length ? `<div class="list">${Ss.map(row).join('')}</div>` : emptyBox('support', 'Sem mensalidades ainda', '')}</div></div>
           <div class="glass panel"><div class="panel-h"><h3>Atendimentos de suporte</h3><small>o que a FX fez no seu sistema</small></div>${Tk.length ? `<div class="list">${Tk.map(t => `<div class="it"><span class="sev o">${icon('support')}</span><span class="grow">${esc(t.desc)}<small>${brShort(t.date)}/${t.date.slice(0, 4)} · ${SUP_KIND[t.kind] || 'Atendimento'}${t.mins ? ' · ' + t.mins + ' min' : ''}</small></span></div>`).join('')}</div>` : emptyBox('support', 'Nenhum atendimento registrado', 'Cada suporte que a FX prestar aparece aqui.')}</div>`; })()}
-      <div class="glass panel"><div class="panel-h"><h3>O que está incluído</h3></div><div class="list">${p.items.map(i => `<div class="it"><span class="sev ok">${icon('check')}</span><span class="grow">${esc(i)}</span></div>`).join('')}</div></div>
+      <div class="glass panel"><div class="panel-h"><h3>${(p.lines || []).length ? 'Serviços e valores do pacote' : 'O que está incluído'}</h3>${(p.lines || []).length ? '<small>preço de cada serviço</small>' : ''}</div>${pkDetail(p, c)}</div>${pkHistory(p, c.start) ? `<div class="glass panel"><div class="panel-h"><h3>Alterações no pacote</h3><small>desde ${brShort(c.start)}/${c.start.slice(0, 4)}</small></div>${pkHistory(p, c.start)}</div>` : ''}
       <div class="notice o">${icon('box')}<span><b>Precisa de um módulo novo ou de mudar o plano?</b> A conversa continua no WhatsApp da FX.</span><button class="pill sm orange" data-plan-req>Pedir mudança ou novo módulo</button></div>`;
     if (P.tab === 'monitor') { const M = meterList(c);
       return `${head('Monitoramento', 'Uso do seu sistema.', u.updated ? `Números lançados pela FX em ${brShort(u.updated)}/${u.updated.slice(0, 4)}, tirados dos painéis do Supabase, Netlify e GitHub.` : 'A FX ainda não lançou os números deste mês.')}${alertN}
@@ -2445,7 +2490,7 @@ table.rs-tbl { min-width: 560px; } table.rs-tbl td { padding: 8px 6px; } table.r
     renderTestimonials(); renderBrands(); renderFooter(); paintFX($('#v-site'));
     $('#s-packs').innerHTML = db.packages.filter(p => p.visible).map((p, k) => `<article class="pack glass rv ${p.best ? 'best' : ''}" style="--d:${k * 110}ms"><span class="n">${p.best ? '<span class="tag hot">Mais completo</span>' : 'Solução ' + p.n}</span><h3>${esc(p.name)}</h3>
       <div class="price ${p.price == null ? 'custom' : ''}">${p.price == null ? 'Sob diagnóstico e proposta' : brl(p.price) + ` <small>${p.period}</small>`}</div>
-      <ul>${p.items.map(i => `<li>${icon('check')}<span>${esc(i)}</span></li>`).join('')}</ul><button class="pill ${p.best ? 'orange' : ''}" data-start data-pref="${p.id}">Quero este</button></article>`).join('');
+      ${(p.lines || []).length && p.showPrices !== false ? `<ul class="pk-site">${p.lines.map(l => `<li>${icon('check')}<span>${esc(lineLabel(l))}</span><b>${brl(Math.round(l.price * l.qty))}</b></li>`).join('')}${p.discount ? `<li class="disc"><span>Desconto do pacote</span><b>− ${brl(p.discount)}</b></li>` : ''}${(p.items || []).filter(i => !p.lines.some(l => lineLabel(l) === i)).map(i => `<li>${icon('check')}<span>${esc(i)}</span><b>incluso</b></li>`).join('')}</ul>` : `<ul>${p.items.map(i => `<li>${icon('check')}<span>${esc(i)}</span></li>`).join('')}</ul>`}<button class="pill ${p.best ? 'orange' : ''}" data-start data-pref="${p.id}">Quero este</button></article>`).join('');
     observeReveal();
   };
   const siteTestimonials = () => db.evaluations.filter(e => e.consent && e.onSite !== false && (e.text || '').trim().length >= 10).sort((a, b) => b.t - a.t);
@@ -2648,7 +2693,7 @@ table.rs-tbl { min-width: 560px; } table.rs-tbl td { padding: 8px 6px; } table.r
   const A = { sec: 'inicio', client: null, ctab: 'resumo', leadView: 'funil', calMonth: CUR, calClient: 'all', contClient: 'all', contStatus: 'all', repClient: null, repMonth: null, taskWho: 'all', fin: { month: CUR, client: 'all', regime: 'caixa', q: '', type: 'all', status: 'all', sort: { key: 'due', dir: 'asc' }, page: 1 } };
   const NAV = [
     [null, [['inicio', 'Início', 'home', 'Início']]],
-    ['Comercial', [['leads', 'Leads e funil', 'funnel', 'Leads'], ['links', 'Links de captação', 'link', 'Links'], ['pacotes', 'Pacotes', 'box', 'Pacotes']]],
+    ['Comercial', [['leads', 'Leads e funil', 'funnel', 'Leads'], ['links', 'Links de captação', 'link', 'Links'], ['servicos', 'Serviços', 'tag', 'Serviços'], ['pacotes', 'Pacotes', 'box', 'Pacotes']]],
     ['Operação', [['clientes', 'Clientes', 'building', 'Clientes'], ['conteudos', 'Conteúdos', 'layers', 'Posts'], ['calendario', 'Calendário', 'cal', 'Agenda'], ['tarefas', 'Tarefas', 'list-checks', 'Tarefas']]],
     ['Resultados', [['relatorios', 'Métricas e relatórios', 'bar', 'Métricas'], ['avaliacoes', 'Avaliações', 'star', 'Notas']]],
     ['Gestão', [['financeiro', 'Financeiro', 'wallet', 'Caixa'], ['equipe', 'Equipe e acessos', 'users', 'Equipe'], ['site', 'Site e bônus', 'globe', 'Site']]],
@@ -3276,16 +3321,87 @@ table.rs-tbl { min-width: 560px; } table.rs-tbl td { padding: 8px 6px; } table.r
       <div class="glass panel"><div class="panel-h"><h3>Pacotes</h3><button class="pill sm" data-go-sec="pacotes">${icon('box')}Abrir aba Pacotes</button></div><p class="hint">Os pacotes agora ficam numa aba própria do menu, onde você edita cada um e escolhe se aparece no site.</p></div>
       <div class="filters" style="justify-content:flex-end">${db.clients.some(x => x.example) ? `<button class="pill" id="rm-example">${icon('trash')}Remover cliente de exemplo</button>` : ''}<button class="pill" id="c-reset">${icon('trash')}Apagar visitas e leads de teste</button><button class="pill orange lg" id="c-save">Salvar e atualizar o site</button></div>`; };
 
+  // ---------- SERVIÇOS (catálogo com preço) ----------
+  const SVC_TYPES = { social: ['Redes sociais', 'Gestão de perfil, tráfego pago, atendimento'], conteudo: ['Criação de conteúdo', 'Reels, artes, stories, carrosséis, fotos e vídeos'], sistema: ['Sistemas', 'Desenvolvimento, implantação e suporte'] };
+  const SVC_UNITS = { mes: ['por mês', '/mês'], unid: ['por unidade', '/un.'], unico: ['pagamento único', ''], hora: ['por hora', '/h'] };
+  const svcById = id => db.services.find(s => s.id === id);
+  const svcPrice = s => `${brl(s.price)}${SVC_UNITS[s.unit]?.[1] ? `<small>${SVC_UNITS[s.unit][1]}</small>` : ''}`;
+  const svcUse = id => db.packages.filter(p => (p.lines || []).some(l => l.sid === id));
+  // períodos: o que entra no preço do pacote e o que é cobrado à parte
+  const lineMonthly = l => l.unit === 'mes' || l.unit === 'unid';
+  const pkTotals = (lines, discount, period) => { const sub = l => Math.round((+l.price || 0) * (+l.qty || 0)); const m = lines.filter(lineMonthly).reduce((a, l) => a + sub(l), 0), o = lines.filter(l => !lineMonthly(l)).reduce((a, l) => a + sub(l), 0); const main = period === 'pagamento único' ? o : m, side = period === 'pagamento único' ? m : o; return { sub, main, side, total: Math.max(0, main - (discount || 0)) }; };
+  const lineLabel = l => `${l.unit === 'unid' && l.qty > 1 ? l.qty + ' × ' : l.unit === 'hora' ? l.qty + ' h · ' : ''}${l.name}`;
+  // detalhamento do pacote (cliente, painel e site)
+  const pkDetail = (p, c, opt = {}) => { const L = p.lines || []; if (!L.length) return `<div class="list">${p.items.map(i => `<div class="it"><span class="sev ok">${icon('check')}</span><span class="grow">${esc(i)}</span></div>`).join('')}</div>`;
+    const T = pkTotals(L, p.discount, p.period), mainL = L.filter(l => (p.period === 'pagamento único') !== lineMonthly(l)), sideL = L.filter(l => !mainL.includes(l)); const per = p.period === '/mês' ? '/mês' : '';
+    const row = l => `<tr><td><b>${esc(l.name)}</b>${SVC_TYPES[l.type] ? `<small class="hint"> · ${SVC_TYPES[l.type][0]}</small>` : ''}</td><td class="r num">${l.unit === 'mes' || l.unit === 'unico' ? '1' : num(l.qty)}${l.unit === 'hora' ? ' h' : ''}</td><td class="r num">${brl(l.price)}<small class="hint">${SVC_UNITS[l.unit]?.[1] || ''}</small></td><td class="r num"><b>${brl(T.sub(l))}</b></td></tr>`;
+    const extra = (p.items || []).filter(i => !L.some(l => i.includes(l.name)));
+    const diff = c && c.value != null && p.price != null ? c.value - p.price : 0;
+    return `<div class="tbl-wrap"><table class="mtable pk-tbl"><thead><tr><th>Serviço</th><th class="r">Qtd.</th><th class="r">Valor</th><th class="r">Subtotal</th></tr></thead><tbody>${mainL.map(row).join('')}</tbody>
+      <tfoot><tr><td colspan="3">Soma dos serviços</td><td class="r num">${brl(T.main)}${per}</td></tr>${p.discount ? `<tr class="disc"><td colspan="3">Desconto do pacote</td><td class="r num">− ${brl(p.discount)}</td></tr>` : ''}
+      <tr class="tot"><td colspan="3">Valor do pacote</td><td class="r num">${brl(T.total)}${per}</td></tr>${diff ? `<tr class="disc"><td colspan="3">${diff < 0 ? 'Condição especial para você' : 'Ajuste do seu contrato'}</td><td class="r num">${diff < 0 ? '− ' : '+ '}${brl(Math.abs(diff))}</td></tr><tr class="tot"><td colspan="3">Seu valor</td><td class="r num">${brl(c.value)}${c.monthly ? '/mês' : ''}</td></tr>` : ''}</tfoot></table></div>
+      ${sideL.length ? `<div class="pk-side"><span class="mg-l">Cobrado à parte</span>${sideL.map(l => `<div><span>${esc(lineLabel(l))}</span><b class="num">${brl(T.sub(l))}${l.unit === 'mes' || l.unit === 'unid' ? '/mês' : ''}</b></div>`).join('')}</div>` : ''}
+      ${extra.length ? `<div class="pk-extra"><span class="mg-l">Também incluído</span><ul>${extra.map(i => `<li>${icon('check')}${esc(i)}</li>`).join('')}</ul></div>` : ''}`; };
+  const pkHistory = (p, since) => { const H = (p.history || []).filter(h => !since || h.at.slice(0, 10) >= since).slice().reverse(); if (!H.length) return '';
+    return `<div class="pk-hist">${H.map(h => `<div class="ph-it"><span class="ph-d">${brShort(h.at.slice(0, 10))}/${h.at.slice(0, 4)}</span><div><ul>${h.changes.map(x => `<li><span>${esc(x.label)}</span>${x.delta ? `<b class="num ${x.delta > 0 ? 'up' : 'down'}">${x.delta > 0 ? '+ ' : '− '}${brl(Math.abs(x.delta))}</b>` : ''}</li>`).join('')}</ul>${h.from !== h.to ? `<small class="hint">${h.from ? `Valor do pacote: ${brl(h.from)} → <b>${brl(h.to)}</b>` : `Valor inicial: <b>${brl(h.to)}</b>`}</small>` : ''}</div></div>`).join('')}</div>`; };
+  // compara duas versões e descreve cada alteração com o impacto no preço
+  const pkDiff = (oldP, newP) => { const C = [], key = l => l.sid || l.name, O = new Map((oldP.lines || []).map(l => [key(l), l])), N = new Map((newP.lines || []).map(l => [key(l), l])); const inMain = (l, per) => (per === 'pagamento único') !== lineMonthly(l);
+    const sub = l => Math.round(l.price * l.qty);
+    N.forEach((l, k) => { const o = O.get(k); const d = inMain(l, newP.period) ? sub(l) - (o && inMain(o, oldP.period) ? sub(o) : 0) : 0;
+      if (!o) C.push({ label: `Incluído: ${lineLabel(l)}`, delta: d });
+      else if (o.qty !== l.qty && o.price !== l.price) C.push({ label: `${l.name}: ${num(o.qty)} → ${num(l.qty)} e preço ${brl(o.price)} → ${brl(l.price)}`, delta: d });
+      else if (o.qty !== l.qty) C.push({ label: `${l.name}: ${num(o.qty)} → ${num(l.qty)}${l.unit === 'hora' ? ' h' : ''}`, delta: d });
+      else if (o.price !== l.price) C.push({ label: `${l.name}: preço ${brl(o.price)} → ${brl(l.price)}`, delta: d }); });
+    O.forEach((o, k) => { if (!N.has(k)) C.push({ label: `Removido: ${lineLabel(o)}`, delta: inMain(o, oldP.period) ? -sub(o) : 0 }); });
+    if ((oldP.discount || 0) !== (newP.discount || 0)) C.push({ label: newP.discount ? `Desconto ${oldP.discount ? brl(oldP.discount) + ' → ' : ''}${brl(newP.discount)}` : 'Desconto removido', delta: (oldP.discount || 0) - (newP.discount || 0) });
+    return C; };
+  const secServicos = M => { const S = A.svc || (A.svc = { f: 'all', off: false }); const L = db.services.filter(s => (S.f === 'all' || s.type === S.f) && (S.off || s.active !== false));
+    const offN = db.services.filter(s => s.active === false).length;
+    const row = s => { const n = svcUse(s.id).length; return `<article class="svc-row${s.active === false ? ' off' : ''}"><div class="svc-n"><b>${esc(s.name)}</b>${s.desc ? `<small>${esc(s.desc)}</small>` : ''}</div><span class="svc-k hint">${s.counts ? 'conta como ' + (PLURAL[s.counts] || '').toLowerCase() : SVC_UNITS[s.unit]?.[0] || ''}</span>
+      <div class="svc-p num">${svcPrice(s)}</div><span class="svc-u hint">${n ? `em ${n} pacote${n > 1 ? 's' : ''}` : 'sem pacote'}</span>
+      <label class="svc-on"><button class="switch" role="switch" aria-checked="${s.active !== false}" data-svc-on="${s.id}" aria-label="${s.active === false ? 'Ativar' : 'Desativar'} ${esc(s.name)}"></button><span>${s.active === false ? 'Desativado' : 'Ativo'}</span></label>
+      <div class="acts"><button class="ibtn" data-svc-edit="${s.id}" aria-label="Editar ${esc(s.name)}" title="Editar">${icon('pen')}</button><button class="ibtn danger" data-svc-rm="${s.id}" aria-label="Excluir ${esc(s.name)}" title="Excluir">${icon('trash')}</button></div></article>`; };
+    const groups = Object.keys(SVC_TYPES).filter(t => S.f === 'all' || S.f === t).map(t => [t, L.filter(s => s.type === t)]).filter(([, l]) => l.length);
+    M.innerHTML = head('Comercial', 'Serviços.', 'Tudo o que a FX vende, com tipo e preço. Os pacotes são montados com estes serviços, e o cliente vê o valor de cada um.', `<button class="pill orange" data-svc-edit="">${icon('plus')}Novo serviço</button>`)
+      + `<div class="filters"><div class="seg" role="group" aria-label="Tipo de serviço">${[['all', 'Todos'], ...Object.entries(SVC_TYPES).map(([k, v]) => [k, v[0]])].map(([k, l]) => `<button data-svc-f="${k}" aria-pressed="${S.f === k}">${l} <small>${db.services.filter(s => (k === 'all' || s.type === k) && (S.off || s.active !== false)).length}</small></button>`).join('')}</div>${offN ? `<label class="consent" style="margin-left:auto"><input type="checkbox" id="svc-off" ${S.off ? 'checked' : ''}><span>Mostrar desativados (${offN})</span></label>` : ''}</div>`
+      + (db.services.length ? (groups.length ? groups.map(([t, l]) => `<div class="glass panel svc-panel"><div class="panel-h"><h3>${SVC_TYPES[t][0]}</h3><small>${l.length} serviço${l.length > 1 ? 's' : ''}</small></div><div class="svc-list">${l.map(row).join('')}</div></div>`).join('') : `<div class="glass panel">${emptyBox('box', 'Nada neste filtro', 'Troque o filtro ou mostre os desativados.')}</div>`)
+        : `<div class="glass panel">${emptyBox('box', 'Cadastre os serviços da FX', 'Cada serviço tem tipo, preço e forma de cobrança. Depois é só montar os pacotes escolhendo os serviços, com o preço calculado sozinho.', `<button class="pill orange" data-svc-edit="">${icon('plus')}Cadastrar o primeiro serviço</button>`)}</div>`); };
+  const svcModal = s => { const isNew = !s; s = s || { name: '', type: (A.svc?.f && A.svc.f !== 'all') ? A.svc.f : 'conteudo', unit: 'unid', price: null, desc: '', active: true, counts: '' }; const used = isNew ? [] : svcUse(s.id);
+    openModal(`<div class="m-head"><span class="m-ic">${icon(isNew ? 'plus' : 'pen')}</span><div><h2>${isNew ? 'Novo serviço' : 'Editar serviço'}</h2><p>${isNew ? 'O serviço fica disponível para montar pacotes.' : used.length ? `Está em ${used.length} pacote${used.length > 1 ? 's' : ''}: ${used.map(p => esc(p.name)).join(', ')}.` : 'Ainda não está em nenhum pacote.'}</p></div></div>
+      <div class="cfg"><div class="field full"><label for="sv-n">Nome do serviço</label><input class="in" id="sv-n" value="${esc(s.name)}" placeholder="Ex.: Reel editado"></div>
+        <div class="field"><label for="sv-t">Tipo</label><select class="in" id="sv-t">${Object.entries(SVC_TYPES).map(([k, v]) => `<option value="${k}" ${s.type === k ? 'selected' : ''}>${v[0]}</option>`).join('')}</select></div>
+        <div class="field"><label for="sv-u">Cobrança</label><select class="in" id="sv-u">${Object.entries(SVC_UNITS).map(([k, v]) => `<option value="${k}" ${s.unit === k ? 'selected' : ''}>${v[0][0].toUpperCase() + v[0].slice(1)}</option>`).join('')}</select></div>
+        <div class="field"><label for="sv-p">Preço (R$)</label><input class="in num" id="sv-p" inputmode="decimal" value="${s.price != null ? (s.price / 100).toFixed(2).replace('.', ',') : ''}" placeholder="0,00"></div>
+        <div class="field" id="sv-cw" ${s.type === 'conteudo' ? '' : 'hidden'}><label for="sv-c">Conta como entrega de</label><select class="in" id="sv-c"><option value="">Não conta nas entregas</option>${Object.entries(PLURAL).map(([k, l]) => `<option value="${k}" ${s.counts === k ? 'selected' : ''}>${l}</option>`).join('')}</select></div>
+        <div class="field full"><label for="sv-d">Descrição para o cliente (opcional)</label><input class="in" id="sv-d" value="${esc(s.desc || '')}" placeholder="Ex.: roteiro, gravação e edição com legenda"></div>
+        ${used.length ? `<label class="consent full" for="sv-upd"><input type="checkbox" id="sv-upd" checked><span>Se o preço mudar, atualizar também nos ${used.length} pacote${used.length > 1 ? 's' : ''} que usam este serviço (fica registrado no histórico de cada pacote)</span></label>` : ''}
+        <span class="err-t full" id="e-sv"></span></div>
+      <div class="m-foot"><span></span><div class="filters"><button class="pill" data-close>Cancelar</button><button class="pill orange" id="sv-ok" data-id="${isNew ? '' : s.id}">${isNew ? 'Cadastrar serviço' : 'Salvar serviço'}</button></div></div>`); };
+  const meName = () => meInfo().name || 'FX';
+  const logPk = (p, changes, from, to) => { if (!changes.length) return; (p.history || (p.history = [])).push({ at: new Date().toISOString(), by: meName(), changes, from, to }); if (p.history.length > 60) p.history = p.history.slice(-60); };
+  // editor de pacote com serviços
+  const PK = { cur: null };
+  const pkLinesHtml = () => { const p = PK.cur, T = pkTotals(p.lines, p.discount, p.period); const per = p.period === '/mês' ? '/mês' : '';
+    const mainL = p.lines.filter(l => (p.period === 'pagamento único') !== lineMonthly(l));
+    const changes = PK.orig ? pkDiff(PK.orig, p) : [];
+    return `${p.lines.length ? `<div class="pkl">${p.lines.map((l, i) => { const s = svcById(l.sid); const fixed = l.unit === 'mes' || l.unit === 'unico'; return `<div class="pkl-row${mainL.includes(l) ? '' : ' side'}"><div class="pkl-n"><b>${esc(l.name)}</b><small>${brl(l.price)}${SVC_UNITS[l.unit]?.[1] || ''}${s && s.price !== l.price ? ` · <button type="button" class="lnk" data-pkl-sync="${i}">usar preço atual ${brl(s.price)}</button>` : ''}${s && s.active === false ? ' · serviço desativado' : ''}${mainL.includes(l) ? '' : ' · cobrado à parte'}</small></div>
+      ${fixed ? '<span class="pkl-q hint">1</span>' : `<div class="pkl-q stepper"><button type="button" data-pkl-q="${i}" data-d="-1" aria-label="Menos">−</button><input class="in sm num" data-pkl-qi="${i}" value="${l.qty}" inputmode="decimal" aria-label="Quantidade de ${esc(l.name)}"><button type="button" data-pkl-q="${i}" data-d="1" aria-label="Mais">+</button></div>`}
+      <b class="pkl-s num">${brl(T.sub(l))}</b><button type="button" class="ibtn danger" data-pkl-rm="${i}" aria-label="Tirar ${esc(l.name)} do pacote">${icon('x')}</button></div>`; }).join('')}</div>` : '<p class="hint">Nenhum serviço ainda. Escolha abaixo.</p>'}
+      <div class="pkl-add"><select class="in" id="pkl-sel"><option value="">Adicionar serviço ao pacote…</option>${Object.entries(SVC_TYPES).map(([t, v]) => { const L = db.services.filter(s => s.type === t && s.active !== false); return L.length ? `<optgroup label="${v[0]}">${L.map(s => `<option value="${s.id}">${esc(s.name)} · ${brl(s.price)}${SVC_UNITS[s.unit][1]}</option>`).join('')}</optgroup>` : ''; }).join('')}</select>${db.services.some(s => s.active !== false) ? '' : `<span class="hint">Cadastre serviços na aba <b>Serviços</b>.</span>`}</div>
+      <div class="pkl-tot"><div><span>Soma dos serviços</span><b class="num">${brl(T.main)}${per}</b></div><div><label for="pk-disc">Desconto (R$)</label><input class="in sm num" id="pk-disc" inputmode="decimal" value="${p.discount ? (p.discount / 100).toFixed(2).replace('.', ',') : ''}" placeholder="0,00"></div><div class="big"><span>Valor do pacote</span><b class="num">${brl(T.total)}${per}</b></div>${T.side ? `<div><span>Cobrado à parte</span><b class="num">${brl(T.side)}</b></div>` : ''}</div>
+      ${changes.length ? `<div class="pk-chg"><span class="mg-l">Alterações desta edição</span><ul>${changes.map(x => `<li><span>${esc(x.label)}</span>${x.delta ? `<b class="num ${x.delta > 0 ? 'up' : 'down'}">${x.delta > 0 ? '+ ' : '− '}${brl(Math.abs(x.delta))}</b>` : ''}</li>`).join('')}</ul><small class="hint">Valor do pacote: ${brl(PK.origTotal)} → <b>${brl(T.total)}</b>. Clientes atuais mantêm o valor do contrato.</small></div>` : ''}`; };
+  const pkQuota = () => { const q = {}; PK.cur.lines.forEach(l => { if (l.counts) { q[l.counts] = (q[l.counts] || 0) + Math.round(+l.qty || 0); (PK.auto || (PK.auto = new Set())).add(l.counts); } }); Object.keys(PLURAL).forEach(k => { const i = $('#pk-q-' + k); if (i && PK.auto?.has(k)) i.value = q[k] || ''; }); };
+  const pkRefresh = () => { const b = $('#pk-lines'); if (b) { const f = document.activeElement?.dataset?.pklQi; b.innerHTML = pkLinesHtml(); if (f != null) { const i = $(`[data-pkl-qi="${f}"]`); if (i) { i.focus(); i.setSelectionRange(i.value.length, i.value.length); } } } };
   const secPacotes = M => { const F = A.pkf || 'all', L = db.packages.filter(p => F === 'all' || (F === 'sistema' ? p.kind === 'sistema' : p.kind !== 'sistema'));
     const card = p => { const n = db.clients.filter(c => c.package === p.id).length, q = p.quota || {}; return `<div class="pk-card glass${p.visible ? '' : ' off'}"><div class="pk-top"><span class="tag ${p.kind === 'sistema' ? '' : 'hot'}">${p.kind === 'sistema' ? 'Sistema' : 'Mídia social'}</span>${p.best ? '<span class="tag good">Destaque</span>' : ''}<label class="pk-vis"><span>${p.visible ? 'No site' : 'Fora do site'}</span><button class="switch" role="switch" aria-checked="${p.visible}" data-vis="${p.id}" aria-label="Mostrar ${esc(p.name)} no site"></button></label></div>
       <h3>${esc(p.name)}</h3><div class="pk-price"><b>${priceTxt(p)}</b></div>
       ${Object.keys(q).length ? `<div class="pk-q">${Object.entries(q).map(([k, v]) => `<span><b>${v}</b> ${PLURAL[k] || k}</span>`).join('')}</div>` : ''}
-      <ul class="pk-items">${p.items.slice(0, 6).map(i => `<li>${icon('check')}<span>${esc(i)}</span></li>`).join('')}${p.items.length > 6 ? `<li class="more">+ ${p.items.length - 6} itens</li>` : ''}</ul>
-      <div class="pk-foot"><small>${n ? `${n} cliente(s) neste pacote` : 'nenhum cliente ainda'}</small><div class="acts row-acts"><button class="ibtn" data-pk-dup="${p.id}" aria-label="Duplicar ${esc(p.name)}" title="Duplicar">${icon('copy')}</button><button class="ibtn danger" data-pk-rm="${p.id}" aria-label="Excluir ${esc(p.name)}" title="Excluir">${icon('trash')}</button><button class="pill sm" data-pk-edit="${p.id}">${icon('pen')}Editar</button></div></div></div>`; };
+      ${(p.lines || []).length ? `<ul class="pk-items pk-priced">${p.lines.slice(0, 7).map(l => `<li>${icon('check')}<span>${esc(lineLabel(l))}</span><b class="num">${brl(Math.round(l.price * l.qty))}</b></li>`).join('')}${p.lines.length > 7 ? `<li class="more">+ ${p.lines.length - 7} serviços</li>` : ''}${p.discount ? `<li class="disc"><span>Desconto</span><b class="num">− ${brl(p.discount)}</b></li>` : ''}</ul>` : `<ul class="pk-items">${p.items.slice(0, 6).map(i => `<li>${icon('check')}<span>${esc(i)}</span></li>`).join('')}${p.items.length > 6 ? `<li class="more">+ ${p.items.length - 6} itens</li>` : ''}</ul><p class="hint">Sem serviços com preço. Edite para montar com o catálogo.</p>`}
+      <div class="pk-foot"><small>${n ? `${n} cliente(s) neste pacote` : 'nenhum cliente ainda'}${(p.history || []).length ? ` · <button class="lnk" data-pk-hist="${p.id}">${p.history.length} alteraç${p.history.length > 1 ? 'ões' : 'ão'}</button>` : ''}</small><div class="acts row-acts"><button class="ibtn" data-pk-dup="${p.id}" aria-label="Duplicar ${esc(p.name)}" title="Duplicar">${icon('copy')}</button><button class="ibtn danger" data-pk-rm="${p.id}" aria-label="Excluir ${esc(p.name)}" title="Excluir">${icon('trash')}</button><button class="pill sm" data-pk-edit="${p.id}">${icon('pen')}Editar</button></div></div></div>`; };
     M.innerHTML = head('Comercial', 'Pacotes', 'Monte e personalize cada pacote. Ligue "No site" para ele aparecer no site e nas opções do formulário; desligado, ele continua disponível para os clientes cadastrados.', `<button class="pill orange" data-pk-edit="">${icon('plus')}Novo pacote</button>`)
       + `<div class="filters"><div class="seg" role="group" aria-label="Filtrar pacotes">${[['all', 'Todos'], ['social', 'Mídia social'], ['sistema', 'Sistemas']].map(([k, l]) => `<button data-pkf="${k}" aria-pressed="${F === k}">${l} <small>${k === 'all' ? db.packages.length : db.packages.filter(p => k === 'sistema' ? p.kind === 'sistema' : p.kind !== 'sistema').length}</small></button>`).join('')}</div><span class="hint">${db.packages.filter(p => p.visible).length} de ${db.packages.length} aparecem no site</span></div>
       <div class="pk-grid">${L.map(card).join('') || emptyBox('box', 'Nenhum pacote aqui', 'Use "Novo pacote" para criar.')}</div>`; };
-  const SECS = { pacotes: secPacotes, inicio: secInicio, leads: secLeads, links: secLinks, clientes: secClientes, conteudos: secConteudos, calendario: secCalendario, tarefas: secTarefas, relatorios: secRelatorios, avaliacoes: secAvaliacoes, financeiro: secFinanceiro, equipe: secEquipe, site: secSite, perfil: secPerfil };
+  const SECS = { servicos: secServicos, pacotes: secPacotes, inicio: secInicio, leads: secLeads, links: secLinks, clientes: secClientes, conteudos: secConteudos, calendario: secCalendario, tarefas: secTarefas, relatorios: secRelatorios, avaliacoes: secAvaliacoes, financeiro: secFinanceiro, equipe: secEquipe, site: secSite, perfil: secPerfil };
   const renderAdmin = () => { if (!SECS[A.sec] || !can(SEC_MOD[A.sec] || 'base')) A.sec = 'inicio'; renderSide(); SECS[A.sec]($('#a-main')); freshIds = new Set(); };
 
   // =================== ÁREA DO CLIENTE ===================
@@ -3311,7 +3427,7 @@ table.rs-tbl { min-width: 560px; } table.rs-tbl td { padding: 8px 6px; } table.r
           <div class="glass panel"><div class="panel-h"><h3>Últimas publicadas</h3></div>${recent.length ? `<div class="list">${recent.map(x => `<div class="it"><span class="grow">${esc(x.theme)}<small>${FORMATS[x.format]} · ${dLabel(x.date)}</small></span><span class="hint num">${x.views ? num(x.views) + ' views' : (x.likes ?? 0) + ' curtidas'}</span></div>`).join('')}</div>` : emptyBox('image', 'Nenhuma publicação ainda', 'Assim que algo for ao ar, aparece aqui.')}</div></div>`; }
     if (P.tab === 'pacote') body = `${head('Meu pacote', esc(p.name) + '.', `${brl(c.value)}${c.monthly ? ' por mês' : ''} · cliente desde ${brShort(c.start)}/${c.start.slice(0, 4)}`)}<div class="glass panel"><div class="panel-h"><h3>Entregas de ${mLong(CUR).toLowerCase()}</h3><small>conta só o que foi publicado</small></div>${delivHtml(c.id)}</div>
       <div class="notice o">${icon('box')}<span><b>Quer mais resultados?</b> Troque de plano ou adicione um serviço neste mês. A conversa continua no WhatsApp da FX.</span><button class="pill sm orange" data-plan-req>Trocar de plano ou adicionar serviço</button></div>
-      <div class="glass panel"><div class="panel-h"><h3>O que está incluído</h3></div><div class="list">${p.items.map(i => `<div class="it"><span class="sev ok">${icon('check')}</span><span class="grow">${esc(i)}</span></div>`).join('')}</div></div>`;
+      <div class="glass panel"><div class="panel-h"><h3>${(p.lines || []).length ? 'Serviços e valores do pacote' : 'O que está incluído'}</h3>${(p.lines || []).length ? '<small>preço de cada serviço</small>' : ''}</div>${pkDetail(p, c)}</div>${pkHistory(p, c.start) ? `<div class="glass panel"><div class="panel-h"><h3>Alterações no pacote</h3><small>desde ${brShort(c.start)}/${c.start.slice(0, 4)}</small></div>${pkHistory(p, c.start)}</div>` : ''}`;
     if (P.tab === 'conteudos') { const o = ['aguardando_aprovacao', 'em_revisao', 'em_producao', 'aprovado', 'agendado', 'planejado', 'publicado']; const L = db.contents.filter(x => x.client === c.id).sort((a, b) => o.indexOf(a.status) - o.indexOf(b.status) || a.date.localeCompare(b.date));
       body = `${head('Conteúdos', 'Seus conteúdos.', c.approval ? 'Aprove ou peça ajuste nas peças que estão aguardando você.' : 'Acompanhe o que está sendo produzido e o que já foi publicado.')}${L.length ? `<div class="posts">${L.map((x, i) => postCard(x, i, c.approval ? 'portal' : 'portal-view')).join('')}</div>` : `<div class="glass panel">${emptyBox('image', 'Nenhum conteúdo ainda', 'A FX está preparando o planejamento.')}</div>`}`; }
     if (P.tab === 'calendario') body = `${head('Calendário', 'Seu calendário.', 'Toque em um dia para ver o que vai ser postado e aprovar o que estiver esperando você.')}${calendarBlock(c.id, false, 'portal')}`;
@@ -3551,24 +3667,33 @@ table.rs-tbl { min-width: 560px; } table.rs-tbl td { padding: 8px 6px; } table.r
     if (T('#fd-reset')) { if (!T('#fd-reset').dataset.confirm) { T('#fd-reset').dataset.confirm = 1; T('#fd-reset').classList.add('orange'); toast('Toque de novo para voltar às perguntas padrão'); return; } A.fd = { ...DEF_FORMS(), bonus: { social: { ...DEF_BONUS_SOCIAL }, sistema: { ...DEF_BONUS_SYSTEM } } }; renderAdmin(); toast('Padrão carregado. Salve para aplicar no site.'); return; }
     if (T('#fd-test')) { fdSync(); location.hash = 'site'; setTimeout(() => openFlow(), 300); toast('Abrindo o formulário salvo. Alterações não salvas não aparecem.'); return; }
     // pacotes
-    if ((el = T('[data-pk-edit]'))) { const p = el.dataset.pkEdit ? packById(el.dataset.pkEdit) : { id: '', name: '', price: null, period: '/mês', items: [], quota: {}, visible: true, kind: 'social' }; const q = p.quota || {};
-      openModal(`<h2 style="font-size:26px">${p.id ? 'Editar pacote' : 'Novo pacote'}</h2><div class="cfg">
+    if ((el = T('[data-pk-edit]'))) { const p = el.dataset.pkEdit ? packById(el.dataset.pkEdit) : { id: '', name: '', price: null, period: '/mês', items: [], quota: {}, visible: true, kind: 'social', lines: [], discount: 0, showPrices: true }; const q = p.quota || {};
+      PK.cur = { lines: JSON.parse(JSON.stringify(p.lines || [])), discount: p.discount || 0, period: p.period || '/mês' }; PK.orig = p.id && (p.lines || []).length ? { lines: JSON.parse(JSON.stringify(p.lines)), discount: p.discount || 0, period: p.period } : null; PK.origTotal = p.price || 0; PK.auto = new Set((p.lines || []).map(l => l.counts).filter(Boolean)); PK.legacy = !!p.id && !(p.lines || []).length;
+      const extra = (p.items || []).filter(i => !(p.lines || []).some(l => i === lineLabel(l)));
+      openModal(`<div class="m-head"><span class="m-ic">${icon('box')}</span><div><h2>${p.id ? 'Editar pacote' : 'Novo pacote'}</h2><p>Escolha os serviços e as quantidades. O valor é calculado com o preço de cada serviço.</p></div></div><div class="cfg">
         <div class="field full"><label for="pk-n">Nome do pacote</label><input class="in" id="pk-n" value="${esc(p.name)}"></div>
         <div class="field"><label for="pk-k">Tipo</label><select class="in" id="pk-k"><option value="social" ${p.kind !== 'sistema' ? 'selected' : ''}>Mídia social</option><option value="sistema" ${p.kind === 'sistema' ? 'selected' : ''}>Sistema</option></select></div>
-        <div class="field"><label for="pk-per">Cobrança</label><select class="in" id="pk-per">${[['/mês', 'Por mês'], ['pagamento único', 'Pagamento único'], ['', 'Sob proposta']].map(([v, l]) => `<option value="${v}" ${(p.price == null ? '' : p.period) === v ? 'selected' : ''}>${l}</option>`).join('')}</select></div>
-        <div class="field"><label for="pk-v">Preço (R$)</label><input class="in num" id="pk-v" inputmode="decimal" value="${p.price != null ? (p.price / 100).toFixed(2).replace('.', ',') : ''}" placeholder="vazio = sob proposta"></div>
-        <label class="consent" for="pk-best" style="align-self:end"><input type="checkbox" id="pk-best" ${p.best ? 'checked' : ''}><span>Destacar como "Mais completo"</span></label>
-        <div class="field full"><label for="pk-i">O que está incluído (um item por linha)</label><textarea class="in" id="pk-i" rows="6">${esc(p.items.join('\n'))}</textarea></div>
-        <div class="field full"><label>Entregas por mês (para o controle de conteúdos)</label><div class="ugrid">${Object.entries(PLURAL).map(([k, l]) => `<div class="field"><label for="pk-q-${k}">${l}</label><input class="in sm num" id="pk-q-${k}" inputmode="numeric" value="${q[k] || ''}"></div>`).join('')}</div></div>
+        <div class="field"><label for="pk-per">Cobrança do pacote</label><select class="in" id="pk-per">${[['/mês', 'Por mês'], ['pagamento único', 'Pagamento único'], ['', 'Sob proposta']].map(([v, l]) => `<option value="${v}" ${(p.price == null && p.id ? '' : p.period) === v ? 'selected' : ''}>${l}</option>`).join('')}</select></div>
+        <div class="field full"><span class="flabel">Serviços do pacote</span><div id="pk-lines">${pkLinesHtml()}</div></div>
+        ${PK.legacy ? `<div class="field full"><label for="pk-v">Preço atual (R$) · usado enquanto o pacote não tiver serviços</label><input class="in num" id="pk-v" inputmode="decimal" value="${p.price != null ? (p.price / 100).toFixed(2).replace('.', ',') : ''}"></div>` : ''}
+        <div class="field full"><label for="pk-i">Também incluído, sem preço separado (um por linha, opcional)</label><textarea class="in" id="pk-i" rows="3" placeholder="Ex.: Reunião mensal de resultados">${esc(extra.join('\n'))}</textarea></div>
+        <div class="field full"><label>Entregas por mês (para o controle de conteúdos)</label><div class="ugrid">${Object.entries(PLURAL).map(([k, l]) => `<div class="field"><label for="pk-q-${k}">${l}</label><input class="in sm num" id="pk-q-${k}" inputmode="numeric" value="${q[k] || ''}"></div>`).join('')}</div><span class="hint">Preenchido sozinho pelos serviços de conteúdo. Pode ajustar.</span></div>
+        <label class="consent" for="pk-sp"><input type="checkbox" id="pk-sp" ${p.showPrices !== false ? 'checked' : ''}><span>Mostrar o preço de cada serviço no site</span></label>
+        <label class="consent" for="pk-best"><input type="checkbox" id="pk-best" ${p.best ? 'checked' : ''}><span>Destacar como "Mais completo"</span></label>
         <span class="err-t full" id="e-pk"></span></div>
-        <div class="filters" style="justify-content:flex-end"><button class="pill" data-close>Cancelar</button><button class="pill orange" id="pk-ok" data-id="${p.id}">${p.id ? 'Salvar pacote' : 'Criar pacote'}</button></div>`, true); return; }
-    if ((el = T('#pk-ok'))) { const n = $('#pk-n').value.trim(), per = $('#pk-per').value, pv = $('#pk-v').value.trim(), items = $('#pk-i').value.split('\n').map(x => x.trim()).filter(Boolean);
-      if (n.length < 3) { $('#e-pk').textContent = 'Dê um nome ao pacote.'; return; } if (!items.length) { $('#e-pk').textContent = 'Liste pelo menos um item incluído.'; return; }
-      const price = per && pv ? parseMoney(pv) : null; if (per && !(price > 0)) { $('#e-pk').textContent = 'Digite o preço ou escolha "Sob proposta".'; return; }
+        <div class="m-foot"><span></span><div class="filters"><button class="pill" data-close>Cancelar</button><button class="pill orange" id="pk-ok" data-id="${p.id}">${p.id ? 'Salvar pacote' : 'Criar pacote'}</button></div></div>`, true); return; }
+    if ((el = T('#pk-ok'))) { const n = $('#pk-n').value.trim(), per = $('#pk-per').value, extra = $('#pk-i').value.split('\n').map(x => x.trim()).filter(Boolean), L = PK.cur.lines, disc = PK.cur.discount || 0;
+      if (n.length < 3) { $('#e-pk').textContent = 'Dê um nome ao pacote.'; return; } if (!L.length && !extra.length) { $('#e-pk').textContent = 'Adicione pelo menos um serviço.'; return; }
+      const T = pkTotals(L, disc, per); let price = L.length ? T.total : (per && $('#pk-v')?.value.trim() ? parseMoney($('#pk-v').value) : null);
+      if (per && !L.length && !(price > 0)) { $('#e-pk').textContent = 'Adicione serviços ou digite o preço.'; return; } if (per && L.length && disc > T.main) { $('#e-pk').textContent = 'O desconto é maior que a soma dos serviços.'; return; }
+      if (!per) price = null;
       const quota = {}; Object.keys(PLURAL).forEach(k => { const v = +($('#pk-q-' + k).value.replace(/\D/g, '')) || 0; if (v) quota[k] = v; });
-      let p = el.dataset.id ? db.packages.find(x => x.id === el.dataset.id) : null;
+      let p = el.dataset.id ? db.packages.find(x => x.id === el.dataset.id) : null; const before = p ? { lines: p.lines || [], discount: p.discount || 0, period: p.period, price: p.price } : null;
       if (!p) { let id = n.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 24) || 'pacote'; while (db.packages.some(x => x.id === id)) id += '-2'; p = { id, visible: true }; db.packages.push(p); }
-      Object.assign(p, { name: n, kind: $('#pk-k').value, price, period: per && price != null ? per : '', items, quota, best: $('#pk-best').checked });
+      const items = [...L.map(lineLabel), ...extra];
+      if (before) { const ch = (before.lines.length ? pkDiff(before, { lines: L, discount: disc, period: per }) : L.length ? [{ label: `Pacote montado com ${L.length} serviço${L.length > 1 ? 's' : ''} do catálogo`, delta: 0 }] : []); if (before.period !== (per && price != null ? per : '')) ch.push({ label: `Cobrança: ${before.period || 'sob proposta'} → ${per || 'sob proposta'}`, delta: 0 }); logPk(p, ch, before.price || 0, price || 0); }
+      else logPk(p, [{ label: `Pacote criado com ${L.length} serviço${L.length > 1 ? 's' : ''}`, delta: 0 }], 0, price || 0);
+      Object.assign(p, { name: n, kind: $('#pk-k').value, price, period: per && price != null ? per : '', items, quota, lines: JSON.parse(JSON.stringify(L)), discount: disc, showPrices: $('#pk-sp').checked, best: $('#pk-best').checked });
       if (p.best) db.packages.forEach(x => { if (x !== p) x.best = false; }); db.packages.forEach((x, i) => (x.n = String(i + 1).padStart(2, '0')));
       if (save()) { closeAll(); renderSite(); renderAdmin(); toast('Pacote salvo. O site já mostra a mudança.'); } return; }
     if ((el = T('[data-pk-rm]'))) { const p = packById(el.dataset.pkRm), used = db.clients.filter(c => c.package === p.id).length;
@@ -3581,6 +3706,27 @@ table.rs-tbl { min-width: 560px; } table.rs-tbl td { padding: 8px 6px; } table.r
     if ((el = T('[data-rl-rm]'))) { const c = clientById(A.client); if (!el.dataset.confirm) { el.dataset.confirm = 1; el.classList.add('orange'); toast('Toque de novo para remover o link e os números dele'); return; } rsSync(c); const R = sysRes(c); R.links = R.links.filter(x => x.id !== el.dataset.rlRm); Object.values(R.lm).forEach(o => delete o[el.dataset.rlRm]); save(); renderAdmin(); return; }
     if ((el = T('#rs-save'))) { const c = clientById(el.dataset.id); rsSync(c); sysRes(c).updated = TODAY; if (save()) { renderAdmin(); toast('Resultados salvos. O cliente já vê os gráficos.'); } return; }
     // equipe
+    // serviços
+    if ((el = T('[data-svc-f]'))) { (A.svc || (A.svc = {})).f = el.dataset.svcF; renderAdmin(); return; }
+    if ((el = T('[data-svc-edit]'))) { svcModal(el.dataset.svcEdit ? svcById(el.dataset.svcEdit) : null); return; }
+    if ((el = T('#sv-ok'))) { const n = $('#sv-n').value.trim(), type = $('#sv-t').value, unit = $('#sv-u').value, price = parseMoney($('#sv-p').value || ''), desc = $('#sv-d').value.trim(), counts = type === 'conteudo' ? $('#sv-c').value : '', E = $('#e-sv');
+      if (n.length < 2) { E.textContent = 'Dê um nome ao serviço.'; return; } if (!(price >= 0) || isNaN(price) || !$('#sv-p').value.trim()) { E.textContent = 'Digite o preço do serviço.'; return; }
+      let s = el.dataset.id ? svcById(el.dataset.id) : null; const oldPrice = s?.price;
+      if (!s) { s = { id: uid(), active: true, created: TODAY }; db.services.push(s); }
+      Object.assign(s, { name: n, type, unit, price, desc, counts });
+      let upd = 0; if (el.dataset.id && $('#sv-upd')?.checked) svcUse(s.id).forEach(p => { const before = pkTotals(p.lines, p.discount, p.period).total, ch = []; p.lines.forEach(l => { if (l.sid !== s.id) return; if (l.price !== price) { const mainL = (p.period === 'pagamento único') !== lineMonthly(l); ch.push({ label: `${s.name}: preço ${brl(l.price)} → ${brl(price)}`, delta: mainL ? Math.round((price - l.price) * l.qty) : 0 }); } Object.assign(l, { name: n, type, unit, price, counts }); }); if (ch.length) { const after = pkTotals(p.lines, p.discount, p.period).total; if (p.period) p.price = after; logPk(p, ch, before, after); upd++; } });
+      if (save()) { closeAll(); renderSite(); renderAdmin(); toast(upd ? `Serviço salvo. Preço atualizado em ${upd} pacote${upd > 1 ? 's' : ''}.` : el.dataset.id ? 'Serviço salvo' : 'Serviço cadastrado'); } return; }
+    if ((el = T('[data-svc-on]'))) { const s = svcById(el.dataset.svcOn); s.active = s.active === false; save(); renderAdmin(); toast(s.active ? `${s.name} ativado` : `${s.name} desativado. Continua nos pacotes que já usam, mas não aparece para novos.`); return; }
+    if ((el = T('[data-svc-rm]'))) { const s = svcById(el.dataset.svcRm), used = svcUse(s.id);
+      openModal(`<div class="m-head"><span class="m-ic danger">${icon('trash')}</span><div><h2>Excluir ${esc(s.name)}?</h2><p>${used.length ? `Este serviço está em ${used.length} pacote${used.length > 1 ? 's' : ''} (${used.map(p => esc(p.name)).join(', ')}). Ele sai desses pacotes e o valor deles é recalculado. Se quiser só parar de oferecer, <b>desative</b> em vez de excluir.` : 'Ele sai do catálogo. Não dá para desfazer.'}</p></div></div>
+        <div class="m-foot"><span></span><div class="filters"><button class="pill" data-close>Cancelar</button>${used.length && s.active !== false ? `<button class="pill" data-svc-on="${s.id}" data-close>Desativar</button>` : ''}<button class="pill danger" id="sv-rm-ok" data-id="${s.id}">${icon('trash')}Excluir</button></div></div>`); return; }
+    if ((el = T('#sv-rm-ok'))) { const s = svcById(el.dataset.id); svcUse(s.id).forEach(p => { const before = pkTotals(p.lines, p.discount, p.period).total, gone = p.lines.filter(l => l.sid === s.id); p.lines = p.lines.filter(l => l.sid !== s.id); const after = pkTotals(p.lines, p.discount, p.period).total; if (p.period) p.price = after; logPk(p, gone.map(l => ({ label: `Removido: ${lineLabel(l)}`, delta: (p.period === 'pagamento único') !== lineMonthly(l) ? -Math.round(l.price * l.qty) : 0 })), before, after); p.items = (p.items || []).filter(i => !gone.some(l => i === lineLabel(l))); gone.forEach(l => { if (l.counts && p.quota?.[l.counts]) { p.quota[l.counts] = Math.max(0, p.quota[l.counts] - Math.round(l.qty)); if (!p.quota[l.counts]) delete p.quota[l.counts]; } }); });
+      db.services = db.services.filter(x => x.id !== s.id); save(); closeAll(); renderSite(); renderAdmin(); toast(`${s.name} excluído`); return; }
+    // linhas do pacote
+    if ((el = T('[data-pkl-q]'))) { const l = PK.cur.lines[+el.dataset.pklQ]; l.qty = Math.max(1, Math.round(((+l.qty || 0) + +el.dataset.d) * 10) / 10); pkRefresh(); pkQuota(); return; }
+    if ((el = T('[data-pkl-rm]'))) { PK.cur.lines.splice(+el.dataset.pklRm, 1); pkRefresh(); pkQuota(); return; }
+    if ((el = T('[data-pkl-sync]'))) { const l = PK.cur.lines[+el.dataset.pklSync], s = svcById(l.sid); if (s) l.price = s.price; pkRefresh(); return; }
+    if ((el = T('[data-pk-hist]'))) { const p = packById(el.dataset.pkHist); openModal(`<div class="m-head"><span class="m-ic">${icon('clock')}</span><div><h2>Alterações em ${esc(p.name)}</h2><p>Cada mudança de serviço, quantidade, preço ou desconto, com o impacto no valor.</p></div></div>${pkHistory(p) || '<p class="hint">Nenhuma alteração registrada ainda.</p>'}<div class="m-foot"><span></span><button class="pill" data-close>Fechar</button></div>`); return; }
     // equipe, acessos e perfil
     if ((el = T('[data-eq-tab]'))) { A2T().tab = el.dataset.eqTab; renderAdmin(); return; }
     if (T('[data-eq-reload]')) { A2T().err = null; A2T().list = null; renderAdmin(); return; }
@@ -3661,6 +3807,12 @@ table.rs-tbl { min-width: 560px; } table.rs-tbl td { padding: 8px 6px; } table.r
     if (id === 'tw-f') { A.taskWho = e.target.value; renderAdmin(); }
     if (id === 'rc-f') { A.repClient = e.target.value; A.repMonth = null; renderAdmin(); }
     if (id === 'rep-month') { A.repMonth = e.target.value; $('#v-portal').classList.contains('on') ? renderPortal() : renderAdmin(); }
+    if (id === 'svc-off') { (A.svc || (A.svc = {})).off = e.target.checked; renderAdmin(); }
+    if (id === 'sv-t') $('#sv-cw').hidden = e.target.value !== 'conteudo';
+    if (id === 'pkl-sel' && e.target.value) { const sv = svcById(e.target.value); const ex = PK.cur.lines.find(l => l.sid === sv.id); if (ex) { if (!(ex.unit === 'mes' || ex.unit === 'unico')) ex.qty += 1; } else PK.cur.lines.push({ sid: sv.id, name: sv.name, type: sv.type, unit: sv.unit, price: sv.price, qty: 1, counts: sv.counts || '' }); pkRefresh(); pkQuota(); }
+    if (e.target.dataset?.pklQi != null) { const l = PK.cur.lines[+e.target.dataset.pklQi]; const v = parseFloat(e.target.value.replace(',', '.')); l.qty = v > 0 ? Math.round(v * 10) / 10 : 1; pkRefresh(); pkQuota(); }
+    if (id === 'pk-disc') { const v = e.target.value.trim(); PK.cur.discount = v ? Math.max(0, parseMoney(v) || 0) : 0; pkRefresh(); }
+    if (id === 'pk-per') { PK.cur.period = e.target.value || '/mês'; pkRefresh(); }
     if (id === 'rep-week' || id === 'rep-year') { (A.rep || (A.rep = {}))[id === 'rep-week' ? 'week' : 'year'] = e.target.value; $('#v-portal').classList.contains('on') ? renderPortal() : renderAdmin(); }
     if (id === 'ff-m') { FF.month = e.target.value; FF.page = 1; renderAdmin(); }
     if (id === 'ff-c') { FF.client = e.target.value; FF.page = 1; renderAdmin(); }
