@@ -155,6 +155,7 @@
     try {
       setStatus('saving', 'Salvando…');
       for (const k of [...DOC_KEYS, 'flags']) {
+        if (!C.can(DOC_MOD[k] || 'equipe')) continue;   // sem permissão: o banco recusaria
         const cur = k === 'flags' ? flagsOf(db) : db[k]; if (cur === undefined) continue;
         const s = J(cur); if (last[k] && s === last[k].s) continue;
         let res = await rpc('save_doc', { p_key: k, p_data: cur, p_base: last[k] ? last[k].v : 0 });
@@ -166,7 +167,7 @@
         if (res.ok) { const v = k === 'flags' ? flagsOf(db) : db[k]; last[k] = { s: J(v), v: res.version, d: clone(v) }; if (PUB_KEYS.includes(k)) pubChanged = true; }
       }
       // leads alterados ou apagados pela equipe
-      const now = new Map((db.leads || []).map(l => [l.id, J(l)]));
+      const now = new Map((C.can('leads') ? db.leads || [] : []).map(l => [l.id, J(l)])); if (!C.can('leads')) leadSnap.forEach((v, id) => now.set(id, v));
       for (const [id, s] of now) if (leadSnap.has(id) && leadSnap.get(id) !== s) { const { error } = await sb.from('leads').update({ data: JSON.parse(s), updated_at: new Date().toISOString() }).eq('id', id); if (error) throw error; }
       const gone = [...leadSnap.keys()].filter(id => !now.has(id));
       if (gone.length) { const { error } = await sb.from('leads').delete().in('id', gone); if (error) throw error; }
@@ -224,6 +225,8 @@
     lastLeadAt = leads.length ? leads[0].created_at : null; lastEvId = events.length ? events.at(-1).id : 0; evCount = events.length;
     if (db) { db.leads = C.pendingLeads.slice(); db.events = C.pendingEvents.slice(); }
     C.db = db; C.team = who.team;
+    try { const { data: u } = await sb.auth.getUser(); C.me = { email: u?.user?.email || '' }; } catch (e) { C.me = { email: '' }; }
+    try { const { data: cu } = await sb.from('client_users').select('client_id,pw_set_at,created_at'); C.clientPw = Object.fromEntries((cu || []).map(r => [r.client_id, r.pw_set_at])); } catch (e) { C.clientPw = {}; }
   };
 
   // ===================== SITE PÚBLICO =====================
@@ -300,9 +303,9 @@
     }
     if (REALM === 'site') { db.events.forEach(e => sentEv.add(e.id)); syncSite(); }
   };
-  C.portalLogin = async (email, code) => {
-    const { error } = await sb.auth.signInWithPassword({ email, password: code });
-    if (error) return 'E-mail ou código não conferem. Confira os dados enviados pela FX.';
+  C.portalLogin = async (email, password) => {
+    const { error } = await sb.auth.signInWithPassword({ email, password });
+    if (error) return 'E-mail ou senha não conferem. Confira os dados enviados pela FX.';
     const { data: who } = await sb.rpc('whoami');
     if (!who?.client_id) { await sb.auth.signOut(); return 'Este login não é de um cliente.'; }
     location.reload(); return null;
@@ -320,10 +323,32 @@
   // cliente excluído: desliga o login dele da empresa (o login em si continua no Supabase)
   C.unlinkClient = async id => { try { await sb.from('client_users').delete().eq('client_id', id); } catch (e) { console.warn('[FX HUB] desligar acesso', e); } };
   C.clientAccess = async (c) => {
-    const { data, error } = await sb.functions.invoke('client-access', { body: { client_id: c.id, email: c.email, code: c.portalCode } });
+    return access({ kind: 'client', client_id: c.id, email: c.email, password: c.portalCode });
+  };
+  // ---------- equipe, permissões e senhas ----------
+  const DOC_MOD = { ledger: 'financeiro', team: 'equipe', config: 'site', packages: 'site', links: 'site', brands: 'site', clients: 'clientes', planRequests: 'clientes', contents: 'conteudos', meetings: 'agenda', tasks: 'agenda', metrics: 'relatorios', reports: 'relatorios', evaluations: 'relatorios', evalRequests: 'relatorios', flags: 'base' };
+  C.can = mod => REALM !== 'painel' || !C.team || C.team.role === 'admin' || mod === 'base' || (C.team.perms || []).includes(mod);
+  const access = async body => {
+    const { data, error } = await sb.functions.invoke('client-access', { body });
     if (error) { let msg = error.message; try { msg = (await error.context.json()).error || msg; } catch (e) {} throw new Error(msg); }
     return data;
   };
+  C.teamList = () => rpc('team_list');
+  C.saveMember = m => access({ kind: 'team', email: m.email, name: m.name, role: m.role, title: m.title, perms: m.perms, password: m.password || undefined });
+  C.removeMember = userId => access({ kind: 'team', action: 'remove', user_id: userId });
+  C.updateProfile = async (name, phone) => { await rpc('update_my_profile', { p_name: name, p_phone: phone || null }); if (C.team) Object.assign(C.team, { name, phone }); };
+  // troca a própria senha: confere a senha atual antes
+  C.changePassword = async (current, next) => {
+    const { data: u } = await sb.auth.getUser(); const email = u?.user?.email;
+    if (!email) throw new Error('Entre de novo para trocar a senha.');
+    const chk = await sb.auth.signInWithPassword({ email, password: current });
+    if (chk.error) throw new Error('A senha atual não confere.');
+    const { error } = await sb.auth.updateUser({ password: next });
+    if (error) throw new Error(/different|same/i.test(error.message) ? 'A nova senha precisa ser diferente da atual.' : /weak|short|length/i.test(error.message) ? 'Senha fraca. Use pelo menos 8 caracteres com letras e números.' : 'Não foi possível trocar a senha agora.');
+    if (REALM === 'portal') { try { await rpc('client_password_changed'); } catch (e) { console.warn('[FX HUB] aviso de senha', e); } }
+    return true;
+  };
+  C.myEmail = async () => { const { data: u } = await sb.auth.getUser(); return u?.user?.email || ''; };
   C.addTeam = (email, name, role) => rpc('add_team_member', { p_email: email, p_name: name, p_role: role });
 
   // ===================== início =====================

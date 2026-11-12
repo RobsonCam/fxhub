@@ -34,9 +34,6 @@ rep("    const h = location.hash.slice(1); const v = ['site', 'portal'].includes
 rep("if (!session) { session = { id: uid(), link: 'direto' }; track('visit');", "if (!session) { session = { id: uid(), link: window.FX_CLOUD?.link || 'direto' }; track('visit');")
 # área do cliente
 rep("  const P = { client: null, tab: 'visao',", "  const P = { client: window.FX_CLOUD?.portalClient || null, tab: window.FX_CLOUD?.portalTab || 'visao',")
-rep("    if (T('#lg-ok')) { const m =",
-    "    if (T('#lg-ok') && window.FX_CLOUD) { const m = $('#lg-mail').value.trim().toLowerCase(), cd = $('#lg-code').value.trim().toUpperCase(); if (!m || !cd) { $('#e-lg').textContent = 'Preencha o e-mail e o código.'; return; } $('#e-lg').textContent = 'Entrando…'; window.FX_CLOUD.portalLogin(m, cd).then(err => { if (err) $('#e-lg').textContent = err; }); return; }\n"
-    "    if (T('#lg-ok')) { const m =")
 rep("    if (T('#lg-out')) {", "    if (T('#lg-out') && window.FX_CLOUD && !P.fromAdmin) { window.FX_CLOUD.logout(); return; }\n    if (T('#lg-out')) {")
 rep("    if (T('[data-go-portal]')) {", "    if (T('[data-go-portal]') && window.FX_CLOUD) { window.open('/cliente', '_blank', 'noopener'); return; }\n    if (T('#cloud-out')) { window.FX_CLOUD.logout(); return; }\n    if (T('[data-go-portal]')) {")
 # backups no Storage privado
@@ -52,11 +49,6 @@ rep("  const dlBackup = async (c, b) => {\n",
 rep("const sy = sysOf(clientById(cid)); sy.backups = sy.backups.filter(x => x.id !== bid);",
     "const sy = sysOf(clientById(cid)); const gone = sy.backups.find(x => x.id === bid); if (window.FX_CLOUD && gone?.path) window.FX_CLOUD.removeBackup(gone.path); sy.backups = sy.backups.filter(x => x.id !== bid);")
 # equipe: convite vira vínculo com usuário do Supabase Auth
-rep("    if (T('#tm-ok')) {",
-    "    if (T('#tm-ok') && window.FX_CLOUD) { const n = $('#tm-n').value.trim(), m = $('#tm-e').value.trim(), r = $('#tm-r').value; if (n.length < 2 || !/^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$/.test(m)) { $('#e-tm').textContent = 'Preencha nome e e-mail válidos.'; return; }\n"
-    "      $('#e-tm').textContent = 'Salvando…'; window.FX_CLOUD.addTeam(m, n, r).then(() => { const ex = db.team.find(u => u.email === m); if (ex) Object.assign(ex, { name: n, role: r }); else db.team.push({ id: uid(), name: n, email: m, role: r }); save(); closeAll(); renderAdmin(); toast(`${n} agora tem acesso ao sistema`); }, err => { $('#e-tm').textContent = /user_not_found/.test(err.message) ? 'Crie primeiro o login desta pessoa no Supabase (Authentication → Users → Add user) com este e-mail.' : 'Não foi possível salvar: ' + err.message; }); return; }\n"
-    "    if (T('#tm-ok')) {")
-rep("Object.entries(ROLES).filter(r => r[0] !== 'admin')", "Object.entries(ROLES).filter(r => ['admin', 'criadora', 'captacao'].includes(r[0]))")
 # instalar como aplicativo: botão no topo do sistema e da área do cliente
 rep("      <button class=\"pill orange sm\" data-open-site=\"bio\">Ver site",
     "      <button class=\"pill sm\" data-fx-install-top hidden title=\"Instalar o FX HUB como aplicativo\"><svg class=\"i\"><use href=\"#i-down\"/></svg><span class=\"lbl\">Instalar app</span></button>\n      <button class=\"pill orange sm\" data-open-site=\"bio\">Ver site")
