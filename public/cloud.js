@@ -149,16 +149,17 @@
   const last = {}; let leadSnap = new Map(); let evCount = 0; let busy = false, again = false, timer = 0, lastLeadAt = null, lastEvId = 0;
   const flagsOf = db => { const f = {}; Object.keys(db).forEach(k => { if (!NOT_FLAGS.has(k)) f[k] = db[k]; }); return f; };
 
+  let failWarned = false;
   const syncAdmin = async () => {
     const db = C.db; if (!db) return;
     if (busy) { again = true; return; } busy = true; let merged = false, pubChanged = false;
     try {
-      setStatus('saving', 'Salvando…');
+      setStatus('saving', 'Salvando…'); const failed = [];
       for (const k of [...DOC_KEYS, 'flags']) {
         if (!C.can(DOC_MOD[k] || 'equipe')) continue;   // sem permissão: o banco recusaria
         const cur = k === 'flags' ? flagsOf(db) : db[k]; if (cur === undefined) continue;
         const s = J(cur); if (last[k] && s === last[k].s) continue;
-        let res = await rpc('save_doc', { p_key: k, p_data: cur, p_base: last[k] ? last[k].v : 0 });
+        let res; try { res = await rpc('save_doc', { p_key: k, p_data: cur, p_base: last[k] ? last[k].v : 0 }); } catch (e) { failed.push(k); console.warn('[FX HUB] não salvou', k, e); continue; }
         if (!res.ok && res.conflict) {
           const m = merge3(last[k] ? last[k].d : null, cur, res.data);
           if (k === 'flags') Object.assign(db, m); else db[k] = m;
@@ -177,7 +178,7 @@
       if (evCount && !(db.events || []).length) { const { error } = await sb.from('events').delete().gte('id', 0); if (error) throw error; }
       evCount = (db.events || []).length;
       if (pubChanged) await rpc('publish_site', { p_data: buildPublic(db) });
-      setStatus('ok', 'Salvo');
+      if (failed.length) { setStatus('err', 'Não foi possível salvar'); if (!failWarned) { failWarned = true; window.__fxApp?.toast?.('Uma alteração não foi salva no banco. Recarregue a página e tente de novo; se continuar, avise o suporte.'); } } else { failWarned = false; setStatus('ok', 'Salvo'); }
       if (merged) window.__fxApp?.rerender(true);
     } catch (e) {
       console.error('[FX HUB] erro ao salvar', e);
