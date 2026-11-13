@@ -155,7 +155,13 @@ svg.i { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-widt
 .pack { padding: 24px; display: flex; flex-direction: column; gap: 18px; position: relative; overflow: hidden; }
 .pack.best { border-color: rgba(255, 122, 61, .6); background: linear-gradient(180deg, rgba(255, 90, 26, .16), rgba(255, 90, 26, .03)); }
 .pack .n { font-family: var(--f-mono); font-size: 12px; color: var(--ink-3); }
-.pack h3 { font-size: 23px; letter-spacing: -.03em; min-height: 2.1em; }
+.pack h3 { font-size: 23px; letter-spacing: -.03em; min-height: 2.1em; color: var(--orange-2); }
+.pack.sys { border-color: rgba(124, 196, 255, .6); background: linear-gradient(180deg, rgba(124, 196, 255, .17), rgba(124, 196, 255, .03)); }
+.pack.sys:hover { border-color: rgba(124, 196, 255, .8); box-shadow: 0 24px 50px -24px rgba(90, 170, 255, .55); }
+.pack.sys ul .i, .pack.sys ul svg { color: #8ccdff; }
+.tag.sys-tag { color: #9fd4ff; background: rgba(124, 196, 255, .14); border-color: rgba(124, 196, 255, .45); }
+.pill.sys-btn { background: linear-gradient(180deg, #a6dbff, #6fb9f5); color: #06223a; border-color: transparent; box-shadow: 0 10px 30px -12px rgba(111, 185, 245, .8); }
+.pill.sys-btn:hover { filter: brightness(1.06); }
 .pack .price { font-family: var(--f-display); font-weight: 700; font-size: 34px; letter-spacing: -.03em; }
 .pack .price small { font-family: var(--f-body); font-size: 13px; font-weight: 500; color: var(--ink-3); letter-spacing: 0; }
 .pack .price.custom { font-size: 22px; line-height: 1.1; }
@@ -1124,6 +1130,9 @@ button, a, .choice, .kcard, .ccard { touch-action: manipulation; -webkit-tap-hig
 .svc-on { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--ink-2); cursor: pointer; }
 .svc-row .acts { display: flex; gap: 6px; }
 @media (max-width: 900px) { .svc-row { grid-template-columns: minmax(0, 1fr) auto; gap: 8px 12px; } .svc-k { display: none; } .svc-p { text-align: left; } .svc-u { text-align: right; } .svc-on { grid-column: 1; } .svc-row .acts { grid-column: 2; justify-self: end; } }
+.pk-ord { display: flex; align-items: center; gap: 6px; margin-bottom: 4px; }
+.pk-pos { font-family: var(--f-mono); font-size: 12px; color: var(--orange-2); margin-right: auto; letter-spacing: .02em; } .pk-pos.off { color: var(--ink-3); }
+.ibtn.sm { width: 32px; height: 32px; } .ibtn.sm .i { width: 15px; height: 15px; } .ibtn:disabled { opacity: .3; cursor: default; }
 .pk-priced li { display: flex; gap: 8px; align-items: baseline; } .pk-priced li span { flex: 1; min-width: 0; } .pk-priced li b { font-size: 13px; color: var(--ink-2); white-space: nowrap; }
 .pk-priced li.disc { color: var(--good); } .pk-priced li.disc b { color: var(--good); }
 .lnk { background: none; border: 0; padding: 0; color: var(--orange-2); font: inherit; cursor: pointer; text-decoration: underline; text-underline-offset: 2px; }
@@ -2534,9 +2543,10 @@ table.rs-tbl { min-width: 560px; } table.rs-tbl td { padding: 8px 6px; } table.r
     $('#s-step3').textContent = 'No final você abre a caixa e garante seu bônus com um código.';
     requestAnimationFrame(() => gGo(gIdx));
     renderTestimonials(); renderBrands(); renderFooter(); paintFX($('#v-site'));
-    $('#s-packs').innerHTML = db.packages.filter(p => p.visible).map((p, k) => `<article class="pack glass rv ${p.best ? 'best' : ''}" style="--d:${k * 110}ms"><span class="n">${p.best ? '<span class="tag hot">Mais completo</span>' : 'Solução ' + p.n}</span><h3>${esc(p.name)}</h3>
+    const isSys = p => p.kind === 'sistema' || (!p.kind && /sistema/i.test(p.name));
+    $('#s-packs').innerHTML = db.packages.filter(p => p.visible).map((p, k) => `<article class="pack glass rv ${isSys(p) ? 'sys' : p.best ? 'best' : ''}" style="--d:${k * 110}ms"><span class="n">${isSys(p) ? '<span class="tag sys-tag">Sistema sob medida</span>' : p.best ? '<span class="tag hot">Mais completo</span>' : 'Solução ' + p.n}</span><h3>${esc(p.name)}</h3>
       <div class="price ${p.price == null ? 'custom' : ''}">${p.price == null ? 'Sob diagnóstico e proposta' : brl(p.price) + ` <small>${p.period}</small>`}</div>
-      ${(p.lines || []).length && p.showPrices !== false ? `<ul class="pk-site">${p.lines.map(l => `<li>${icon('check')}<span>${esc(lineLabel(l))}</span><b>${brl(Math.round(l.price * l.qty))}</b></li>`).join('')}${p.discount ? `<li class="disc"><span>Desconto do pacote</span><b>− ${brl(p.discount)}</b></li>` : ''}${(p.items || []).filter(i => !p.lines.some(l => lineLabel(l) === i)).map(i => `<li>${icon('check')}<span>${esc(i)}</span><b>incluso</b></li>`).join('')}</ul>` : `<ul>${p.items.map(i => `<li>${icon('check')}<span>${esc(i)}</span></li>`).join('')}</ul>`}<button class="pill ${p.best ? 'orange' : ''}" data-start data-pref="${p.id}">Quero este</button></article>`).join('');
+      ${(p.lines || []).length && p.showPrices !== false ? `<ul class="pk-site">${p.lines.map(l => `<li>${icon('check')}<span>${esc(lineLabel(l))}</span><b>${brl(Math.round(l.price * l.qty))}</b></li>`).join('')}${p.discount ? `<li class="disc"><span>Desconto do pacote</span><b>− ${brl(p.discount)}</b></li>` : ''}${(p.items || []).filter(i => !p.lines.some(l => lineLabel(l) === i)).map(i => `<li>${icon('check')}<span>${esc(i)}</span><b>incluso</b></li>`).join('')}</ul>` : `<ul>${p.items.map(i => `<li>${icon('check')}<span>${esc(i)}</span></li>`).join('')}</ul>`}<button class="pill ${isSys(p) ? 'sys-btn' : p.best ? 'orange' : ''}" data-start data-pref="${p.id}">Quero este</button></article>`).join('');
     observeReveal();
   };
   const siteTestimonials = () => db.evaluations.filter(e => e.consent && e.onSite !== false && (e.text || '').trim().length >= 10).sort((a, b) => b.t - a.t);
@@ -3477,7 +3487,9 @@ table.rs-tbl { min-width: 560px; } table.rs-tbl td { padding: 8px 6px; } table.r
   const pkQuota = () => { const q = {}; PK.cur.lines.forEach(l => { if (l.counts) { q[l.counts] = (q[l.counts] || 0) + Math.round(+l.qty || 0); (PK.auto || (PK.auto = new Set())).add(l.counts); } }); Object.keys(PLURAL).forEach(k => { const i = $('#pk-q-' + k); if (i && PK.auto?.has(k)) i.value = q[k] || ''; }); };
   const pkRefresh = () => { const b = $('#pk-lines'); if (b) { const f = document.activeElement?.dataset?.pklQi; b.innerHTML = pkLinesHtml(); if (f != null) { const i = $(`[data-pkl-qi="${f}"]`); if (i) { i.focus(); i.setSelectionRange(i.value.length, i.value.length); } } } };
   const secPacotes = M => { const F = A.pkf || 'all', L = db.packages.filter(p => F === 'all' || (F === 'sistema' ? p.kind === 'sistema' : p.kind !== 'sistema'));
-    const card = p => { const n = db.clients.filter(c => c.package === p.id).length, q = p.quota || {}; return `<div class="pk-card glass${p.visible ? '' : ' off'}"><div class="pk-top"><span class="tag ${p.kind === 'sistema' ? '' : 'hot'}">${p.kind === 'sistema' ? 'Sistema' : 'Mídia social'}</span>${p.best ? '<span class="tag good">Destaque</span>' : ''}<label class="pk-vis"><span>${p.visible ? 'No site' : 'Fora do site'}</span><button class="switch" role="switch" aria-checked="${p.visible}" data-vis="${p.id}" aria-label="Mostrar ${esc(p.name)} no site"></button></label></div>
+    const VIS = db.packages.filter(x => x.visible);
+    const order = p => { const i = VIS.indexOf(p); return p.visible ? `<div class="pk-ord"><span class="pk-pos">${i + 1}º no site</span><button class="ibtn sm" data-pk-mv="${p.id}" data-d="-1" ${i === 0 ? 'disabled' : ''} aria-label="Mover ${esc(p.name)} para antes" title="Mover para antes">${icon('left')}</button><button class="ibtn sm" data-pk-mv="${p.id}" data-d="1" ${i === VIS.length - 1 ? 'disabled' : ''} aria-label="Mover ${esc(p.name)} para depois" title="Mover para depois">${icon('arrow')}</button></div>` : '<div class="pk-ord"><span class="pk-pos off">fora do site</span></div>'; };
+    const card = p => { const n = db.clients.filter(c => c.package === p.id).length, q = p.quota || {}; return `<div class="pk-card glass${p.visible ? '' : ' off'}">${order(p)}<div class="pk-top"><span class="tag ${p.kind === 'sistema' ? '' : 'hot'}">${p.kind === 'sistema' ? 'Sistema' : 'Mídia social'}</span>${p.best ? '<span class="tag good">Destaque</span>' : ''}<label class="pk-vis"><span>${p.visible ? 'No site' : 'Fora do site'}</span><button class="switch" role="switch" aria-checked="${p.visible}" data-vis="${p.id}" aria-label="Mostrar ${esc(p.name)} no site"></button></label></div>
       <h3>${esc(p.name)}</h3><div class="pk-price"><b>${priceTxt(p)}</b></div>
       ${Object.keys(q).length ? `<div class="pk-q">${Object.entries(q).map(([k, v]) => `<span><b>${v}</b> ${PLURAL[k] || k}</span>`).join('')}</div>` : ''}
       ${(p.lines || []).length ? `<ul class="pk-items pk-priced">${p.lines.slice(0, 7).map(l => `<li>${icon('check')}<span>${esc(lineLabel(l))}</span><b class="num">${brl(Math.round(l.price * l.qty))}</b></li>`).join('')}${p.lines.length > 7 ? `<li class="more">+ ${p.lines.length - 7} serviços</li>` : ''}${p.discount ? `<li class="disc"><span>Desconto</span><b class="num">− ${brl(p.discount)}</b></li>` : ''}</ul>` : `<ul class="pk-items">${p.items.slice(0, 6).map(i => `<li>${icon('check')}<span>${esc(i)}</span></li>`).join('')}${p.items.length > 6 ? `<li class="more">+ ${p.items.length - 6} itens</li>` : ''}</ul><p class="hint">Sem serviços com preço. Edite para montar com o catálogo.</p>`}
@@ -3810,6 +3822,8 @@ table.rs-tbl { min-width: 560px; } table.rs-tbl td { padding: 8px 6px; } table.r
     if ((el = T('[data-pkl-q]'))) { const l = PK.cur.lines[+el.dataset.pklQ]; l.qty = Math.max(1, Math.round(((+l.qty || 0) + +el.dataset.d) * 10) / 10); pkRefresh(); pkQuota(); return; }
     if ((el = T('[data-pkl-rm]'))) { PK.cur.lines.splice(+el.dataset.pklRm, 1); pkRefresh(); pkQuota(); return; }
     if ((el = T('[data-pkl-sync]'))) { const l = PK.cur.lines[+el.dataset.pklSync], s = svcById(l.sid); if (s) l.price = s.price; pkRefresh(); return; }
+    if ((el = T('[data-pk-mv]'))) { const L = db.packages, p = L.find(x => x.id === el.dataset.pkMv), d = +el.dataset.d; let j = L.indexOf(p) + d; while (j >= 0 && j < L.length && !L[j].visible) j += d; if (j < 0 || j >= L.length) return;
+      const i = L.indexOf(p); L.splice(i, 1); L.splice(j, 0, p); L.forEach((x, k) => (x.n = String(k + 1).padStart(2, '0'))); save(); renderSite(); renderAdmin(); toast(`${p.name} agora é o ${db.packages.filter(x => x.visible).indexOf(p) + 1}º no site`); return; }
     if ((el = T('[data-pk-hist]'))) { const p = packById(el.dataset.pkHist); openModal(`<div class="m-head"><span class="m-ic">${icon('clock')}</span><div><h2>Alterações em ${esc(p.name)}</h2><p>Cada mudança de serviço, quantidade, preço ou desconto, com o impacto no valor.</p></div></div>${pkHistory(p) || '<p class="hint">Nenhuma alteração registrada ainda.</p>'}<div class="m-foot"><span></span><button class="pill" data-close>Fechar</button></div>`); return; }
     if ((el = T('[data-ph-pick]'))) { pickPhoto(el.dataset.phPick); return; }
     if ((el = T('[data-ph-rm]'))) { applyPhoto(el.dataset.phRm, null); return; }
