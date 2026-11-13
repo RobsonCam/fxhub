@@ -336,7 +336,8 @@
   C.teamList = () => rpc('team_list');
   C.saveMember = m => access({ kind: 'team', email: m.email, name: m.name, role: m.role, title: m.title, perms: m.perms, password: m.password || undefined });
   C.removeMember = userId => access({ kind: 'team', action: 'remove', user_id: userId });
-  C.updateProfile = async (name, phone) => { await rpc('update_my_profile', { p_name: name, p_phone: phone || null }); if (C.team) Object.assign(C.team, { name, phone }); };
+  C.updateProfile = async (name, phone, avatar) => { const args = { p_name: name, p_phone: phone || null }; if (avatar !== undefined) Object.assign(args, { p_avatar: avatar, p_avatar_set: true }); await rpc('update_my_profile', args); if (C.team) { Object.assign(C.team, { name, phone }); if (avatar !== undefined) C.team.avatar = avatar; } };
+  C.setClientLogo = async logo => { await rpc('client_set_logo', { p_logo: logo }); };
   // troca a própria senha: confere a senha atual antes
   C.changePassword = async (current, next) => {
     const { data: u } = await sb.auth.getUser(); const email = u?.user?.email;

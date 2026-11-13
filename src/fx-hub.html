@@ -1067,6 +1067,51 @@ button, a, .choice, .kcard, .ccard { touch-action: manipulation; -webkit-tap-hig
 .pw-row .ibtn { width: 44px; height: 44px; flex: none; }
 .acc-msg { white-space: pre-wrap; font-family: var(--f-body); font-size: 14.5px; line-height: 1.55; background: rgba(255,255,255,.03); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; margin: 0; }
 .m-ic.ok { background: rgba(63,208,143,.12); color: var(--good); }
+/* ===== fotos redondas ===== */
+.av, .tm-av { border-radius: 50% !important; }
+.tm-av { overflow: hidden; }
+.tm-av.has-img, .av.has-img { background: #fff; border-color: transparent; padding: 0; }
+.tm-av img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.tm-av.xl, .pf-hero .av.xl { width: 88px; height: 88px; font-size: 28px; box-shadow: 0 0 0 3px var(--bg, #0d0a09), 0 0 0 5px rgba(255,122,61,.55); }
+.tm-av.side-av { width: 36px; height: 36px; font-size: 13px; }
+.pf-hero { align-items: center; } .ph-btns { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.ph-ed { position: fixed; inset: 0; z-index: 9999; background: rgba(5,4,3,.72); backdrop-filter: blur(6px); display: grid; place-items: center; padding: 16px; }
+.ph-box { width: min(100%, 360px); background: var(--bg-2, #15110f); border: 1px solid var(--line-2); border-radius: 22px; padding: 20px; display: grid; gap: 12px; justify-items: center; box-shadow: 0 30px 80px rgba(0,0,0,.5); }
+.ph-box h3 { margin: 0; font-family: var(--f-display); font-size: 20px; justify-self: start; } .ph-box > .hint { justify-self: start; margin: -6px 0 0; }
+.ph-stage { position: relative; overflow: hidden; border-radius: 18px; background: #fff; touch-action: none; cursor: grab; max-width: 100%; }
+.ph-stage:active { cursor: grabbing; }
+.ph-stage img { position: absolute; left: 0; top: 0; max-width: none; user-select: none; pointer-events: none; }
+.ph-ring { position: absolute; inset: 0; border-radius: 50%; box-shadow: 0 0 0 999px rgba(0,0,0,.55); border: 2px solid rgba(255,255,255,.9); pointer-events: none; }
+.ph-zoom { display: flex; align-items: center; gap: 10px; width: 100%; } .ph-zoom input { flex: 1; accent-color: var(--orange-2); }
+.ph-acts { justify-content: flex-end; width: 100%; }
+/* ===== tabelas compactas ===== */
+.mtable { min-width: 0; }
+.pk-tbl th, .pk-tbl td { padding: 9px 14px; }
+.pk-tbl td.pk-n b { display: block; font-size: 14.5px; } .pk-tbl .pk-sub { display: block; font-size: 12px; color: var(--ink-3); white-space: normal; }
+.pk-tbl .u { font-size: 12px; color: var(--ink-3); margin-left: 2px; }
+.pk-tbl .m-only { display: none; }
+.stack td .hint { display: inline; }
+@media (max-width: 760px) {
+  .tbl-wrap:has(> .stack), .tbl-wrap:has(> .pk-tbl) { overflow: visible; }
+  .pk-tbl thead { display: none; } .pk-tbl .d-only { display: none !important; } .pk-tbl .m-only { display: inline; }
+  .pk-tbl, .pk-tbl tbody, .pk-tbl tfoot { display: block; width: 100%; }
+  .pk-tbl tr { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 10px 12px; border-bottom: 1px solid var(--line); }
+  .pk-tbl td { padding: 0 !important; border: 0 !important; } .pk-tbl tfoot td { border-top: 0 !important; }
+  .pk-tbl tbody td.pk-n { white-space: normal; flex: 1; min-width: 0; } .pk-tbl td.ft-l { white-space: normal; }
+  .pk-tbl tfoot td { font-size: 13.5px; } .pk-tbl tfoot tr.tot td { font-size: 14px; } .pk-tbl tfoot tr.tot td:last-child { font-size: 16px; }
+  .mtable.stack thead { display: none; }
+  .mtable.stack, .mtable.stack tbody { display: block; width: 100%; }
+  .mtable.stack tr { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px 16px; padding: 12px 14px; border-bottom: 1px solid var(--line); }
+  .mtable.stack tr:last-child { border-bottom: 0; }
+  .mtable.stack td { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 2px 8px; padding: 0; border: 0; white-space: normal; font-size: 13.5px; text-align: right; min-width: 0; }
+  .mtable.stack td::before { content: attr(data-l); color: var(--ink-3); font-size: 12px; text-align: left; }
+  .mtable.stack td.h { grid-column: 1 / -1; display: block; text-align: left; font-size: 15px; margin-bottom: 2px; } .mtable.stack td.h::before { content: none; }
+  .ph-it { grid-template-columns: 1fr; gap: 4px; }
+}
+@media (max-width: 480px) { .mtable.stack tr { grid-template-columns: 1fr; gap: 4px; } }
+.mtable.stack th { white-space: normal; font-size: 11.5px; line-height: 1.25; padding: 9px 7px; vertical-align: bottom; }
+.mtable.stack td { padding: 10px 7px; font-size: 13px; white-space: normal; }
+.pk-tbl tfoot td { white-space: nowrap; }
 /* ===== serviços e pacotes com preço ===== */
 .svc-panel { margin-bottom: 14px; }
 .svc-list { display: grid; }
@@ -1998,7 +2043,7 @@ table.rs-tbl { min-width: 560px; } table.rs-tbl td { padding: 8px 6px; } table.r
   const SEC_MOD = { leads: 'leads', links: 'site', pacotes: 'site', servicos: 'site', site: 'site', clientes: 'clientes', conteudos: 'conteudos', calendario: 'conteudos', tarefas: 'agenda', relatorios: 'relatorios', avaliacoes: 'relatorios', financeiro: 'financeiro', equipe: 'equipe', inicio: 'base', perfil: 'base' };
   const can = mod => !window.FX_CLOUD || window.FX_CLOUD.can(mod);
   const isAdminMe = () => !window.FX_CLOUD || window.FX_CLOUD.team?.role === 'admin';
-  const meInfo = () => { const t = window.FX_CLOUD?.team; if (t) return { name: t.name, role: t.role, title: t.title || '', phone: t.phone || '', email: window.FX_CLOUD.me?.email || '', perms: t.perms || [] }; const u = db.team.find(x => x.role === 'admin') || { name: 'Robson' }; return { name: u.name, role: 'admin', title: u.title || '', phone: u.phone || '', email: u.email || '', perms: [] }; };
+  const meInfo = () => { const t = window.FX_CLOUD?.team; if (t) return { name: t.name, role: t.role, title: t.title || '', phone: t.phone || '', email: window.FX_CLOUD.me?.email || '', perms: t.perms || [], avatar: t.avatar || '' }; const u = db.team.find(x => x.role === 'admin') || { name: 'Robson' }; return { name: u.name, role: 'admin', title: u.title || '', phone: u.phone || '', email: u.email || '', perms: [], avatar: u.avatar || '' }; };
   const roleLabel = (role, title) => title || (role === 'admin' ? 'Administrador' : ROLES[role] || 'Equipe');
   const genPass = () => { const L = 'abcdefghjkmnpqrstuvwxyz', U = 'ABCDEFGHJKLMNPQRSTUVWXYZ', D = '23456789', all = L + U + D; const r = n => { const a = new Uint32Array(n); (window.crypto || window.msCrypto).getRandomValues(a); return [...a]; };
     for (;;) { const p = r(10).map(x => all[x % all.length]).join(''); if (/[a-z]/.test(p) && /[A-Z]/.test(p) && /\d/.test(p)) return p; } };
@@ -2063,6 +2108,7 @@ table.rs-tbl { min-width: 560px; } table.rs-tbl td { padding: 8px 6px; } table.r
   const CAT_IN = ['servico', 'sistema', 'identidade', 'outros'], CAT_OUT = ['ferramentas', 'anuncios', 'freelancer', 'transporte', 'equipamentos', 'impostos', 'aluguel', 'outros'];
   const ROLES = { admin: 'Administrador', criadora: 'Criadora de conteúdo', captacao: 'Captação de materiais', gestor: 'Gestor', designer: 'Designer', editor: 'Editor de vídeo', social: 'Social media', colaborador: 'Colaborador' };
   const TEAM = () => db.team.map(u => u.name);
+  const MSHORT = { impressions: 'Impressões', views: 'Visualiz.', profile_visits: 'Visitas perfil', link_clicks: 'Cliques bio', comments: 'Coment.', shares: 'Compart.', saves: 'Salvos', engagement: 'Engaj.', new_followers: 'Novos seg.' };
   const METRICS = [['reach', 'Alcance', 'contas diferentes que viram o perfil ou os posts', 'vis'], ['impressions', 'Impressões', 'vezes que os conteúdos apareceram', 'vis'], ['views', 'Visualizações', 'visualizações de reels, stories e posts', 'vis'], ['profile_visits', 'Visitas ao perfil', 'acessos à página do perfil', 'vis'], ['link_clicks', 'Cliques no link da bio', 'cliques no link da bio', 'vis'],
     ['likes', 'Curtidas', 'curtidas somadas no mês', 'int'], ['comments', 'Comentários', 'comentários somados no mês', 'int'], ['shares', 'Compartilhamentos', 'envios e compartilhamentos', 'int'], ['saves', 'Salvamentos', 'vezes que salvaram os conteúdos', 'int'], ['engagement', 'Engajamento', 'interações divididas pelo alcance, em %', 'int'],
     ['followers', 'Seguidores', 'total no fim do mês', 'seg'], ['new_followers', 'Novos seguidores', 'seguidores ganhos no mês', 'seg']];
@@ -2701,7 +2747,7 @@ table.rs-tbl { min-width: 560px; } table.rs-tbl td { padding: 8px 6px; } table.r
   ];
   const badge = k => k === 'leads' ? db.leads.filter(l => l.stage === 'novo').length : k === 'conteudos' ? db.contents.filter(c => c.status === 'aguardando_aprovacao').length : k === 'tarefas' ? db.tasks.filter(t => !t.done && t.due < TODAY).length : 0;
   const renderSide = () => {
-    const me = meInfo(); $('#a-side').innerHTML = `<button class="who" data-sec="perfil" title="Meu perfil"><span class="av">${initials(me.name)}</span><div><b>${esc(me.name)}</b><small>${esc(roleLabel(me.role, me.title))} · FX</small></div></button>` + NAV.map(([g, items]) => [g, items.filter(it => can(SEC_MOD[it[0]] || 'base'))]).filter(([, items]) => items.length).map(([g, items]) => (g ? `<span class="grp">${g}</span>` : '') + items.map(([k, l, ic, sh]) => { const n = badge(k); return `<button data-sec="${k}" aria-current="${A.sec === k ? 'page' : 'false'}" title="${l}">${icon(ic)}<span class="lf">${l}</span><span class="ls">${sh}</span>${n ? `<span class="cnt">${n}</span>` : ''}</button>`; }).join('')).join('');
+    const me = meInfo(); $('#a-side').innerHTML = `<button class="who" data-sec="perfil" title="Meu perfil">${personAv(me.name, me.avatar, 'side-av')}<div><b>${esc(me.name)}</b><small>${esc(roleLabel(me.role, me.title))} · FX</small></div></button>` + NAV.map(([g, items]) => [g, items.filter(it => can(SEC_MOD[it[0]] || 'base'))]).filter(([, items]) => items.length).map(([g, items]) => (g ? `<span class="grp">${g}</span>` : '') + items.map(([k, l, ic, sh]) => { const n = badge(k); return `<button data-sec="${k}" aria-current="${A.sec === k ? 'page' : 'false'}" title="${l}">${icon(ic)}<span class="lf">${l}</span><span class="ls">${sh}</span>${n ? `<span class="cnt">${n}</span>` : ''}</button>`; }).join('')).join('');
   };
   const head = (lab, h, p, tools = '') => `<div class="a-head"><div><span class="label">${lab}</span><h1 style="margin-top:10px">${String(h).replace(/\.$/, '')}</h1>${p ? `<p>${p}</p>` : ''}</div>${tools ? `<div class="tools">${tools}</div>` : ''}</div>`;
   const kpi = (l, v, s = '', cls = '', ic = '') => `<div class="kpi ${cls}"><span class="k-l">${ic ? icon(ic) : ''}${l}</span><b>${v}</b>${s ? `<small>${s}</small>` : ''}</div>`;
@@ -2789,6 +2835,43 @@ table.rs-tbl { min-width: 560px; } table.rs-tbl td { padding: 8px 6px; } table.r
       im.src = fr.result; };
     fr.readAsDataURL(file); });
   const logoAv = (c, cls = '') => `<span class="av ${cls} ${c?.example && !c?.logo ? 'dark' : ''} ${c?.logo ? 'has-img' : ''}">${c?.logo ? `<img src="${c.logo}" alt="Logo ${esc(c.name)}">` : esc(initials(c?.name || 'FX'))}</span>`;
+  // ---------- foto de perfil: recorte redondo ----------
+  const personAv = (name, avatar, cls = '') => `<span class="tm-av ${cls} ${avatar ? 'has-img' : ''}">${avatar ? `<img src="${avatar}" alt="">` : esc(initials(name))}</span>`;
+  const editPhoto = file => readImg(file, 1600, 'image/png').then(src => new Promise((res, rej) => {
+    const S = 260, ov = document.createElement('div'); ov.className = 'ph-ed';
+    ov.innerHTML = `<div class="ph-box" role="dialog" aria-modal="true" aria-labelledby="ph-t"><h3 id="ph-t">Ajustar foto</h3><p class="hint">Arraste para posicionar e use o controle para aproximar ou afastar.</p>
+      <div class="ph-stage" style="width:${S}px;height:${S}px"><img src="${src}" alt="" draggable="false"><span class="ph-ring"></span></div>
+      <div class="ph-zoom"><button type="button" class="ibtn" data-z="-1" aria-label="Afastar">−</button><input type="range" step="0.01" aria-label="Aproximar ou afastar"><button type="button" class="ibtn" data-z="1" aria-label="Aproximar">+</button></div>
+      <div class="filters ph-acts"><button type="button" class="pill" data-ph="no">Cancelar</button><button type="button" class="pill orange" data-ph="ok">Usar esta foto</button></div></div>`;
+    document.body.appendChild(ov); const img = ov.querySelector('img'), rng = ov.querySelector('input'), stage = ov.querySelector('.ph-stage');
+    const go = () => { const W = img.naturalWidth, H = img.naturalHeight, cover = S / Math.min(W, H), fit = S / Math.max(W, H); let z = cover, x = 0, y = 0;
+      rng.min = (fit / cover).toFixed(3); rng.max = 4; rng.value = 1;
+      const clamp = () => { const w = W * z, h = H * z; x = w >= S ? Math.min(0, Math.max(S - w, x)) : (S - w) / 2; y = h >= S ? Math.min(0, Math.max(S - h, y)) : (S - h) / 2; };
+      const draw = () => { clamp(); Object.assign(img.style, { width: W * z + 'px', height: H * z + 'px', transform: `translate(${x}px, ${y}px)` }); };
+      const zoomTo = (nz, cx = S / 2, cy = S / 2) => { const k = nz / z; x = cx - (cx - x) * k; y = cy - (cy - y) * k; z = nz; draw(); };
+      x = (S - W * z) / 2; y = (S - H * z) / 2; draw();
+      rng.oninput = () => zoomTo(cover * +rng.value);
+      ov.querySelectorAll('[data-z]').forEach(b => (b.onclick = () => { rng.value = Math.min(+rng.max, Math.max(+rng.min, +rng.value + b.dataset.z * .15)); zoomTo(cover * +rng.value); }));
+      stage.addEventListener('wheel', e => { e.preventDefault(); const r = stage.getBoundingClientRect(); rng.value = Math.min(+rng.max, Math.max(+rng.min, +rng.value * (e.deltaY < 0 ? 1.08 : 1 / 1.08))); zoomTo(cover * +rng.value, e.clientX - r.left, e.clientY - r.top); }, { passive: false });
+      let drag = null; stage.addEventListener('pointerdown', e => { drag = { px: e.clientX, py: e.clientY, x, y }; stage.setPointerCapture(e.pointerId); });
+      stage.addEventListener('pointermove', e => { if (!drag) return; x = drag.x + e.clientX - drag.px; y = drag.y + e.clientY - drag.py; draw(); });
+      stage.addEventListener('pointerup', () => (drag = null)); stage.addEventListener('pointercancel', () => (drag = null));
+      const close = v => { ov.remove(); document.removeEventListener('keydown', key); v ? res(v) : rej(null); };
+      const key = e => { if (e.key === 'Escape') close(null); }; document.addEventListener('keydown', key);
+      ov.querySelector('[data-ph="no"]').onclick = () => close(null); ov.onclick = e => { if (e.target === ov) close(null); };
+      ov.querySelector('[data-ph="ok"]').onclick = () => { const O = 320, r = O / S, cv = document.createElement('canvas'); cv.width = cv.height = O; const g = cv.getContext('2d'); g.fillStyle = '#fff'; g.fillRect(0, 0, O, O); g.imageSmoothingQuality = 'high'; g.drawImage(img, x * r, y * r, W * z * r, H * z * r);
+        let d = cv.toDataURL('image/webp', .86); if (!d.startsWith('data:image/webp')) d = cv.toDataURL('image/jpeg', .86); close(d); };
+      ov.querySelector('[data-ph="ok"]').focus(); };
+    img.complete ? go() : (img.onload = go); }));
+  const pickPhoto = target => { let i = $('#ph-file'); if (!i) { i = document.createElement('input'); i.type = 'file'; i.accept = 'image/png,image/jpeg,image/webp'; i.id = 'ph-file'; i.hidden = true; document.body.appendChild(i); }
+    i.value = ''; i.dataset.target = target; i.click(); };
+  const photoBtns = (target, has) => `<div class="ph-btns"><button type="button" class="pill sm" data-ph-pick="${target}">${icon('image')}${has ? 'Trocar foto' : 'Enviar foto'}</button>${has ? `<button type="button" class="pill sm" data-ph-rm="${target}">${icon('trash')}Remover</button>` : ''}</div>`;
+  const applyPhoto = async (target, d) => {
+    if (target === 'me') { const me = meInfo(); if (!window.FX_CLOUD) { const u = db.team.find(x => x.role === 'admin'); if (u) u.avatar = d || undefined; save(); renderAdmin(); toast(d ? 'Foto atualizada' : 'Foto removida'); return; }
+      try { await window.FX_CLOUD.updateProfile(me.name, me.phone, d); A.eq && (A.eq.list = null); renderAdmin(); toast(d ? 'Foto atualizada' : 'Foto removida'); } catch (e) { toast('Não foi possível salvar a foto: ' + e.message); } return; }
+    if (target === 'client') { const c = clientById(P.client); if (!window.FX_CLOUD || window.FX_CLOUD.realm !== 'portal') { if (d) c.logo = d; else delete c.logo; save(); renderPortal(); toast(d ? 'Foto da empresa atualizada' : 'Foto removida'); return; }
+      try { await window.FX_CLOUD.setClientLogo(d); if (d) c.logo = d; else delete c.logo; renderPortal(); toast(d ? 'Foto da empresa atualizada' : 'Foto removida'); } catch (e) { toast('Não foi possível salvar a foto: ' + e.message); } return; }
+    if (target === 'edit-client') { pendingLogo = d; $('#lg-prev').innerHTML = logoAv({ name: $('#ec-n')?.value || '', logo: d || undefined }, 'xl'); } };
   const thumbHtml = (c, cls = '') => `<div class="th ${tone(c, 0)} ${c.cover ? 'has-cover' : ''} ${cls}" id="ci-thumb">${c.cover ? `<img class="cover" src="${c.cover}" alt="Capa: ${esc(c.theme)}">` : ''}<span class="f">${FORMATS[c.format]}</span>${c.cover ? '' : `<h4>${esc(c.theme)}</h4>`}</div>`;
   const openItem = (id, mode) => { const c = db.contents.find(x => x.id === id); if (!c) return; const s = CST[c.status]; pendingCover = undefined;
     const meta = `<div class="filters"><span class="tag">${icon(FMT_IC[c.format] || 'image', 'style="width:13px;height:13px"')} ${FORMATS[c.format]}${units(c) > 1 ? ' · ' + units(c) + (c.format === 'reel' ? ' vídeos' : c.format === 'story' ? ' stories' : ' artes') : ''}</span><span class="tag dot ${s[1]}">${s[0]}</span><span class="tag">${esc(clientName(c.client))}</span></div>`;
@@ -2860,7 +2943,7 @@ table.rs-tbl { min-width: 560px; } table.rs-tbl td { padding: 8px 6px; } table.r
   const hBars = (rows, fmt = num) => { const hi = Math.max(1, ...rows.map(r => r[1] || 0)); return `<div class="pbars">${rows.map(([l, v, c]) => `<div class="pb"><span class="pb-l">${l}</span><span class="pb-t"><i style="width:${(v || 0) / hi * 100}%;${c ? 'background:' + c : ''}"></i></span><b class="num">${v == null ? '—' : fmt(v)}</b></div>`).join('')}</div>`; };
   const kpiCard = (l, v, s = '', d = '') => `<div class="kpi" ${d ? `title="${esc(d)}"` : ''}><span>${l}</span><b>${v}</b>${s ? `<small class="hint">${s}</small>` : ''}</div>`;
   const fmtBox = L => { const by = Object.keys(FORMATS).map(f => [FORMATS[f], L.filter(x => x.format === f).length]).filter(r => r[1]); return by.length ? hBars(by) : '<p class="hint">Nenhum post publicado no período.</p>'; };
-  const postsTable = L => L.length ? `<div class="tbl-wrap"><table class="mtable"><thead><tr><th>Data</th><th>Conteúdo</th><th class="r">Visualizações</th><th class="r">Curtidas</th><th class="r">Coment.</th><th class="r">Compart.</th><th class="r">Salvos</th></tr></thead><tbody>${L.map(x => `<tr><td class="num">${brShort(x.date)}</td><td><b>${esc(x.theme)}</b><small class="hint"> · ${FORMATS[x.format]}</small></td>${['views', 'likes', 'comments', 'shares', 'saves'].map(k => `<td class="r num">${x[k] == null || x[k] === '' ? '—' : num(x[k])}</td>`).join('')}</tr>`).join('')}</tbody></table></div>` : '<p class="hint">Nenhum post publicado no período.</p>';
+  const postsTable = L => L.length ? `<div class="tbl-wrap"><table class="mtable stack"><thead><tr><th>Data</th><th>Conteúdo</th><th class="r">Visualizações</th><th class="r">Curtidas</th><th class="r">Coment.</th><th class="r">Compart.</th><th class="r">Salvos</th></tr></thead><tbody>${L.map(x => `<tr><td class="num" data-l="Data">${brShort(x.date)}</td><td class="h"><b>${esc(x.theme)}</b><span class="hint"> · ${FORMATS[x.format]}</span></td>${[['views', 'Visualizações'], ['likes', 'Curtidas'], ['comments', 'Comentários'], ['shares', 'Compartilhamentos'], ['saves', 'Salvos']].map(([k, l]) => `<td class="r num" data-l="${l}">${x[k] == null || x[k] === '' ? '—' : num(x[k])}</td>`).join('')}</tr>`).join('')}</tbody></table></div>` : '<p class="hint">Nenhum post publicado no período.</p>';
   const repWeeks = cid => { const set = new Set(db.contents.filter(x => x.client === cid && x.status === 'publicado').map(x => wkStart(x.date))); set.add(wkStart(TODAY)); return [...set].filter(w => w <= wkStart(TODAY)).sort().reverse().slice(0, 30); };
   const weekBody = (cid, w) => { const D = wkDays(w), L = pubPosts(cid, D[0], D[6]); const prevD = wkDays(iso(new Date(new Date(w + 'T12:00:00').getTime() - 7 * 864e5))), PL = pubPosts(cid, prevD[0], prevD[6]);
     const dl = k => { if (w === wkStart(TODAY)) return hasK(L, k) ? '<small class="delta flat">semana em andamento</small>' : ''; if (!PL.length || !hasK(PL, k) || !hasK(L, k)) return ''; const a = sumK(L, k), b = sumK(PL, k), d = a - b; return d ? `<small class="delta ${d > 0 ? 'up' : 'down'}">${d > 0 ? '▲ +' : '▼ −'}${num(Math.abs(d))} vs. semana anterior</small>` : '<small class="delta flat">igual à semana anterior</small>'; };
@@ -2880,7 +2963,7 @@ table.rs-tbl { min-width: 560px; } table.rs-tbl td { padding: 8px 6px; } table.r
         <div class="glass panel"><div class="panel-h"><h3>Novos seguidores por mês</h3><small>${yr}</small></div><div class="chart">${barChart(M.map(m => ({ l: MN[+m.month.slice(5, 7) - 1], v: +m.new_followers || 0 })), 'Novos seguidores por mês')}</div></div></div>
       <div class="cols2"><div class="glass panel"><div class="panel-h"><h3>Interações no ano</h3><small>soma dos meses</small></div>${hBars([['Curtidas', tot('likes'), '#ff7a3d'], ['Comentários', tot('comments'), '#ffb37a'], ['Compartilhamentos', tot('shares'), '#9fb8ff'], ['Salvamentos', tot('saves'), '#3fd08f']])}</div>
         <div class="glass panel"><div class="panel-h"><h3>Posts por formato</h3><small>${P.length} no ano</small></div>${fmtBox(P)}</div></div>
-      <div class="glass panel"><div class="panel-h"><h3>Mês a mês</h3><small>${yr}</small></div><div class="tbl-wrap"><table class="mtable"><thead><tr><th>Mês</th>${METRICS.map(x => `<th class="r">${x[1]}</th>`).join('')}</tr></thead><tbody>${M.slice().reverse().map(x => `<tr><td><b>${mLabel(x.month)}</b></td>${METRICS.map(k => `<td class="r">${fmtMetric(k[0], x[k[0]])}</td>`).join('')}</tr>`).join('')}</tbody></table></div></div>`; };
+      <div class="glass panel"><div class="panel-h"><h3>Mês a mês</h3><small>${yr}</small></div><div class="tbl-wrap"><table class="mtable stack"><thead><tr><th>Mês</th>${METRICS.map(x => `<th class="r" title="${x[1]}">${MSHORT[x[0]] || x[1]}</th>`).join('')}</tr></thead><tbody>${M.slice().reverse().map(x => `<tr><td class="h"><b>${mLabel(x.month)}</b></td>${METRICS.map(k => `<td class="r" data-l="${k[1]}">${fmtMetric(k[0], x[k[0]])}</td>`).join('')}</tr>`).join('')}</tbody></table></div></div>`; };
   const metricsHtml = (clientId, mode) => { const R = A.rep || (A.rep = { per: 'mes' }); const { all, list } = repLists(clientId, mode); const weeks = repWeeks(clientId); const years = [...new Set(list.map(m => m.month.slice(0, 4)))].sort().reverse();
     if (R.per === 'semana' && !weeks.includes(R.week)) R.week = weeks[0]; if (R.per === 'ano' && !years.includes(R.year)) R.year = years[0];
     const sel = R.per === 'semana' ? `<label class="sr" for="rep-week">Semana</label><select class="in sm" id="rep-week" style="width:auto">${weeks.map(w => `<option value="${w}" ${w === R.week ? 'selected' : ''}>${w === wkStart(TODAY) ? 'Esta semana · ' : ''}${wkLabel(w)}</option>`).join('')}</select>`
@@ -2918,7 +3001,7 @@ table.rs-tbl { min-width: 560px; } table.rs-tbl td { padding: 8px 6px; } table.r
     const rep = db.reports.find(r => r.client === clientId && r.month === sel);
     const last6 = list.filter(x => x.month <= sel).slice(-6);
     const tops = db.contents.filter(c => c.client === clientId && ym(c.date) === sel && c.status === 'publicado').sort((a, b) => (b.likes + b.comments * 3) - (a.likes + a.comments * 3)).slice(0, 3);
-    const monthTable = `<div class="glass panel"><div class="panel-h"><h3>Mês a mês</h3><small>Instagram · ${list.length} ${list.length > 1 ? 'meses' : 'mês'}</small></div><div class="tbl-wrap"><table class="mtable"><thead><tr><th>Mês</th>${METRICS.map(x => `<th class="r">${x[1]}</th>`).join('')}</tr></thead><tbody>${list.slice().reverse().map(x => `<tr class="${x.month === sel ? 'cur' : ''}"><td><b>${mLabel(x.month)}</b></td>${METRICS.map(k => `<td class="r">${fmtMetric(k[0], x[k[0]])}</td>`).join('')}</tr>`).join('')}</tbody></table></div></div>`;
+    const monthTable = `<div class="glass panel"><div class="panel-h"><h3>Mês a mês</h3><small>Instagram · ${list.length} ${list.length > 1 ? 'meses' : 'mês'}</small></div><div class="tbl-wrap"><table class="mtable stack"><thead><tr><th>Mês</th>${METRICS.map(x => `<th class="r" title="${x[1]}">${MSHORT[x[0]] || x[1]}</th>`).join('')}</tr></thead><tbody>${list.slice().reverse().map(x => `<tr class="${x.month === sel ? 'cur' : ''}"><td class="h"><b>${mLabel(x.month)}</b></td>${METRICS.map(k => `<td class="r" data-l="${k[1]}">${fmtMetric(k[0], x[k[0]])}</td>`).join('')}</tr>`).join('')}</tbody></table></div></div>`;
     const mp = db.contents.filter(c => c.client === clientId && ym(c.date) === sel && c.status === 'publicado');
     return `${mode === 'portal' || forPrint ? '' : `<div class="filters"><button class="pill sm ${rep?.status === 'published' ? '' : 'orange'}" data-report="${clientId}">${icon('pen')}${rep?.status === 'published' ? 'Editar relatório' : 'Escrever e publicar relatório'}</button></div>`}
       <p class="src">${icon('pen')}<span><b>Fonte:</b> Instagram, ${m.source === 'manual' ? `inserido manualmente por ${esc(m.by)}` : 'sincronizado pela API'} · período ${mLong(sel).toLowerCase()} · atualizado em ${brShort(m.updated)}/${m.updated.slice(0, 4)}</span>${mode === 'portal' ? '' : rep?.status === 'published' ? '<span class="tag good">Relatório publicado no portal</span>' : '<span class="tag warm">Relatório ainda não publicado</span>'}</p>
@@ -3258,10 +3341,10 @@ table.rs-tbl { min-width: 560px; } table.rs-tbl td { padding: 8px 6px; } table.r
   const lastSeen = t => (t ? ago(Date.parse(t)) : 'ainda não entrou');
   const modChips = u => u.role === 'admin' ? '<span class="mchip all">' + icon('shield') + 'Acesso total</span>' : (u.perms || []).length ? MODS.filter(m => u.perms.includes(m[0])).map(m => `<span class="mchip">${icon(m[3])}${m[1]}</span>`).join('') : '<span class="hint">Nenhum módulo liberado</span>';
   const A2T = () => (A.eq || (A.eq = { tab: 'equipe', list: null, loading: false }));
-  const loadTeam = async force => { const S = A2T(); if (!window.FX_CLOUD) { S.list = db.team.map(u => ({ user_id: u.id, name: u.name, role: u.role === 'admin' ? 'admin' : 'equipe', title: u.title || (u.role !== 'admin' && ROLES[u.role]) || '', email: u.email || '', perms: u.perms || (u.role === 'admin' ? [] : ['conteudos', 'agenda']), last_seen: null, demo: true })); return; }
+  const loadTeam = async force => { const S = A2T(); if (!window.FX_CLOUD) { S.list = db.team.map(u => ({ user_id: u.id, name: u.name, role: u.role === 'admin' ? 'admin' : 'equipe', title: u.title || (u.role !== 'admin' && ROLES[u.role]) || '', email: u.email || '', perms: u.perms || (u.role === 'admin' ? [] : ['conteudos', 'agenda']), avatar: u.avatar || '', last_seen: null, demo: true })); return; }
     if (S.loading || (S.list && !force)) return; S.loading = true; try { S.list = await window.FX_CLOUD.teamList(); S.err = null; } catch (e) { S.err = e.message; } S.loading = false; if (A.sec === 'equipe') renderAdmin(); };
   const memberCard = (u, meMail) => { const self = (u.email || '').toLowerCase() === (meMail || '').toLowerCase() && !!meMail;
-    return `<article class="tm-card"><div class="tm-top"><span class="tm-av ${u.role === 'admin' ? 'adm' : ''}">${initials(u.name)}</span><div class="tm-id"><b>${esc(u.name)}${self ? ' <small class="you">você</small>' : ''}</b><span>${u.title ? esc(u.title) : '<i class="hint">Cargo não definido</i>'}</span></div><span class="tag ${u.role === 'admin' ? 'o' : ''}">${u.role === 'admin' ? 'Administrador' : 'Equipe'}</span></div>
+    return `<article class="tm-card"><div class="tm-top">${personAv(u.name, u.avatar, u.role === 'admin' ? 'adm' : '')}<div class="tm-id"><b>${esc(u.name)}${self ? ' <small class="you">você</small>' : ''}</b><span>${u.title ? esc(u.title) : '<i class="hint">Cargo não definido</i>'}</span></div><span class="tag ${u.role === 'admin' ? 'o' : ''}">${u.role === 'admin' ? 'Administrador' : 'Equipe'}</span></div>
       <dl class="tm-meta"><div><dt>E-mail</dt><dd>${u.email ? esc(u.email) : '<span class="hint">sem e-mail</span>'}</dd></div><div><dt>Último acesso</dt><dd>${u.demo ? '<span class="hint">demonstração</span>' : lastSeen(u.last_seen)}</dd></div></dl>
       <div class="tm-mods">${modChips(u)}</div>
       <div class="tm-acts"><button class="pill sm" data-tm-edit="${u.user_id}">${icon('pen')}Editar</button><button class="pill sm" data-tm-pass="${u.user_id}">${icon('lock')}Nova senha</button>${self ? '' : `<button class="pill sm icon-only danger-ghost tm-del" data-tm-del="${u.user_id}" aria-label="Remover ${esc(u.name)} da equipe" title="Remover da equipe">${icon('trash')}</button>`}</div></article>`; };
@@ -3295,12 +3378,12 @@ table.rs-tbl { min-width: 560px; } table.rs-tbl td { padding: 8px 6px; } table.r
       <div class="pw-meter full" id="pw-meter" aria-live="polite"><i></i><span>Mínimo de 8 caracteres, com letras e números.</span></div>
       <span class="err-t full" id="e-pw"></span><div class="full" style="display:flex;justify-content:flex-end"><button class="pill orange" type="submit" id="pw-ok">Salvar nova senha</button></div></form></div>`;
   const secPerfil = M => { const me = meInfo();
-    M.innerHTML = head('Conta', 'Meu perfil.', 'Seus dados de acesso ao sistema da FX.') + `<div class="pf-grid"><div class="glass panel pf-card"><div class="pf-hero"><span class="tm-av lg ${me.role === 'admin' ? 'adm' : ''}">${initials(me.name)}</span><div><b>${esc(me.name)}</b><span>${esc(roleLabel(me.role, me.title))}</span></div></div>
+    M.innerHTML = head('Conta', 'Meu perfil.', 'Seus dados de acesso ao sistema da FX.') + `<div class="pf-grid"><div class="glass panel pf-card"><div class="pf-hero">${personAv(me.name, me.avatar, 'xl ' + (me.role === 'admin' ? 'adm' : ''))}<div><b>${esc(me.name)}</b><span>${esc(roleLabel(me.role, me.title))}</span>${photoBtns('me', !!me.avatar)}</div></div>
       <div class="cfg"><div class="field"><label for="pf-n">Nome</label><input class="in" id="pf-n" value="${esc(me.name)}"></div><div class="field"><label for="pf-ph">Telefone</label><input class="in" id="pf-ph" inputmode="tel" value="${esc(me.phone ? phoneFmt(me.phone) : '')}" placeholder="(55) 99999-9999"></div>
         <div class="field full"><label>E-mail de acesso</label><div class="ro">${esc(me.email || '—')}</div><span class="hint">Para trocar o e-mail, peça a um administrador.</span></div>
         <div class="field full"><label>O que você acessa</label><div class="tm-mods">${modChips(me)}</div></div><span class="err-t full" id="e-pf"></span><div class="full" style="display:flex;justify-content:flex-end"><button class="pill orange" id="pf-ok">Salvar dados</button></div></div></div>
       ${passForm(me.email)}</div>`; };
-  const portalPerfil = c => `${head('Conta', 'Meu perfil.', 'Os dados de acesso da sua empresa à área do cliente.')}<div class="pf-grid"><div class="glass panel pf-card"><div class="pf-hero">${logoAv(c)}<div><b>${esc(c.name)}</b><span>${esc(c.owner || 'Cliente FX')}</span></div></div>
+  const portalPerfil = c => `${head('Conta', 'Meu perfil.', 'Os dados de acesso da sua empresa à área do cliente.')}<div class="pf-grid"><div class="glass panel pf-card"><div class="pf-hero">${logoAv(c, 'xl')}<div><b>${esc(c.name)}</b><span>${esc(c.owner || 'Cliente FX')}</span>${photoBtns('client', !!c.logo)}</div></div>
       <dl class="tm-meta pf-dl"><div><dt>E-mail de acesso</dt><dd>${esc(c.email || '—')}</dd></div><div><dt>Responsável</dt><dd>${esc(c.owner || '—')}</dd></div><div><dt>Telefone</dt><dd>${c.phone ? esc(phoneFmt(c.phone)) : '—'}</dd></div><div><dt>Cliente desde</dt><dd>${brShort(c.start)}/${c.start.slice(0, 4)}</dd></div></dl>
       <p class="hint">Para mudar o e-mail de acesso ou os dados da empresa, fale com a FX.</p></div>${P.fromAdmin ? `<div class="glass panel pf-card">${emptyBox('lock', 'Troca de senha', 'Só o próprio cliente troca a senha dele. Para gerar uma senha nova, use Equipe e acessos.')}</div>` : passForm(c.email)}</div>`;
   const pwMeter = () => { const v = $('#pw-new')?.value || '', m = $('#pw-meter'); if (!m) return; const sc = !v ? 0 : passErr(v) ? 1 : (v.length >= 12) + /[A-Z]/.test(v) + /[^A-Za-z0-9]/.test(v) + 2; m.dataset.s = Math.min(4, sc); m.querySelector('span').textContent = !v ? 'Mínimo de 8 caracteres, com letras e números.' : passErr(v) || ['', 'Fraca', 'Boa', 'Forte', 'Muito forte'][Math.min(4, sc)]; };
@@ -3334,12 +3417,13 @@ table.rs-tbl { min-width: 560px; } table.rs-tbl td { padding: 8px 6px; } table.r
   // detalhamento do pacote (cliente, painel e site)
   const pkDetail = (p, c, opt = {}) => { const L = p.lines || []; if (!L.length) return `<div class="list">${p.items.map(i => `<div class="it"><span class="sev ok">${icon('check')}</span><span class="grow">${esc(i)}</span></div>`).join('')}</div>`;
     const T = pkTotals(L, p.discount, p.period), mainL = L.filter(l => (p.period === 'pagamento único') !== lineMonthly(l)), sideL = L.filter(l => !mainL.includes(l)); const per = p.period === '/mês' ? '/mês' : '';
-    const row = l => `<tr><td><b>${esc(l.name)}</b>${SVC_TYPES[l.type] ? `<small class="hint"> · ${SVC_TYPES[l.type][0]}</small>` : ''}</td><td class="r num">${l.unit === 'mes' || l.unit === 'unico' ? '1' : num(l.qty)}${l.unit === 'hora' ? ' h' : ''}</td><td class="r num">${brl(l.price)}<small class="hint">${SVC_UNITS[l.unit]?.[1] || ''}</small></td><td class="r num"><b>${brl(T.sub(l))}</b></td></tr>`;
+    const qtyT = l => (l.unit === 'mes' || l.unit === 'unico' ? '1' : num(l.qty)) + (l.unit === 'hora' ? ' h' : '');
+    const row = l => `<tr><td class="pk-n"><b>${esc(l.name)}</b><span class="pk-sub">${SVC_TYPES[l.type] ? SVC_TYPES[l.type][0] : ''}<span class="m-only">${SVC_TYPES[l.type] ? ' · ' : ''}${qtyT(l)} × ${brl(l.price)}${SVC_UNITS[l.unit]?.[1] || ''}</span></span></td><td class="r num d-only">${qtyT(l)}</td><td class="r num d-only">${brl(l.price)}<span class="u">${SVC_UNITS[l.unit]?.[1] || ''}</span></td><td class="r num"><b>${brl(T.sub(l))}</b></td></tr>`;
     const extra = (p.items || []).filter(i => !L.some(l => i.includes(l.name)));
     const diff = c && c.value != null && p.price != null ? c.value - p.price : 0;
     return `<div class="tbl-wrap"><table class="mtable pk-tbl"><thead><tr><th>Serviço</th><th class="r">Qtd.</th><th class="r">Valor</th><th class="r">Subtotal</th></tr></thead><tbody>${mainL.map(row).join('')}</tbody>
-      <tfoot><tr><td colspan="3">Soma dos serviços</td><td class="r num">${brl(T.main)}${per}</td></tr>${p.discount ? `<tr class="disc"><td colspan="3">Desconto do pacote</td><td class="r num">− ${brl(p.discount)}</td></tr>` : ''}
-      <tr class="tot"><td colspan="3">Valor do pacote</td><td class="r num">${brl(T.total)}${per}</td></tr>${diff ? `<tr class="disc"><td colspan="3">${diff < 0 ? 'Condição especial para você' : 'Ajuste do seu contrato'}</td><td class="r num">${diff < 0 ? '− ' : '+ '}${brl(Math.abs(diff))}</td></tr><tr class="tot"><td colspan="3">Seu valor</td><td class="r num">${brl(c.value)}${c.monthly ? '/mês' : ''}</td></tr>` : ''}</tfoot></table></div>
+      <tfoot><tr><td colspan="3" class="ft-l">Soma dos serviços</td><td class="r num">${brl(T.main)}${per}</td></tr>${p.discount ? `<tr class="disc"><td colspan="3" class="ft-l">Desconto do pacote</td><td class="r num">− ${brl(p.discount)}</td></tr>` : ''}
+      <tr class="tot"><td colspan="3" class="ft-l">Valor do pacote</td><td class="r num">${brl(T.total)}${per}</td></tr>${diff ? `<tr class="disc"><td colspan="3" class="ft-l">${diff < 0 ? 'Condição especial para você' : 'Ajuste do seu contrato'}</td><td class="r num">${diff < 0 ? '− ' : '+ '}${brl(Math.abs(diff))}</td></tr><tr class="tot"><td colspan="3" class="ft-l">Seu valor</td><td class="r num">${brl(c.value)}${c.monthly ? '/mês' : ''}</td></tr>` : ''}</tfoot></table></div>
       ${sideL.length ? `<div class="pk-side"><span class="mg-l">Cobrado à parte</span>${sideL.map(l => `<div><span>${esc(lineLabel(l))}</span><b class="num">${brl(T.sub(l))}${l.unit === 'mes' || l.unit === 'unid' ? '/mês' : ''}</b></div>`).join('')}</div>` : ''}
       ${extra.length ? `<div class="pk-extra"><span class="mg-l">Também incluído</span><ul>${extra.map(i => `<li>${icon('check')}${esc(i)}</li>`).join('')}</ul></div>` : ''}`; };
   const pkHistory = (p, since) => { const H = (p.history || []).filter(h => !since || h.at.slice(0, 10) >= since).slice().reverse(); if (!H.length) return '';
@@ -3607,7 +3691,7 @@ table.rs-tbl { min-width: 560px; } table.rs-tbl td { padding: 8px 6px; } table.r
     if ((el = T('[data-tdot]'))) { const sl = $('#tslider'); const c = sl.children[+el.dataset.tdot]; if (c) sl.scrollTo({ left: c.offsetLeft - sl.offsetLeft, behavior: 'smooth' }); }
     if ((el = T('[data-stoprep]'))) { if (!el.dataset.confirm) { el.dataset.confirm = 1; el.textContent = 'Toque de novo para confirmar'; el.classList.add('orange'); return; } const r = db.ledger.find(x => x.id === el.dataset.stoprep); const before = db.ledger.length; db.ledger = db.ledger.filter(x => !(x.group === r.group && !x.paid && x.comp > r.comp)); db.ledger.filter(x => x.group === r.group).forEach(x => (x.group = null)); save(); renderAdmin(); toast(`Repetição encerrada: ${before - db.ledger.length} lançamentos dos próximos meses removidos`); return; }
     if ((el = T('[data-edit-client]'))) { const c = clientById(el.dataset.editClient); pendingLogo = undefined;
-      openModal(`<h2 style="font-size:26px">Editar perfil</h2><div class="logo-up"><span id="lg-prev">${logoAv(c, 'xl')}</span><div style="display:grid;gap:8px"><div class="filters"><label class="pill sm orange" for="lg-file">${icon('image')}${c.logo ? 'Trocar logo' : 'Enviar logo'}</label><input type="file" id="lg-file" accept="image/*" class="sr">${c.logo ? `<button class="pill sm" id="lg-rm">${icon('trash')}Remover</button>` : ''}</div><p class="hint">PNG ou JPG. A logo aparece no sistema, na área do cliente e nos depoimentos do site.</p><span class="err-t" id="e-lg"></span></div></div>
+      openModal(`<h2 style="font-size:26px">Editar perfil</h2><div class="logo-up"><span id="lg-prev">${logoAv(c, 'xl')}</span><div style="display:grid;gap:8px"><div class="filters"><button type="button" class="pill sm orange" data-ph-pick="edit-client">${icon('image')}${c.logo ? 'Trocar foto' : 'Enviar foto'}</button>${c.logo ? `<button class="pill sm" id="lg-rm">${icon('trash')}Remover</button>` : ''}</div><p class="hint">PNG ou JPG. A logo aparece no sistema, na área do cliente e nos depoimentos do site.</p><span class="err-t" id="e-lg"></span></div></div>
         <div class="cfg"><div class="field full"><label for="ec-n">Empresa</label><input class="in" id="ec-n" value="${esc(c.name)}"></div><div class="field"><label for="ec-o">Responsável</label><input class="in" id="ec-o" value="${esc(c.owner)}"></div><div class="field"><label for="ec-s">Segmento</label><select class="in" id="ec-s">${SEGMENTS.map(x => `<option value="${x[0]}" ${x[0] === c.segment ? 'selected' : ''}>${x[1]}</option>`).join('')}</select></div><div class="field"><label for="ec-p">WhatsApp</label><input class="in" id="ec-p" inputmode="tel" value="${esc(c.phone ? phoneFmt(c.phone) : '')}"></div><div class="field"><label for="ec-e">E-mail de acesso</label><input class="in" id="ec-e" type="email" value="${esc(c.email)}"></div><div class="field full"><label for="ec-i">Instagram</label><div class="in-pre"><span>@</span><input class="in" id="ec-i" value="${esc(c.instagram)}"></div></div><span class="err-t full" id="e-ec"></span></div>
         <div class="filters" style="justify-content:flex-end"><button class="pill" data-close>Cancelar</button><button class="pill orange" id="ec-ok" data-id="${c.id}">Salvar perfil</button></div>`, true); return; }
     if (T('#lg-rm')) { pendingLogo = null; $('#lg-prev').innerHTML = logoAv({ name: $('#ec-n').value }, 'xl'); return; }
@@ -3727,6 +3811,8 @@ table.rs-tbl { min-width: 560px; } table.rs-tbl td { padding: 8px 6px; } table.r
     if ((el = T('[data-pkl-rm]'))) { PK.cur.lines.splice(+el.dataset.pklRm, 1); pkRefresh(); pkQuota(); return; }
     if ((el = T('[data-pkl-sync]'))) { const l = PK.cur.lines[+el.dataset.pklSync], s = svcById(l.sid); if (s) l.price = s.price; pkRefresh(); return; }
     if ((el = T('[data-pk-hist]'))) { const p = packById(el.dataset.pkHist); openModal(`<div class="m-head"><span class="m-ic">${icon('clock')}</span><div><h2>Alterações em ${esc(p.name)}</h2><p>Cada mudança de serviço, quantidade, preço ou desconto, com o impacto no valor.</p></div></div>${pkHistory(p) || '<p class="hint">Nenhuma alteração registrada ainda.</p>'}<div class="m-foot"><span></span><button class="pill" data-close>Fechar</button></div>`); return; }
+    if ((el = T('[data-ph-pick]'))) { pickPhoto(el.dataset.phPick); return; }
+    if ((el = T('[data-ph-rm]'))) { applyPhoto(el.dataset.phRm, null); return; }
     // equipe, acessos e perfil
     if ((el = T('[data-eq-tab]'))) { A2T().tab = el.dataset.eqTab; renderAdmin(); return; }
     if (T('[data-eq-reload]')) { A2T().err = null; A2T().list = null; renderAdmin(); return; }
@@ -3797,6 +3883,7 @@ table.rs-tbl { min-width: 560px; } table.rs-tbl td { padding: 8px 6px; } table.r
     if (['pi-n', 'pi-d'].includes(e.target.id)) { instPrev(); return; }
     if (e.target.id === 'tk-charge') { $('#tk-val-w').hidden = !e.target.checked; return; }
     if (e.target.id === 'cp-p') { const p = packById(e.target.value); if (p.price != null) $('#cp-v').value = (p.price / 100).toFixed(2).replace('.', ','); return; }
+    if (e.target.id === 'ph-file' && e.target.files[0]) { const tg = e.target.dataset.target; editPhoto(e.target.files[0]).then(d => applyPhoto(tg, d), err => { if (err) toast(err.message); }); return; }
     if (e.target.id === 'lg-file' && e.target.files[0]) { $('#e-lg').textContent = ''; readImg(e.target.files[0], 256, 'image/png').then(d => { pendingLogo = d; $('#lg-prev').innerHTML = logoAv({ name: '', logo: d }, 'xl'); }, err => { $('#e-lg').textContent = err.message; }); return; }
     if (e.target.id === 'ci-file' && e.target.files[0]) { $('#e-cover').textContent = ''; readImg(e.target.files[0], 720, 'image/jpeg', .76).then(d => { pendingCover = d; const t = $('#ci-thumb'); t.classList.add('has-cover'); t.querySelector('h4')?.remove(); let im = t.querySelector('img'); if (!im) { im = document.createElement('img'); im.className = 'cover'; im.alt = ''; t.prepend(im); } im.src = d; }, err => { $('#e-cover').textContent = err.message; }); return; }
     const id = e.target.id;
